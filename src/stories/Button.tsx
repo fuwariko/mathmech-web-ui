@@ -1,37 +1,93 @@
-import React from 'react';
+import styled from '@emotion/styled';
+import type { ReactElement, ButtonHTMLAttributes } from 'react';
 
-import './button.css';
+export const ButtonVariants = {
+  primary: {
+    bg: '#1E4391',
+    text: '#FFFFFF',
+  },
+  secondary: {
+    bg: '#E5E7EB',
+    text: '#6B7280',
+  },
+} as const;
 
-export interface ButtonProps {
-  /** Is this the principal call to action on the page? */
-  primary?: boolean;
-  /** What background color to use */
-  backgroundColor?: string;
-  /** How large should the button be? */
-  size?: 'small' | 'medium' | 'large';
-  /** Button contents */
-  label: string;
-  /** Optional click handler */
-  onClick?: () => void;
+type ButtonVariant = keyof typeof ButtonVariants;
+
+interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  label?: string;
+  icon?: ReactElement;
+  size?: 'small' | 'large';
+  variant?: ButtonVariant;
 }
 
-/** Primary UI component for user interaction */
 export const Button = ({
-  primary = false,
-  size = 'medium',
-  backgroundColor,
   label,
+  icon,
+  size = 'small',
+  variant = 'primary',
+  disabled,
   ...props
-}: ButtonProps) => {
-  const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
+}: IButtonProps) => {
+  const iconOnly = !!icon && !label;
+
   return (
-    <button
-      type="button"
-      className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
-      style={{ backgroundColor }}
+    <Wrapper
+      size={size}
+      variant={variant}
+      iconOnly={iconOnly}
+      disabled={disabled}
       {...props}
     >
-      {label}
-    </button>
+      {icon && <IconWrapper>{icon}</IconWrapper>}
+      {label && <span>{label}</span>}
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.button<{
+  size: 'small' | 'large';
+  variant: ButtonVariant;
+  iconOnly: boolean;
+}>`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  border: none;
+  cursor: pointer;
+
+  width: fit-content;
+
+  /* HEIGHT */
+  height: ${({ size }) => (size === 'large' ? '72px' : '44px')};
+
+  /* PADDING */
+  padding: ${({ size, iconOnly }) => {
+    if (iconOnly) {
+      return size === 'large' ? '24px' : '12px';
+    }
+    return size === 'large' ? '0 24px' : '0 16px';
+  }};
+
+  /* RADIUS */
+  border-radius: ${({ size }) => (size === 'large' ? '20px' : '16px')};
+
+  /* FONT */
+  font-size: ${({ size }) => (size === 'large' ? '16px' : '14px')};
+  font-weight: 500;
+
+  /* COLORS */
+  background: ${({ variant }) => ButtonVariants[variant].bg};
+  color: ${({ variant }) => ButtonVariants[variant].text};
+
+  /* DISABLED */
+  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
+  pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
+`;
+
+const IconWrapper = styled.span`
+  display: inline-flex;
+  align-items: center;
+`;
