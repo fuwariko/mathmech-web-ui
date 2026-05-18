@@ -47,8 +47,6 @@ export const Input = styled.input`
   }
 
   &:focus-visible + span {
-    // outline: 2px solid #0066cc;
-    // outline-offset: 2px;
     box-shadow: 0 0 0 2px #1e429179;
   }
 
