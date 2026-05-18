@@ -23,6 +23,17 @@ export const Default: Story = {
   },
 };
 
+export const SimpleCheckbox = {
+  render: () => {
+    return (
+    <Checkbox
+      name="color"
+      value="Синий"
+    />
+    );
+  },
+};
+
 export const GroupCheckbox = {
   render: () => {
     const options = [

@@ -21,6 +21,17 @@ export const Default: Story = {
   },
 };
 
+export const SimpleToggle = {
+  render: () => {
+    return (
+      <Toggle
+        id="1"
+        name="name"
+      />
+    );
+  },
+};
+
 export const GroupToggle = {
   render: () => {
     const options = [

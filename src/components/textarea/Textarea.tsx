@@ -1,7 +1,7 @@
 import React from 'react';
-import * as S from './InputText.styles.ts';
+import * as S from './Textarea.styles.ts';
 
-type InputTextProps = {
+type TextareaProps = {
   id?: string;
   name?: string;
   placeholder?: string;
@@ -13,7 +13,7 @@ type InputTextProps = {
   className?: string;
 };
 
-export const InputText: React.FC<InputTextProps> = ({
+export const Textarea: React.FC<TextareaProps> = ({
   id,
   name,
   placeholder,
@@ -25,15 +25,14 @@ export const InputText: React.FC<InputTextProps> = ({
   className,
 }) => {
   return (
-    <S.TextLabel title={description !== undefined ? description : "Строка ввода"} className={className}>
+    <S.TextLabel title={description !== undefined ? description : "Поле ввода"} className={className}>
       {description && 
       <S.DescriptionSpan id={`text-description-${id}`}>
         {description}{required && <span aria-hidden>{"*"}</span>}
       </S.DescriptionSpan>}
-      <S.Input
+      <S.Textarea
         id={id}
         name={name}
-        type="text"
         placeholder={placeholder}
         required={required}
         disabled={disabled}

@@ -28,8 +28,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     onChange?.(e.target.value);
   };
   return (
-    <S.Label>
-        
+    <S.Label title={value}>  
         <S.Input 
             type='checkbox'
             id={id}

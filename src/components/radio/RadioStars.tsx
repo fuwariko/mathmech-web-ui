@@ -7,19 +7,21 @@ type RadioStarsProps = {
   rating: number;
   setRating: React.Dispatch<React.SetStateAction<number>>;
   isError?: boolean;
+  className?: string;
 };
 
 export const RadioStars: React.FC<RadioStarsProps> = ({
   rating, 
   setRating,
   isError,
+  className,
 }) => {
   const handleRatingChange = (value: number) => {
       setRating(value);
     };
   return (
   <S.Wrapper>
-    <S.StarsWrapper role="radiogroup" aria-labelledby={isError ? "error-label": ""} isError={isError}>
+    <S.StarsWrapper role="radiogroup" aria-labelledby={isError ? "error-label": ""} isError={isError} className={className}>
       {[1, 2, 3, 4, 5].map((star) => (
         <label title={star.toString()} >
           <S.Input

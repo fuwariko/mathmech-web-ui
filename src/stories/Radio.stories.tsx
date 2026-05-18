@@ -23,6 +23,17 @@ export const Default: Story = {
   },
 };
 
+export const SimpleRadio = {
+  render: () => {
+    return (
+    <Radio
+      name="color"
+      value="Синий"
+    />
+    );
+  },
+};
+
 export const GroupRadio = {
   render: () => {
     const options = [

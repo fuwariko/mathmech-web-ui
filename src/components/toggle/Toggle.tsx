@@ -26,7 +26,7 @@ export const Toggle: React.FC<ToggleProps> = ({
       onChange?.(e.target.value);
     };
   return (
-    <S.ToggleWrapper>
+    <S.ToggleWrapper title={description !== undefined ? description : "Переключатель"}>
         {reverse && <span id={`label-id-${id}`}>{description}</span>}
         <S.Input type="checkbox" 
                 id={id}
