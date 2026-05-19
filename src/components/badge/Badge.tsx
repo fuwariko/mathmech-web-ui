@@ -1,55 +1,72 @@
-import styled from '@emotion/styled';
-import type { ReactElement } from 'react';
-import { BadgeColors } from '../../theme/theme';
+import { css, cx } from '@emotion/css';
+import { сolors, type TColors } from '../../theme/tokens';
 
 interface IBadgeProps {
-  /** Текст внутри беджа */
+  /** Текст внутри бейджа */
   lable: string;
-  /** Иконка слева */
-  icon?: ReactElement;
-  /** Размер */
-  size?: 'small' | 'medium' | 'large';
-  /** Цвет */
-  color?: 'default' | 'warning' | 'success' | 'danger';
+
+  /** Цвет фона */
+  color?: TColors;
+
+  /** Цвет обводки */
+  borderColor?: TColors;
+
+  /** Иконка */
+  icon?: boolean;
 }
 
 export const Badge = ({
   lable,
-  icon,
-  size = 'small',
-  color = 'default',
+  color = 'lightBlue01',
+  borderColor,
+  icon = false,
 }: IBadgeProps) => {
   return (
-    <Wrapper size={size} color={color}>
-      {icon && <IconWrapper>{icon}</IconWrapper>}
-      <span>{lable}</span>
-    </Wrapper>
+    <div
+      className={cx(
+        badgeStyles(color, borderColor),
+        icon &&
+          css`
+            &::before {
+              margin-right: 4px;
+              position: relative;
+              top: 2px;
+            }
+          `,
+      )}
+    >
+      {lable}
+    </div>
   );
 };
 
-const Wrapper = styled.div<{ size: string; color: 'default' | 'warning' | 'success' | 'danger' }>`
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+const badgeStyles = (
+  color: TColors,
+  borderColor?: TColors,
+) => css`
+  display: inline-block;
 
-  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
 
-  font-size: ${({ size }) =>
-    size === 'small' ? '12px' :
-    size === 'medium' ? '14px' :
-    '16px'};
+  padding: 4px 14px;
 
-  padding: ${({ size }) =>
-    size === 'small' ? '4px 10px' :
-    size === 'medium' ? '6px 12px' :
-    '8px 14px'};
+  min-width: 0;
 
-  background: ${({ color }) => BadgeColors[color]};
+  border-radius: 50px;
 
-  color: '#111827';
-`;
+  margin: 0 6px 0 0;
 
-const IconWrapper = styled.span`
-  display: inline-flex;
-  align-items: center;
+  text-wrap: nowrap;
+
+  height: 36px;
+  line-height: 28px;
+
+  background: ${сolors[color]};
+  color: rgb(255, 255, 255);
+
+  border: 1px solid
+    ${borderColor
+      ? сolors[borderColor]
+      : 'transparent'};
 `;

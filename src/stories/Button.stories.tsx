@@ -1,24 +1,35 @@
+
 import type { Meta, StoryObj } from '@storybook/react-vite';
-
-import { Header } from '../components/header/Header';
+import { Button } from '../components/button/Button';
 import { BoardIcon } from '../icons/BoardIcon';
-
-const meta: Meta<typeof Header> = {
-  title: 'UI/Header',
-  component: Header,
-
+const meta: Meta<typeof Button> = {
+  title: 'UI/Button',
+  component: Button,
+  parameters: {
+    layout: 'centered',
+  },
   tags: ['autodocs'],
 
   args: {
-    title: 'Каталог курсов',
-    backgroundColor: 'mainBlue',
+    children: 'Button',
+    color: 'mainBlue',
     textColor: 'lightGrey02',
-    contentPosition: 'space-between',
-    sticky: false,
+    size: 'small',
+    disabled: false,
+    role: 'button',
+    onClick: () => alert('Clicked'),
   },
 
   argTypes: {
-    backgroundColor: {
+    icon: {
+    control: 'select',
+    options: ['none', 'board'],
+    mapping: {
+        none: undefined,
+        board: <BoardIcon />,
+      },
+    },
+    color: {
       control: 'select',
       options: [
         'darkNavy01',
@@ -124,83 +135,55 @@ const meta: Meta<typeof Header> = {
       ],
     },
 
-    contentPosition: {
+    size: {
       control: 'radio',
-      options: ['center', 'space-between'],
+      options: ['small', 'large'],
     },
 
-    sticky: {
+    role: {
+      control: 'radio',
+      options: ['button', 'link'],
+    },
+
+    disabled: {
       control: 'boolean',
     },
 
-    leftAccessory: {
-      control: 'select',
-      options: ['none', 'text', 'icon'],
-      mapping: {
-        none: undefined,
-        text: 'МатМех',
-        icon: <BoardIcon />,
-      },
-    },
-
-    rightAccessory: {
-      control: 'select',
-      options: ['none', 'text', 'icon'],
-      mapping: {
-        none: undefined,
-        text: 'Курсы Преподаватели Профиль',
-        icon: <BoardIcon />,
-      },
+    radius: {
+      control: 'text',
     },
   },
 };
 
 export default meta;
 
-type Story = StoryObj<typeof Header>;
+type Story = StoryObj<typeof Button>;
 
-export const Default: Story = {
+export const Default: Story = {};
+
+export const Large: Story = {
   args: {
-    leftAccessory: 'МатМех',
-    rightAccessory: 'Курсы Преподаватели Профиль',
+    size: 'large',
+    children: 'Large button',
   },
 };
 
-export const Sticky: Story = {
+export const Disabled: Story = {
   args: {
-    sticky: true,
-    leftAccessory: 'МатМех',
-    rightAccessory: 'Курсы Преподаватели Профиль',
+    disabled: true,
   },
 };
 
-export const CenteredAccessories: Story = {
+export const CustomRadius: Story = {
   args: {
-    contentPosition: 'center',
-    leftAccessory: 'Меню',
-    rightAccessory: 'Профиль',
+    radius: '999px',
+    children: 'Rounded',
   },
 };
 
-export const WithIcons: Story = {
+export const WithIcon: Story = {
   args: {
-    leftAccessory: <BoardIcon />,
-    rightAccessory: <BoardIcon />,
-  },
-};
-
-export const WithoutAccessories: Story = {
-  args: {
-    leftAccessory: undefined,
-    rightAccessory: undefined,
-  },
-};
-
-export const CustomColors: Story = {
-  args: {
-    backgroundColor: 'mainPurple',
-    textColor: 'lightGrey02',
-    leftAccessory: 'МатМех',
-    rightAccessory: 'Меню',
+    icon: <BoardIcon />,
+    children: 'Add item',
   },
 };

@@ -1,20 +1,53 @@
-export const lightColors = {
-  bg: '#ffffff',
-  text: '#111827',
-  border: '#e5e7eb',
-  primary: '#4f46e5',
+export const сolors = {
+  darkNavy01: '#2C416D',
+  darkNavy02: '#0A255E',
+  mainNavy: '#1E4391',
+  lightNavy01: '#6291F3',
+  lightNavy02: '#ACC7FF',
+
+  darkOrange01: '#AB4A00',
+  darkOrange02: '#994200',
+  mainOrange: '#C25400',
+  lightOrange01: '#D47C39',
+  lightOrange02: '#F2D4BD',
+
+  darkGreen01: '#006620',
+  darkGreen02: '#004F19',
+  mainGreen: '#00852A',
+  lightGreen01: '#00A31B',
+  lightGreen02: '#B2E0B9',
+
+  darkRed01: '#9F363D',
+  darkRed02: '#890812',
+  mainRed: '#D41926',
+  lightRed01: '#E3626B',
+  lightRed02: '#EFC0C4',
+
+  
+
+  darkCrimson01: '#5A1A5B',
+  darkCrimson02: '#822183',
+  mainCrimson: '#A92CAB',
+  lightCrimson01: '#C947CB',
+  lightCrimson02: '#DC5ADE',
+
+  darkBlue01: '#0347BB',
+  darkBlue02: '#0756DC',
+  mainBlue: '#2B79FF',
+  lightBlue01: '#691B9FF',
+  lightBlue02: '#B9D3FF',
+
+  darkPurple01: '#1E1769',
+  darkPurple02: '#3C3494',
+  mainPurple: '#5146CC',
+  lightPurple01: '#948DDE',
+  lightPurple02: '#B6B2E6',
+  
+  darkGrey01: '#87859A',
+  darkGrey02: '#B7B6C3',
+  mainGrey: '#C6C1DA',
+  lightGrey01: '#E2D9FF',
+  lightGrey02: '#F2EFFD',
 } as const;
 
-export const darkColors = {
-  bg: '#111827',
-  text: '#f9fafb',
-  border: '#374151',
-  primary: '#6366f1',
-} as const;
-
-export const badge = {
-  default: { bg: '#e5e7eb', text: '#111827' },
-  success: { bg: '#d1fae5', text: '#065f46' },
-  warning: { bg: '#fed7aa', text: '#9a3412' },
-  danger: { bg: '#fecaca', text: '#991b1b' },
-} as const;
+export type TColors = keyof typeof сolors;
