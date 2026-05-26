@@ -1,9 +1,7 @@
 import { css, cx } from '@emotion/css';
 import type { ReactNode } from 'react';
 
-type TCardDirection =
-  | 'vertical'
-  | 'horizontal';
+export type TCardDirection = 'vertical' | 'horizontal';
 
 interface ICardProps {
   /** Верхняя часть карточки */
@@ -18,6 +16,9 @@ interface ICardProps {
   /** Направление контента */
   direction?: TCardDirection;
 
+  /** Скругление углов (px) */
+  borderRadius?: number;
+
   /** Дополнительный className */
   className?: string;
 }
@@ -27,12 +28,13 @@ export const Card = ({
   content,
   footer,
   direction = 'vertical',
+  borderRadius = 15,
   className,
 }: ICardProps) => {
   return (
     <div
       className={cx(
-        cardStyles(direction),
+        cardStyles(direction, borderRadius),
         className,
       )}
     >
@@ -43,9 +45,7 @@ export const Card = ({
       )}
 
       {content && (
-        <div
-          className={contentStyles(direction)}
-        >
+        <div className={contentStyles(direction)}>
           {content}
         </div>
       )}
@@ -61,15 +61,13 @@ export const Card = ({
 
 const cardStyles = (
   direction: TCardDirection,
+  borderRadius: number,
 ) => css`
   box-sizing: border-box;
 
   display: flex;
 
-  flex-direction: ${direction ===
-  'horizontal'
-    ? 'row'
-    : 'column'};
+  flex-direction: ${direction === 'horizontal' ? 'row' : 'column'};
 
   justify-content: space-between;
 
@@ -79,7 +77,7 @@ const cardStyles = (
 
   border: 1px solid #d8d8d8;
 
-  border-radius: 15px;
+  border-radius: ${borderRadius}px;
 
   background: #ffffff;
 
@@ -94,37 +92,22 @@ const cardStyles = (
 
 const headerStyles = css`
   display: flex;
-
   align-items: center;
-
   width: 100%;
 `;
 
-const contentStyles = (
-  direction: TCardDirection,
-) => css`
+const contentStyles = (direction: TCardDirection) => css`
   display: flex;
-
-  flex-direction: ${direction ===
-  'horizontal'
-    ? 'row'
-    : 'column'};
-
+  flex-direction: ${direction === 'horizontal' ? 'row' : 'column'};
   gap: 12px;
-
   width: 100%;
 `;
 
 const footerStyles = css`
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
-
   gap: 12px;
-
   margin-top: auto;
-
   width: 100%;
 `;

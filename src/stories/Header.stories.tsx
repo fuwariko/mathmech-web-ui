@@ -3,6 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button } from '../components/button/Button';
 import { Header } from '../components/header/Header';
 import { BoardIcon } from '../icons/BoardIcon';
+import { HeaderSkeleton } from '../components/skeletons/HeaderSkeleton';
+
 
 const meta: Meta<typeof Header> = {
   title: 'UI/Header',
@@ -270,4 +272,13 @@ export const CustomColors: Story = {
       </Button>
     ),
   },
+};
+
+export const Skeleton: Story = {
+  render: (args) => (
+    <HeaderSkeleton
+      backgroundColor={'darkGrey01'}
+      sticky={args.sticky}
+    />
+  ),
 };
