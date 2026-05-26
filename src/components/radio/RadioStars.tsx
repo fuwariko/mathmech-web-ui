@@ -30,7 +30,7 @@ export const RadioStars: React.FC<RadioStarsProps> = ({
             id={`${star}-star`}
             type="radio"
             onChange={() => handleRatingChange(star)}
-            aria-label="Оценка"
+            aria-label={`Оценка ${star}`}
           />
           {star <= rating ? (
             <S.StarWrapper>
