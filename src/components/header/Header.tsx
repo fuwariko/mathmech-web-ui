@@ -5,7 +5,7 @@ import { сolors, type TColors } from '../../theme/tokens';
 
 interface IHeaderProps {
   /** Заголовок */
-  title: string;
+  title: string | ReactNode;
 
   /** Левый аксессуар */
   leftAccessory?: ReactNode | string;
@@ -19,9 +19,6 @@ interface IHeaderProps {
   /** Цвет текста */
   textColor?: TColors;
 
-  /** Расположение контента */
-  contentPosition?: 'center' | 'space-between';
-
   /** sticky header */
   sticky?: boolean;
 }
@@ -32,7 +29,6 @@ export const Header = ({
   rightAccessory,
   backgroundColor = 'mainBlue',
   textColor = 'lightGrey02',
-  contentPosition = 'space-between',
   sticky = false,
 }: IHeaderProps) => {
   return (
@@ -44,21 +40,17 @@ export const Header = ({
       )}
     >
       <div className={contentStyles}>
-        <div className={topStyles(contentPosition)}>
-          {leftAccessory && (
-            <div className={accessoryStyles}>
-              {leftAccessory}
-            </div>
-          )}
+        <div className={topStyles}>
+          <div className={accessoryStyles('left')}>
+            {leftAccessory}
+          </div>
 
-          {rightAccessory && (
-            <div className={accessoryStyles}>
-              {rightAccessory}
-            </div>
-          )}
+          <div className={accessoryStyles('right')}>
+            {rightAccessory}
+          </div>
         </div>
 
-        <h1 className={titleStyles(contentPosition)}>
+        <h1>
           {title}
         </h1>
       </div>
@@ -112,12 +104,10 @@ const contentStyles = css`
   box-sizing: border-box;
 `;
 
-const topStyles = (
-  contentPosition: 'center' | 'space-between',
-) => css`
+const topStyles = css`
   display: flex;
 
-  justify-content: ${contentPosition};
+  justify-content: space-between;
 
   gap: 30px;
 
@@ -128,27 +118,20 @@ const topStyles = (
   margin-bottom: 12px;
 `;
 
-const accessoryStyles = css`
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 1.2;
-`;
-
-const titleStyles = (
-  contentPosition: 'center' | 'space-between',
+const accessoryStyles = (
+  position: 'left' | 'right',
 ) => css`
-  width: 100%;
+  display: flex;
 
-  margin: 0;
+  flex: 1;
 
-  font-size: 64px;
-  font-weight: 400;
-  line-height: 1;
-
-  letter-spacing: -1px;
-
-  ${contentPosition === 'center' &&
+  ${position === 'left' &&
   css`
-    text-align: center;
+    justify-content: flex-start;
+  `}
+
+  ${position === 'right' &&
+  css`
+    justify-content: flex-end;
   `}
 `;

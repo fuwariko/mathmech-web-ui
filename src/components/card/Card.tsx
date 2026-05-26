@@ -1,54 +1,130 @@
-import React from 'react';
-import * as S from './Card.styles';
+import { css, cx } from '@emotion/css';
+import type { ReactNode } from 'react';
 
-type CardProps = {
-  header?: React.ReactNode;
-  title?: string;
-  description?: string;
-  footer?: React.ReactNode;
-  topRight?: React.ReactNode;
-  bottomRight?: React.ReactNode;
-  selected?: boolean;
-  onSelect?: () => void;
-};
+type TCardDirection =
+  | 'vertical'
+  | 'horizontal';
 
-export const Card: React.FC<CardProps> = ({
+interface ICardProps {
+  /** Верхняя часть карточки */
+  header?: ReactNode;
+
+  /** Центральная часть карточки */
+  content?: ReactNode;
+
+  /** Нижняя часть карточки */
+  footer?: ReactNode;
+
+  /** Направление контента */
+  direction?: TCardDirection;
+
+  /** Дополнительный className */
+  className?: string;
+}
+
+export const Card = ({
   header,
-  title,
-  description,
+  content,
   footer,
-  topRight,
-  bottomRight,
-  selected = false,
-  onSelect,
-}) => {
-  // Обработчик клавиатуры: Enter = click
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (onSelect && (e.key === 'Enter' || e.key === ' ')) {
-      onSelect();
-    }
-  };
-
+  direction = 'vertical',
+  className,
+}: ICardProps) => {
   return (
-    <S.Wrapper
-      selected={selected}
-      onClick={onSelect}
-      onKeyDown={handleKeyDown}
-      tabIndex={onSelect ? 0 : -1}
-      role={onSelect ? 'button' : undefined}
-      aria-pressed={selected}
+    <div
+      className={cx(
+        cardStyles(direction),
+        className,
+      )}
     >
-      {topRight && <S.TopRight>{topRight}</S.TopRight>}
-      {bottomRight && <S.BottomRight>{bottomRight}</S.BottomRight>}
+      {header && (
+        <div className={headerStyles}>
+          {header}
+        </div>
+      )}
 
-      {header && <S.Header>{header}</S.Header>}
+      {content && (
+        <div
+          className={contentStyles(direction)}
+        >
+          {content}
+        </div>
+      )}
 
-      <div style={{ marginTop: header ? 12 : 0 }}>
-        {title && <S.Title>{title}</S.Title>}
-        {description && <S.Description>{description}</S.Description>}
-      </div>
-
-      {footer && <S.Footer>{footer}</S.Footer>}
-    </S.Wrapper>
+      {footer && (
+        <div className={footerStyles}>
+          {footer}
+        </div>
+      )}
+    </div>
   );
 };
+
+const cardStyles = (
+  direction: TCardDirection,
+) => css`
+  box-sizing: border-box;
+
+  display: flex;
+
+  flex-direction: ${direction ===
+  'horizontal'
+    ? 'row'
+    : 'column'};
+
+  justify-content: space-between;
+
+  gap: 16px;
+
+  padding: 24px 20px 20px;
+
+  border: 1px solid #d8d8d8;
+
+  border-radius: 15px;
+
+  background: #ffffff;
+
+  min-width: 300px;
+
+  width: fit-content;
+
+  max-width: 100%;
+
+  height: fit-content;
+`;
+
+const headerStyles = css`
+  display: flex;
+
+  align-items: center;
+
+  width: 100%;
+`;
+
+const contentStyles = (
+  direction: TCardDirection,
+) => css`
+  display: flex;
+
+  flex-direction: ${direction ===
+  'horizontal'
+    ? 'row'
+    : 'column'};
+
+  gap: 12px;
+
+  width: 100%;
+`;
+
+const footerStyles = css`
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-top: auto;
+
+  width: 100%;
+`;

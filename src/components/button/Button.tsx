@@ -2,19 +2,22 @@ import { css } from '@emotion/css';
 import type {
   ButtonHTMLAttributes,
   MouseEventHandler,
+  ReactNode,
 } from 'react';
+import { useTheme, type TThemeColors } from '../../ThemeContext';
 
-import { сolors, type TColors } from '../../theme/tokens';
+
 
 type TButtonAriaRole = 'button' | 'link';
+
 type TButtonSize = 'small' | 'large';
 
 interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** Текст внутри кнопки */
-  children?:  React.ReactNode | string;
+  children?: ReactNode | string;
 
   /** Иконка слева */
-  icon?: React.ReactNode;
+  icon?: ReactNode;
 
   /** Дизейбл кнопки */
   disabled?: boolean;
@@ -23,19 +26,19 @@ interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   role?: TButtonAriaRole;
 
   /** Цвет кнопки */
-  color: TColors;
+  color: TThemeColors;
 
   /** Размер кнопки */
   size?: TButtonSize;
 
   /** Цвет текста */
-  textColor?: TColors;
+  textColor?: TThemeColors;
 
   /** Радиус */
   radius?: string;
 
   /** Действие по клику на кнопку */
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 export const Button = ({
@@ -45,11 +48,13 @@ export const Button = ({
   role = 'button',
   color,
   size = 'small',
-  textColor = 'lightGrey02',
+  textColor,
   radius,
   onClick,
   ...props
 }: IButtonProps) => {
+  const theme = useTheme();
+
   const iconOnly = !!icon && !children;
 
   return (
@@ -65,11 +70,13 @@ export const Button = ({
 
         border: none;
 
-        cursor: ${disabled ? 'default' : 'pointer'};
-
         width: fit-content;
 
-        height: ${size === 'large' ? '72px' : '44px'};
+        cursor: ${disabled ? 'default' : 'pointer'};
+
+        height: ${size === 'large'
+          ? '72px'
+          : '44px'};
 
         padding: ${
           iconOnly
@@ -81,17 +88,58 @@ export const Button = ({
               : '0 16px'
         };
 
-        border-radius: ${radius ??
-        (size === 'large' ? '20px' : '16px')};
+        border-radius: ${
+          radius ??
+          (size === 'large'
+            ? '20px'
+            : '16px')
+        };
 
-        font-size: ${size === 'large' ? '16px' : '14px'};
+        font-size: ${
+          size === 'large'
+            ? '16px'
+            : '14px'
+        };
+
         font-weight: 500;
 
-        background: ${сolors[color]};
-        color: ${сolors[textColor]};
+        background: ${
+          theme[
+            color as keyof typeof theme
+          ]
+        };
+
+        color: ${
+          textColor
+            ? theme[
+                textColor as keyof typeof theme
+              ]
+            : '#ffffff'
+        };
 
         opacity: ${disabled ? 0.5 : 1};
-        pointer-events: ${disabled ? 'none' : 'auto'};
+
+        pointer-events: ${
+          disabled ? 'none' : 'auto'
+        };
+
+        transition:
+          opacity 0.2s ease,
+          transform 0.2s ease;
+
+        &:hover {
+          opacity: ${
+            disabled ? 0.5 : 0.9
+          };
+        }
+
+        &:active {
+          transform: ${
+            disabled
+              ? 'none'
+              : 'scale(0.98)'
+          };
+        }
       `}
       {...props}
     >

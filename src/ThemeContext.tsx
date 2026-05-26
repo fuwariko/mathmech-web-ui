@@ -1,0 +1,108 @@
+import React, {
+  createContext,
+  useContext,
+  useMemo,
+} from 'react';
+
+export const defaultThemeColors = {
+  darkNavy01: '#2C416D',
+  darkNavy02: '#0A255E',
+  mainNavy: '#1E4391',
+  lightNavy01: '#6291F3',
+  lightNavy02: '#ACC7FF',
+
+  darkOrange01: '#AB4A00',
+  darkOrange02: '#994200',
+  mainOrange: '#C25400',
+  lightOrange01: '#D47C39',
+  lightOrange02: '#F2D4BD',
+
+  darkGreen01: '#006620',
+  darkGreen02: '#004F19',
+  mainGreen: '#00852A',
+  lightGreen01: '#00A31B',
+  lightGreen02: '#B2E0B9',
+
+  darkRed01: '#9F363D',
+  darkRed02: '#890812',
+  mainRed: '#D41926',
+  lightRed01: '#E3626B',
+  lightRed02: '#EFC0C4',
+};
+
+export const fiitThemeColors = {
+  darkCrimson01: '#5A1A5B',
+  darkCrimson02: '#822183',
+  mainCrimson: '#A92CAB',
+  lightCrimson01: '#C947CB',
+  lightCrimson02: '#DC5ADE',
+
+  darkBlue01: '#0347BB',
+  darkBlue02: '#0756DC',
+  mainBlue: '#2B79FF',
+  lightBlue01: '#691B9F',
+  lightBlue02: '#B9D3FF',
+
+  darkPurple01: '#1E1769',
+  darkPurple02: '#3C3494',
+  mainPurple: '#5146CC',
+  lightPurple01: '#948DDE',
+  lightPurple02: '#B6B2E6',
+
+  darkGrey01: '#87859A',
+  darkGrey02: '#B7B6C3',
+  mainGrey: '#C6C1DA',
+  lightGrey01: '#E2D9FF',
+  lightGrey02: '#F2EFFD',
+};
+
+export type TThemeColors =
+  | keyof typeof defaultThemeColors
+  | keyof typeof fiitThemeColors;
+
+export const themes = {
+  light: {
+    ...defaultThemeColors,
+  },
+
+  dark: {
+    ...fiitThemeColors,
+  },
+};
+
+export type Theme =
+  (typeof themes)[keyof typeof themes];
+
+type ThemeMode = keyof typeof themes;
+
+interface ThemeProviderProps {
+  mode?: ThemeMode;
+  overrides?: Partial<Theme>;
+  children: React.ReactNode;
+}
+
+const ThemeContext = createContext<Theme>(
+  themes.light,
+);
+
+export const MyThemeProvider = ({
+  mode = 'light',
+  overrides,
+  children,
+}: ThemeProviderProps) => {
+  const theme = useMemo(
+    () => ({
+      ...themes[mode],
+      ...overrides,
+    }),
+    [mode, overrides],
+  );
+
+  return (
+    <ThemeContext.Provider value={theme}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
+
+export const useTheme = () => useContext(ThemeContext);

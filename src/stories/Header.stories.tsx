@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
+import { Button } from '../components/button/Button';
 import { Header } from '../components/header/Header';
 import { BoardIcon } from '../icons/BoardIcon';
 
@@ -13,13 +14,21 @@ const meta: Meta<typeof Header> = {
     title: 'Каталог курсов',
     backgroundColor: 'mainBlue',
     textColor: 'lightGrey02',
-    contentPosition: 'space-between',
     sticky: false,
+
+    leftAccessory: 'МатМех',
+
+    rightAccessory: (
+      <Button color="mainGreen">
+        Войти
+      </Button>
+    ),
   },
 
   argTypes: {
     backgroundColor: {
       control: 'select',
+
       options: [
         'darkNavy01',
         'darkNavy02',
@@ -73,6 +82,7 @@ const meta: Meta<typeof Header> = {
 
     textColor: {
       control: 'select',
+
       options: [
         'darkNavy01',
         'darkNavy02',
@@ -124,32 +134,67 @@ const meta: Meta<typeof Header> = {
       ],
     },
 
-    contentPosition: {
-      control: 'radio',
-      options: ['center', 'space-between'],
-    },
-
     sticky: {
       control: 'boolean',
     },
 
     leftAccessory: {
       control: 'select',
-      options: ['none', 'text', 'icon'],
+
+      options: [
+        'none',
+        'text',
+        'icon',
+        'button',
+      ],
+
       mapping: {
         none: undefined,
+
         text: 'МатМех',
+
         icon: <BoardIcon />,
+
+        button: (
+          <Button color="mainOrange">
+            Назад
+          </Button>
+        ),
       },
     },
 
     rightAccessory: {
       control: 'select',
-      options: ['none', 'text', 'icon'],
+
+      options: [
+        'none',
+        'text',
+        'icon',
+        'button',
+        'largeButton',
+      ],
+
       mapping: {
         none: undefined,
+
         text: 'Курсы Преподаватели Профиль',
+
         icon: <BoardIcon />,
+
+        button: (
+          <Button color="mainGreen">
+            Войти
+          </Button>
+        ),
+
+        largeButton: (
+          <Button
+            color="mainPurple"
+            size="large"
+          >
+            Записаться
+          </Button>
+        ),
       },
     },
   },
@@ -159,26 +204,11 @@ export default meta;
 
 type Story = StoryObj<typeof Header>;
 
-export const Default: Story = {
-  args: {
-    leftAccessory: 'МатМех',
-    rightAccessory: 'Курсы Преподаватели Профиль',
-  },
-};
+export const Default: Story = {};
 
 export const Sticky: Story = {
   args: {
     sticky: true,
-    leftAccessory: 'МатМех',
-    rightAccessory: 'Курсы Преподаватели Профиль',
-  },
-};
-
-export const CenteredAccessories: Story = {
-  args: {
-    contentPosition: 'center',
-    leftAccessory: 'Меню',
-    rightAccessory: 'Профиль',
   },
 };
 
@@ -196,11 +226,48 @@ export const WithoutAccessories: Story = {
   },
 };
 
+export const WithButtons: Story = {
+  args: {
+    leftAccessory: (
+      <Button color="mainOrange">
+        Назад
+      </Button>
+    ),
+
+    rightAccessory: (
+      <Button color="mainGreen">
+        Войти
+      </Button>
+    ),
+  },
+};
+
+export const WithLargeButton: Story = {
+  args: {
+    leftAccessory: 'Каталог',
+
+    rightAccessory: (
+      <Button
+        color="mainPurple"
+        size="large"
+      >
+        Записаться
+      </Button>
+    ),
+  },
+};
+
 export const CustomColors: Story = {
   args: {
     backgroundColor: 'mainPurple',
     textColor: 'lightGrey02',
+
     leftAccessory: 'МатМех',
-    rightAccessory: 'Меню',
+
+    rightAccessory: (
+      <Button color="mainOrange">
+        Меню
+      </Button>
+    ),
   },
 };

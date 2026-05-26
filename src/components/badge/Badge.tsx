@@ -45,6 +45,7 @@ const badgeStyles = (
   borderColor?: TColors,
 ) => css`
   display: inline-block;
+  box-sizing: border-box;
 
   font-size: 14px;
   font-weight: 500;
