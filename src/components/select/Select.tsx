@@ -142,7 +142,7 @@ export const Select: React.FC<SelectProps> = ({
         <S.Value $isPlaceholder={!selectedOption}>
           {selectedOption?.label ?? placeholder}
         </S.Value>
-        <S.Icon aria-hidden><img src={openImg} alt="" /></S.Icon>
+        <S.Icon $isOpen={open} aria-hidden><img src={openImg} alt="" /></S.Icon>
       </S.Control>
 
       <input type="hidden" name={name} value={currentValue} />
@@ -159,15 +159,12 @@ export const Select: React.FC<SelectProps> = ({
                 key={option.value}
                 id={`${listId}-option-${option.value}`}
                 role="option"
-                // aria-selected={isSelected}
                 aria-selected={activeIndex === index}
                 aria-disabled={option.disabled || undefined}
                 $active={isActive}
                 $selected={isSelected}
-                // disabled={option.disabled}
                 onMouseEnter={() => setActiveIndex(index)}
                 onClick={() => selectOption(option)}
-                // type="button"
               >
                 {option.label}
               </S.Option>

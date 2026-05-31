@@ -19,6 +19,7 @@ const options = [
   { value: 'msk', label: 'Москва' },
   { value: 'spb', label: 'Санкт-Петербург' },
   { value: 'nnv', label: 'Нижний Новгород' },
+  { value: 'kzn', label: 'Казань' },
 ];
 
 export const Default: Story = {

@@ -12,7 +12,6 @@ export const Root = styled.div`
 
 export const Label = styled.label`
   color: #000;
-  font-family: 'Montserrat', sans-serif;
   font-size: 18px;
   font-weight: 500;
   margin-bottom: 6px;
@@ -25,20 +24,20 @@ export const Label = styled.label`
 `;
 
 export const Control = styled.button<{ isError?: boolean }>`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
   width: 100%;
   height: 48px;
-  padding: 14px 16px;
+  padding: 8px 16px;
   border: 1px solid #D3D3D3;
   border-radius: 10px;
   background: #fff;
   color: #222;
   font-size: 14px;
-  display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 12px;
   cursor: pointer;
-  font-family: 'Montserrat', sans-serif;
 
   &[disabled] {
     opacity: 0.6;
@@ -128,7 +127,6 @@ export const Option = styled.li<{ $active: boolean; $selected: boolean }>`
   color: #000;
   text-align: left;
   cursor: pointer;
-  font-family: 'Montserrat', sans-serif;
   box-sizing: border-box;
   min-height: 48px;
   height: 100%;
@@ -138,7 +136,10 @@ export const Option = styled.li<{ $active: boolean; $selected: boolean }>`
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
-  
+
+  & img {
+    margin-left: 8px;
+  }
 
   ${(p) =>
     p.$active &&
@@ -158,17 +159,104 @@ export const Option = styled.li<{ $active: boolean; $selected: boolean }>`
   }
 
   &:focus-visible {
-    outline: 2px solid #2563eb;
+    outline: 2px solid #1E4391;
     outline-offset: 2px;
   }
 `;
 
 export const Error = styled.div`
-  font-family: 'Montserrat', sans-serif;
   font-size: 14px;
   font-weight: 600;
   color: #D41926;
   margin-top: 4px;
   overflow-wrap: break-word;
   word-break: break-word;
+`;
+
+export const ValueContainer = styled.ul`
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  gap: 4px;
+  padding: 0;
+  margin: 0;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+
+  &::-webkit-scrollbar {
+    height: 7px;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-clip: content-box;
+    border: 2px solid transparent;
+    background-color: #d3d3d3;
+    border-radius: 10px;
+  }
+`;
+
+export const Tag = styled.li`
+  gap: 10px;
+  color: #222;
+  display: flex;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16.8px;
+  background-color: #e7f2ff;
+  padding: 8px 12px;
+  margin: 2px;
+  height: 33px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  
+  &:focus-visible {
+    outline: 1px solid #1E4391;
+    box-shadow: 0 0 0 2px #1e429179;
+    outline-offset: 1px;
+  }
+`;
+
+export const TagClose = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  padding: 1px;
+  font-size: 12px;
+  line-height: 1;
+  transition: background 0.2s;
+  background: transparent;
+
+  &[disabled] {
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    background: #1e429113;
+  }
+
+  &[disabled]:hover {
+    background: transparent;
+  }
+
+  &:focus-visible {
+    outline: 1px solid #1E4391;
+    box-shadow: 0 0 0 2px #1e429179;
+    outline-offset: 1px;
+  }
+
+  img {
+    width: 10px;
+    height: 10px;
+  }
 `;
