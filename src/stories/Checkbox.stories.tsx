@@ -16,10 +16,10 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    id: '1',
     name: 'option',
     value: '1',
-    description: 'Вариант 1',
+    id: '1',
+    label: 'Вариант 1',
   },
 };
 
@@ -49,7 +49,7 @@ export const GroupCheckbox = {
             id={opt.id}
             name="color"
             value={opt.value}
-            description={opt.description}
+            label={opt.description}
           />
         ))}
       </fieldset>
@@ -89,7 +89,7 @@ export const GroupCheckboxWithState = {
             id={opt.id}
             name="color"
             value={opt.value}
-            description={opt.description}
+            label={opt.description}
             checked={selected.includes(opt.value)}
             onChange={() => handleChange(opt.value)}
           />

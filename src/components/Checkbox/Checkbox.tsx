@@ -1,23 +1,45 @@
 import React from 'react';
 import * as S from './Checkbox.styles.ts';
+import { type TColors } from '../../theme/tokens.ts';
 
-type CheckboxProps = {
-  id?: string;
+interface CheckboxProps {
+  /** Поле для идентификации и группировки элементов в форме */
   name: string;
+
+  /** Значение чекбокса, уходящее на сервер */
   value: string;
-  description?: string;
+
+  /** Идентификатор для связи с другими элементами */
+  id?: string;
+
+  /** Текст чекбокса*/
+  label?: string;
+
+  /** Цвет чекбокса */
+  color?: TColors;
+
+  /** Положение текста, отосительно чекбокса */
   reverse?: boolean;
+
+  /** Состояние "Выбрано"/"Не выбрано" */
   checked?: boolean;
+
+  /** Заблокированное состояние */
   disabled?: boolean;
+
+  /** Отслеживание изменения состояния */
   onChange?: (value: string) => void;
+
+  /** Обязательность заполнения */
   required?: boolean;
 };
 
 export const Checkbox: React.FC<CheckboxProps> = ({
-  id,
   name,
   value,
-  description,
+  id,
+  label,
+  color = 'mainNavy',
   reverse,
   checked,
   disabled,
@@ -38,9 +60,10 @@ export const Checkbox: React.FC<CheckboxProps> = ({
             disabled={disabled}
             onChange={handleChange}
             required={required}
+            color={color}
         />
         {!reverse && <S.Span/>}
-        {description}
+        {label}
         {reverse && <S.Span/>}
     </S.Label>
     
