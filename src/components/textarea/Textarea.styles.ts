@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
+import { сolors, type TColors } from '../../theme/tokens.ts';
 
-export const Textarea = styled.textarea<{ isError?: boolean }>`
+export const Textarea = styled.textarea<{ isError?: boolean; color: TColors }>`
     box-sizing: border-box;
     border-radius: 10px;
     font-weight: 400;
-    font-family: 'Montserrat', sans-serif;
     font-size: 14px;
     line-height: 20px;
     color: #222;
@@ -20,11 +20,11 @@ export const Textarea = styled.textarea<{ isError?: boolean }>`
     padding: 14px 16px 12px;
 
   &:focus {
-    border-color: #1E4391;
+    border-color: ${props => сolors[props.color]};
   }
 
   &:focus-visible {
-    box-shadow: 0 0 0 2px #1e429179;
+    box-shadow: 0 0 0 2px ${props => сolors[props.color] + '80'};
     outline: none;
   }
 
@@ -35,14 +35,14 @@ export const Textarea = styled.textarea<{ isError?: boolean }>`
   }
 
   ${({ isError }) => isError && `
-    border-color: #D41926;
+    border-color: ${сolors.mainRed};
     
     &:focus {
-      border-color: #D41926;
+      border-color: ${сolors.mainRed};
     }
       
     &:focus-visible {
-      box-shadow: 0 0 0 2px #d41925b0;
+      box-shadow: 0 0 0 2px ${сolors.mainRed + 'b0'};
     }
   `}
 `;
@@ -54,7 +54,6 @@ export const TextLabel = styled.label`
 `
 
 export const DescriptionSpan = styled.span`
-  font-family: 'Montserrat', sans-serif;
   font-size: 18px;
   font-weight: 500;
   margin-bottom: 6px;
@@ -62,15 +61,14 @@ export const DescriptionSpan = styled.span`
   word-break: break-word;
   
   & span {
-    color: #D41926;
+    color: ${сolors.mainRed};
   }
 `
 
 export const ErrorSpan = styled.span`
-  font-family: 'Montserrat', sans-serif;
   font-size: 14px;
   font-weight: 600;
-  color: #D41926;
+  color: ${сolors.mainRed};
   margin-top: 4px;
   overflow-wrap: break-word;
   word-break: break-word;

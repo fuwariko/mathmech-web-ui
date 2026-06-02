@@ -19,7 +19,7 @@ export const Default: Story = {
     id: '1',
     name: 'option',
     value: '1',
-    description: 'Вариант 1',
+    label: 'Вариант 1',
   },
 };
 
@@ -49,7 +49,7 @@ export const GroupRadio = {
             id={opt.id}
             name="color"
             value={opt.value}
-            description={opt.description}
+            label={opt.description}
           />
         ))}
       </fieldset>
@@ -81,7 +81,7 @@ export const GroupRadioWithState = {
             id={opt.id}
             name="colors"
             value={opt.value}
-            description={opt.description}
+            label={opt.description}
             checked={opt.value === selectedValue}
             onChange={() => setSelectedValue(opt.value)}
           />

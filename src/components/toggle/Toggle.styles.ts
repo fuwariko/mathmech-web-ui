@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { сolors, type TColors } from '../../theme/tokens.ts';
 
 export const ToggleWrapper = styled.label`
   display: flex;
@@ -12,7 +13,7 @@ export const ToggleWrapper = styled.label`
   }
 `;
 
-export const Input = styled.input`
+export const Input = styled.input<{ color: TColors }>`
   position: absolute;
   width: 1px;
   height: 1px;
@@ -24,8 +25,8 @@ export const Input = styled.input`
   overflow: hidden;
 
   &:checked + span {
-    background-color: #1E4391;
-    border-color: #1E4391;
+    background-color: ${props => сolors[props.color]};
+    border-color: ${props => сolors[props.color]};
   }
 
   & + span::after {
@@ -36,7 +37,7 @@ export const Input = styled.input`
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background-color: #1E4391;
+    background-color: ${props => сolors[props.color]};
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: all .2s ease-in-out;
   }
@@ -47,7 +48,7 @@ export const Input = styled.input`
   }
 
   &:focus-visible + span {
-    box-shadow: 0 0 0 2px #1e429179;
+    box-shadow: 0 0 0 2px ${props => сolors[props.color] + '80'};
   }
 
   &:disabled {
@@ -60,14 +61,14 @@ export const Input = styled.input`
   }
 `;
 
-export const Span = styled.span`
+export const Span = styled.span<{ color: TColors }>`
   display: inline-flex;
   position: relative;
   margin: 2px 0;
   width: 54px;
   height: 26px;
   border-radius: 16px;
-  border: 1px solid #1E4391;
+  border: 1px solid ${props => сolors[props.color]};
   background-color: transparent;
   cursor: pointer;
   transition: all .2s ease-in-out;

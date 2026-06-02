@@ -1,5 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { InputText } from '../components/inputText/InputText';
+import { type InputTypes } from '../components/inputText/InputText';
+import { useState } from 'react';
+
 
 const meta:  Meta<typeof InputText> = {
   title: 'Atoms/InputText',
@@ -19,15 +22,17 @@ export const Default: Story = {
   }
 };
 
-export const SimpleInputText = {
+export const EmailInputText = {
   render: () => {
     return (
       <fieldset role="group" style={{ width: "240px", border: "none"}}>
           <InputText
             id={"1"}
             name="email"
+            type='email'
             placeholder={"example@mail.ru"}
-            description={"Почта"}
+            label={"Почта"}
+            errorMassage='Некорректный домен'
           />
       </fieldset>
     );
@@ -41,8 +46,9 @@ export const ErrorInputText = {
           <InputText
             id={"1"}
             name="email"
+            type='email'
             placeholder={"example@mail.ru"}
-            description={"Почта"}
+            label={"Почта"}
             isError={true}
             errorMassage="Некорректный домен"
           />
@@ -54,10 +60,16 @@ export const ErrorInputText = {
 
 export const GroupInputText = {
   render: () => {
-    const options = [
-      { id: '1', placeholder: 'Введите имя', description: 'Имя' },
-      { id: '2', placeholder: 'Введите фамилию', description: 'Фамилия' },
-      { id: '3', placeholder: 'Введите отчество', description: 'Отчество' },
+    const options: {
+      id: string;
+      type: InputTypes;
+      placeholder: string | undefined;
+      description: string;
+    }[] = [
+      { id: '1', type: 'text', placeholder: 'Иванов Иван', description: 'Имя Фамилия' },
+      { id: '2', type: 'number', placeholder: undefined, description: 'Возраст' },
+      { id: '3', type: 'date', placeholder: undefined, description: 'Дата рождения' },
+      { id: '4', type: 'password', placeholder: 'Введите пароль', description: 'Пароль' },
     ];
 
     return (
@@ -65,12 +77,36 @@ export const GroupInputText = {
         {options.map((opt) => (
           <InputText
             id={opt.id}
-            name="user-name"
+            name="user"
+            type={opt.type}
             placeholder={opt.placeholder}
-            description={opt.description}
-            required={opt.id == "3" ? false : true}
+            label={opt.description}
+            required={opt.id == "4" ? true : false}
           />
         ))}
+      </fieldset>
+    );
+  },
+};
+
+export const ControlledInputText = {
+  render: () => {
+    const [value, setValue] = useState<string>("example@mail.cim");
+
+    return (
+      <fieldset role="group" style={{ width: "240px", border: "none"}}>
+        <p>Введенная почта: {value}</p>
+          <InputText
+            id={"1"}
+            name="email"
+            type='email'
+            placeholder={"example@mail.ru"}
+            label={"Почта"}
+            isError={true}
+            errorMassage="Некорректный домен"
+            value={value}
+            onChange={(e) => setValue(e)}
+          />
       </fieldset>
     );
   },
