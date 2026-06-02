@@ -17,7 +17,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     name: 'toggle',
-    description: 'Опция',
+    label: 'Опция',
   },
 };
 
@@ -46,7 +46,7 @@ export const GroupToggle = {
           <Toggle
             id={opt.id}
             name={opt.name}
-            description={opt.description}
+            label={opt.description}
           />
         ))}
       </fieldset>
@@ -56,20 +56,20 @@ export const GroupToggle = {
 
 export const GroupToggleWithState = {
   render: () => {
-    const [selected, setSelected] = useState<String[]>(['1']);
+    const [selected, setSelected] = useState<String[]>([]);
 
-    const handleChange = (id: string) => {
+    const handleChange = (value: string) => {
         setSelected((prev) =>
-            prev.includes(id)
-            ? prev.filter((v) => v !== id)
-            : [...prev, id]                
+            prev.includes(value)
+            ? prev.filter((v) => v !== value)
+            : [...prev, value]                
         );
 };
 
     const options = [
-      { id: '1', description: 'Скорость' },
-      { id: '2',  description: 'Цена' },
-      { id: '3', description: 'Качество' },
+      { id: '1', value: 'Speed', label: 'Скорость' },
+      { id: '2', value: 'Price',  label: 'Цена' },
+      { id: '3', value: 'Quality', label: 'Качество' },
     ];
 
     return (
@@ -77,17 +77,17 @@ export const GroupToggleWithState = {
         <p 
           style={{ 
             marginBottom: '12px', 
-            fontFamily: "'Montserrat', sans-serif",
           }}>
           Выбрано:<br/><strong>{selected.map((sel) => `${sel} `)}</strong>
         </p>
         {options.map((opt) => (
           <Toggle
             id={opt.id}
+            value={opt.value}
             name="settings"
-            description={opt.description}
-            checked={selected.includes(opt.id)}
-            onChange={() => handleChange(opt.id)}
+            label={opt.label}
+            checked={selected.includes(opt.value)}
+            onChange={() => handleChange(opt.value)}
           />
         ))}
       </fieldset>

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Textarea } from '../components/textarea/Textarea';
+import { useState } from 'react';
 
 const meta:  Meta<typeof Textarea> = {
   title: 'Atoms/Textarea',
@@ -27,7 +28,7 @@ export const SimpleTextarea = {
             id={"1"}
             name="review"
             placeholder={"Чем бы вы хотели поделиться?"}
-            description={"Отзыв"}
+            label={"Отзыв"}
           />
       </fieldset>
     );
@@ -42,7 +43,7 @@ export const ErrorTextarea = {
             id={"1"}
             name="review"
             placeholder={"Чем бы вы хотели поделиться?"}
-            description={"Отзыв"}
+            label={"Отзыв"}
             isError={true}
             errorMassage="Минимум 50 символов"
           />
@@ -66,7 +67,7 @@ export const TextareaWithClass = {
             id={"1"}
             name="review"
             placeholder={"Чем бы вы хотели поделиться?"}
-            description={"Отзыв"}
+            label={"Отзыв"}
             className="castom"
           />
       </fieldset>
@@ -78,9 +79,9 @@ export const TextareaWithClass = {
 export const GroupTextarea = {
   render: () => {
     const options = [
-      { id: '1', placeholder: 'Ответьте на вопрос 1', description: 'Вопрос 1' },
-      { id: '2', placeholder: 'Ответьте на вопрос 2', description: 'Вопрос 2' },
-      { id: '3', placeholder: 'Ответьте на вопрос 3', description: 'Вопрос 3' },
+      { id: '1', placeholder: 'Ответьте на вопрос 1', label: 'Вопрос 1' },
+      { id: '2', placeholder: 'Ответьте на вопрос 2', label: 'Вопрос 2' },
+      { id: '3', placeholder: 'Ответьте на вопрос 3', label: 'Вопрос 3' },
     ];
 
     return (
@@ -90,10 +91,30 @@ export const GroupTextarea = {
             id={opt.id}
             name="user-name"
             placeholder={opt.placeholder}
-            description={opt.description}
+            label={opt.label}
             required={opt.id == "3" ? false : true}
           />
         ))}
+      </fieldset>
+    );
+  },
+};
+
+export const ControlledInputText = {
+  render: () => {
+    const [value, setValue] = useState<string>("Потому");
+
+    return (
+      <fieldset role="group" style={{ width: "240px", border: "none"}}>
+        <p>Введенный ответ: {value}</p>
+          <Textarea
+            id={"5"}
+            name="user"
+            placeholder={"Ответьте на вопрос"}
+            label={"Почему?"}
+            value={value}
+            onChange={(e) => setValue(e)}
+          />
       </fieldset>
     );
   },

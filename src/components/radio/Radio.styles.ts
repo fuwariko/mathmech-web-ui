@@ -1,19 +1,20 @@
 import styled from '@emotion/styled';
+import { сolors, type TColors } from '../../theme/tokens.ts';
 
-export const Input = styled.input`
+export const Input = styled.input<{ color: TColors }>`
   position: absolute;
   opacity: 0;
   cursor: pointer;
 
   &:checked + span {
-    border-color: #1E4391;
+    border-color: ${props => сolors[props.color]};
     background-color: #fff;
   }
   &:checked + span::before {
     content: '';
     width: 9px;
     height: 9px;
-    background-color: #1E4391;
+    background-color: ${props => сolors[props.color]};
     border-radius: 50%;
     position: absolute;
     top: 50%;
@@ -21,7 +22,7 @@ export const Input = styled.input`
     transform: translate(-50%, -50%);
   }
   &:focus + span {
-    box-shadow: 0 0 0 2px #1e429179;
+    box-shadow: 0 0 0 2px ${props => сolors[props.color]+ '80'};
   }
 
   &:disabled {
@@ -40,7 +41,6 @@ export const Label = styled.label`
   cursor: pointer;
   margin-bottom: 10px;
   gap: 6px;
-  font-family: 'Montserrat', sans-serif;
 
   &:has(input:disabled) {
     cursor: not-allowed;
