@@ -132,6 +132,7 @@ export const Select: React.FC<SelectProps> = ({
         aria-controls={listId}
         aria-expanded={open}
         aria-haspopup="listbox"
+        aria-required={required ? true : undefined} 
         aria-invalid={isError || undefined}
         aria-describedby={isError ? errorId : undefined}
         aria-activedescendant={open ? `${listId}-option-${options[activeIndex]?.value}` : undefined}

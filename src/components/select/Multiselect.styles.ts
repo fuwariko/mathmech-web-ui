@@ -121,6 +121,8 @@ export const Listbox = styled.ul`
 `;
 
 export const Option = styled.li<{ $active: boolean; $selected: boolean }>`
+  display: flex;
+  z-index: 1;
   width: 100%;
   border: 0;
   background: transparent;
@@ -131,26 +133,35 @@ export const Option = styled.li<{ $active: boolean; $selected: boolean }>`
   min-height: 48px;
   height: 100%;
   background-color: #fff;
+  border: 1px solid transparent;
   border-bottom: 1px solid #CAD1E1;
   padding: 13px 16px;
+  padding-left: 40px;
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
 
   & img {
-    margin-left: 8px;
+    margin-right: 8px;
   }
+
+  // & label input {
+  //   backgroud-color: black;
+  //   pointer-events: none;
+  // }
 
   ${(p) =>
     p.$active &&
     css`
       background: #eff6ff;
+      border: 1px solid #1E4391;
     `}
 
   ${(p) =>
     p.$selected &&
     css`
       font-weight: 600;
+      padding-left: 16px;
     `}
 
   &:disabled {
@@ -165,10 +176,11 @@ export const Option = styled.li<{ $active: boolean; $selected: boolean }>`
 `;
 
 export const Error = styled.div`
+  position: absolute;
   font-size: 14px;
   font-weight: 600;
   color: #D41926;
-  margin-top: 4px;
+  top: 90px;
   overflow-wrap: break-word;
   word-break: break-word;
 `;

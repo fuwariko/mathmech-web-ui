@@ -2,10 +2,10 @@ import React, { useEffect, useRef, type JSX } from 'react';
 import * as S from './Dialog.styles';
 
 type ModalProps = {
-  open: boolean;
-  title: string;
-  children: JSX.Element;
-  onClose: () => void;
+  open?: boolean;
+  title?: string;
+  children?: JSX.Element;
+  onClose?: () => void;
 };
 
 const getFocusableElements = (root: HTMLElement | null) => {
@@ -24,7 +24,12 @@ const getFocusableElements = (root: HTMLElement | null) => {
   ).filter((el) => !el.hasAttribute('disabled') && el.offsetParent !== null);
 };
 
-export const Modal: React.FC<ModalProps> = ({ open, title, children, onClose }) => {
+export const Modal: React.FC<ModalProps> = ({ 
+  open, 
+  title, 
+  children, 
+  onClose=() => {} 
+}) => {
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
   const lastActiveElementRef = useRef<HTMLElement | null>(null);
@@ -96,12 +101,10 @@ export const Modal: React.FC<ModalProps> = ({ open, title, children, onClose }) 
         aria-labelledby="modal-title"
       >
         <S.Header>
-          <S.Title id="modal-title">{title}</S.Title>
-          <S.CloseButton ref={closeBtnRef} type="button" onClick={onClose}>
-            Закрыть
-          </S.CloseButton>
+          <S.Title aria-hidden id="modal-title">{title}</S.Title>
         </S.Header>
-
+        <S.CloseButton aria-label='Закрыть модальное окно' ref={closeBtnRef} type="button" onClick={onClose}>
+        </S.CloseButton>
         <S.Body>{children}</S.Body>
       </S.Dialog>
     </S.Overlay>

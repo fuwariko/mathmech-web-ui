@@ -2,7 +2,7 @@ import React from 'react';
 import * as S from './Textarea.styles.ts';
 import { type TColors } from '../../theme/tokens.ts';
 
-interface TextareaProps {
+interface TextareaProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange' | 'type'> {
   /** Идентификатор для связи с другими элементами */
   id?: string;
 
@@ -53,6 +53,7 @@ export const Textarea: React.FC<TextareaProps> = ({
   isError,
   errorMassage,
   className,
+  ...rest
 }) => {
   const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
       if (onChange) {
@@ -79,6 +80,7 @@ export const Textarea: React.FC<TextareaProps> = ({
         aria-required={required}
         aria-invalid={isError}
         aria-describedby={isError ? `error-massage-${id}` : undefined}
+        {...rest}
       />
       {isError && (
         <S.ErrorSpan id={`error-massage-${id}`} role="alert">

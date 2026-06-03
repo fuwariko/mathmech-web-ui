@@ -174,6 +174,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
         id={id}
         type="button"
         role="combobox"
+        aria-required={required ? true : undefined} 
         aria-labelledby={label ? labelId : undefined}
         aria-controls={listId}
         aria-expanded={open}
@@ -199,7 +200,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
                 aria-selected="true"
                 aria-label={option.label}
                 onKeyDown={(e) => {
-                  if (e.key === 'Backspace' || e.key === 'Delete'|| e.key === ' ') {
+                  if (e.key === 'Backspace' || e.key === 'Delete') {
                     e.preventDefault();
                     removeOption(option.value, e as any);
                   }
@@ -222,7 +223,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
         <S.Icon aria-hidden $isOpen={open}><img src={openImg} alt="" /></S.Icon>
       </S.Control>
 
-      <input type="hidden" name={name} value={currentValue.join(',')} />
+      <input type="hidden" name={name} value={JSON.stringify(currentValue)} />
 
       {open && (
         <S.Listbox id={listId} role="listbox" aria-labelledby={label ? labelId : undefined} aria-multiselectable="true">
@@ -243,8 +244,9 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
                 onMouseEnter={() => setActiveIndex(index)}
                 onClick={() => selectOption(option)}
               >
-                {option.label}
                 {isSelected && <img src={checkImg} alt="" aria-hidden/>}
+                {/* <Checkbox aria-hidden checked={isSelected} disabled={option.disabled} onChange={() => selectOption(option)}/> */}
+                {option.label}
               </S.Option>
             );
           })}

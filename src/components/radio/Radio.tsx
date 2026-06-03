@@ -2,7 +2,7 @@ import React from 'react';
 import * as S from './Radio.styles.ts';
 import { type TColors } from '../../theme/tokens.ts';
 
-interface RadioProps {
+interface RadioProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'type'>{
   /** Поле для идентификации и группировки элементов в форме */
   name: string;
 
@@ -45,6 +45,7 @@ export const Radio: React.FC<RadioProps> = ({
   disabled,
   onChange,
   required,
+  ...rest
 }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange?.(e.target.value);
@@ -61,6 +62,7 @@ export const Radio: React.FC<RadioProps> = ({
         disabled={disabled}
         onChange={handleChange}
         required={required}
+        {...rest}
       />
         {!reverse && <S.Span />}
         {label}
