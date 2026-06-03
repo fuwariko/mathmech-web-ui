@@ -4,7 +4,7 @@ import { type TColors } from '../../theme/tokens.ts';
 
 export type InputTypes = 'text' | 'password' | 'email' | 'tel' | 'url' | 'number' | 'date' | 'time' | 'search';
 
-interface InputTextProps {
+interface InputTextProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'type'> {
   /** Идентификатор для связи с другими элементами */
   id?: string;
 
@@ -55,6 +55,7 @@ export const InputText: React.FC<InputTextProps> = ({
   onChange,
   isError,
   errorMassage,
+  ...rest
 }) => {
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     if (onChange) {
@@ -83,6 +84,7 @@ export const InputText: React.FC<InputTextProps> = ({
         aria-required={required}
         aria-invalid={isError}
         aria-describedby={isError ? `error-massage-${id}` : undefined}
+        {...rest}
       />
       {isError && (
         <S.ErrorSpan id={`error-massage-${id}`} role="alert">

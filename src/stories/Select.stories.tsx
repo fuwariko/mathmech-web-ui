@@ -95,6 +95,16 @@ export const ControlledEmpty: Story = {
 };
 
 export const WithError: Story = {
+  render: (args) => {
+    return (
+      <fieldset role="group" style={{ width: "256px", border: "none"}}>
+        <Select
+          {...args}
+        />
+      </fieldset>
+      
+    );
+  },
   args: {
     id: 'city-error',
     name: 'city-error',

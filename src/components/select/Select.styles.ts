@@ -164,11 +164,11 @@ export const Option = styled.li<{ $active: boolean; $selected: boolean }>`
 `;
 
 export const Error = styled.div`
-  font-family: 'Montserrat', sans-serif;
+  position: absolute;
   font-size: 14px;
   font-weight: 600;
   color: #D41926;
-  margin-top: 4px;
+  top: 90px;
   overflow-wrap: break-word;
   word-break: break-word;
 `;

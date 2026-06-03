@@ -28,8 +28,8 @@ export const Input = styled.input<{ color: TColors }>`
 
   &:checked + span::before {
     content: '';
-    width: 9px;
-    height: 9px;
+    width: 12px;
+    height: 12px;
     background-color: ${props => сolors[props.color]};
     border-radius: 5%;
     position: absolute;
