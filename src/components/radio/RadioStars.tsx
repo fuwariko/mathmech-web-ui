@@ -2,6 +2,7 @@ import React from 'react';
 import * as S from './RadioStars.styles.ts';
 import starFull from '../../assets/BigFullStarOrange.svg'
 import starEmpty from '../../assets/BigEmptyStarOrange.svg'
+// import { useEffect, useRef } from 'react';
 
 type RadioStarsProps = {
   rating: number;
@@ -19,9 +20,15 @@ export const RadioStars: React.FC<RadioStarsProps> = ({
   const handleRatingChange = (value: number) => {
       setRating(value);
     };
+  
   return (
   <S.Wrapper>
-    <S.StarsWrapper role="radiogroup" aria-labelledby={isError ? "error-label": ""} isError={isError} className={className}>
+    <S.StarsWrapper 
+      role="radiogroup" 
+      aria-labelledby={isError ? "error-label": undefined} 
+      isError={isError} 
+      className={className}
+    >
       {[1, 2, 3, 4, 5].map((star) => (
         <label title={star.toString()} >
           <S.Input
@@ -31,6 +38,8 @@ export const RadioStars: React.FC<RadioStarsProps> = ({
             type="radio"
             onChange={() => handleRatingChange(star)}
             aria-label={`Оценка ${star}`}
+            aria-checked={star === rating ? 'true' : 'false'}
+            tabIndex={star === rating ? 0 : -1}
           />
           {star <= rating ? (
             <S.StarWrapper>

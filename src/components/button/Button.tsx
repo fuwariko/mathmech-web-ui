@@ -6,10 +6,6 @@ import type {
 } from 'react';
 import { useTheme, type TThemeColors } from '../../ThemeContext';
 
-
-
-type TButtonAriaRole = 'button' | 'link';
-
 type TButtonSize = 'small' | 'large';
 
 interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -21,9 +17,6 @@ interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
   /** Дизейбл кнопки */
   disabled?: boolean;
-
-  /** Aria роль кнопки */
-  role?: TButtonAriaRole;
 
   /** Цвет кнопки */
   color: TThemeColors;
@@ -45,7 +38,6 @@ export const Button = ({
   children,
   icon,
   disabled = false,
-  role = 'button',
   color,
   size = 'small',
   textColor,
@@ -59,7 +51,6 @@ export const Button = ({
 
   return (
     <button
-      role={role}
       disabled={disabled}
       onClick={onClick}
       className={css`
@@ -154,7 +145,7 @@ export const Button = ({
         </span>
       )}
 
-      {children && <span>{children}</span>}
+      {children}
     </button>
   );
 };

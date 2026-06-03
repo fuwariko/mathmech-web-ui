@@ -133,6 +133,7 @@ export const Option = styled.li<{ $active: boolean; $selected: boolean }>`
   min-height: 48px;
   height: 100%;
   background-color: #fff;
+  border: 1px solid transparent;
   border-bottom: 1px solid #CAD1E1;
   padding: 13px 16px;
   font-weight: 400;
@@ -140,10 +141,11 @@ export const Option = styled.li<{ $active: boolean; $selected: boolean }>`
   line-height: 20px;
   
 
-  ${(p) =>
+    ${(p) =>
     p.$active &&
     css`
       background: #eff6ff;
+      border: 1px solid #1E4391;
     `}
 
   ${(p) =>

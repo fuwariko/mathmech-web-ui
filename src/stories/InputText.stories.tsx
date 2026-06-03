@@ -3,7 +3,6 @@ import { InputText } from '../components/inputText/InputText';
 import { type InputTypes } from '../components/inputText/InputText';
 import { useState } from 'react';
 
-
 const meta:  Meta<typeof InputText> = {
   title: 'Atoms/InputText',
   component: InputText,
@@ -97,17 +96,19 @@ export const ControlledInputText = {
       <fieldset role="group" style={{ width: "240px", border: "none"}}>
         <p>Введенная почта: {value}</p>
           <InputText
-            id={"1"}
-            name="email"
-            type='email'
-            placeholder={"example@mail.ru"}
-            label={"Почта"}
-            isError={true}
-            errorMassage="Некорректный домен"
             value={value}
             onChange={(e) => setValue(e)}
           />
       </fieldset>
     );
   },
+  args: {
+    id: '1',
+    name: 'email',
+    type: 'email',
+    placeholder: 'example@mail.ru',
+    label: 'Почта',
+    isError: true,
+    errorMassage: 'Некорректный домен',
+  }
 };

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Cansel from '../../assets/remove.svg?raw';
-import { сolors, type TColors } from '../../theme/tokens.ts';
+import { сolors } from '../../theme/tokens.ts';
 
 export const Overlay = styled.div`
   position: fixed;

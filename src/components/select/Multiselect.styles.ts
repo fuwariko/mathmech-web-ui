@@ -145,11 +145,6 @@ export const Option = styled.li<{ $active: boolean; $selected: boolean }>`
     margin-right: 8px;
   }
 
-  // & label input {
-  //   backgroud-color: black;
-  //   pointer-events: none;
-  // }
-
   ${(p) =>
     p.$active &&
     css`

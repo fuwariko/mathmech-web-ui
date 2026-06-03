@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, type JSX } from 'react';
 import * as S from './Dialog.styles';
 
-type ModalProps = {
+interface DialogProps {
   open?: boolean;
   title?: string;
   children?: JSX.Element;
@@ -24,7 +24,7 @@ const getFocusableElements = (root: HTMLElement | null) => {
   ).filter((el) => !el.hasAttribute('disabled') && el.offsetParent !== null);
 };
 
-export const Modal: React.FC<ModalProps> = ({ 
+export const Modal: React.FC<DialogProps> = ({ 
   open, 
   title, 
   children, 
@@ -52,6 +52,17 @@ export const Modal: React.FC<ModalProps> = ({
         onClose();
         return;
       }
+
+      // const activeElement = document.activeElement as HTMLElement;
+      // const isRadio = activeElement?.type === 'radio';
+      // const isInsideRadiogroup = activeElement?.closest('[role="radiogroup"]');
+      
+      // if ((event.key === 'ArrowUp' || event.key === 'ArrowDown' || 
+      //     event.key === 'ArrowLeft' || event.key === 'ArrowRight') && 
+      //     (isRadio || isInsideRadiogroup)) {
+      //   // ← НЕ блокируйте стрелки, позвольте браузеру обработать их на radio
+      //   return;
+      // }
 
       if (event.key !== 'Tab') return;
 
@@ -101,7 +112,7 @@ export const Modal: React.FC<ModalProps> = ({
         aria-labelledby="modal-title"
       >
         <S.Header>
-          <S.Title aria-hidden id="modal-title">{title}</S.Title>
+          <S.Title id="modal-title">{title}</S.Title>
         </S.Header>
         <S.CloseButton aria-label='Закрыть модальное окно' ref={closeBtnRef} type="button" onClick={onClose}>
         </S.CloseButton>

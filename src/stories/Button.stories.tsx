@@ -10,7 +10,7 @@ import {
   fiitThemeColors,
 } from '../ThemeContext';
 
-import { Button } from '../components/button/button';
+import { Button } from '../components/button/Button';
 
 const allColors = [
   ...Object.keys(defaultThemeColors),
@@ -33,7 +33,6 @@ const meta: Meta<typeof Button> = {
     textColor: 'lightNavy02',
     size: 'small',
     disabled: false,
-    role: 'button',
   },
 
   argTypes: {
@@ -62,10 +61,6 @@ const meta: Meta<typeof Button> = {
       options: ['small', 'large'],
     },
 
-    role: {
-      control: 'radio',
-      options: ['button', 'link'],
-    },
 
     disabled: {
       control: 'boolean',
