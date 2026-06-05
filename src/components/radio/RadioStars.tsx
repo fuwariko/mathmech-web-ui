@@ -2,7 +2,6 @@ import React from 'react';
 import * as S from './RadioStars.styles.ts';
 import starFull from '../../assets/BigFullStarOrange.svg'
 import starEmpty from '../../assets/BigEmptyStarOrange.svg'
-// import { useEffect, useRef } from 'react';
 
 type RadioStarsProps = {
   rating: number;
@@ -39,7 +38,6 @@ export const RadioStars: React.FC<RadioStarsProps> = ({
             onChange={() => handleRatingChange(star)}
             aria-label={`Оценка ${star}`}
             aria-checked={star === rating ? 'true' : 'false'}
-            tabIndex={star === rating ? 0 : -1}
           />
           {star <= rating ? (
             <S.StarWrapper>

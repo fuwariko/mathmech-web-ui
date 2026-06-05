@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react';
 import * as S from './Dialog.styles';
 
 interface DialogProps extends React.DialogHTMLAttributes<HTMLDialogElement> {
-  id: string;
   title?: string;
   open: boolean;
   onClose: () => void;
@@ -19,7 +18,6 @@ const FOCUSABLE_SELECTOR = [
 ].join(',');
 
 export const Dialog: React.FC<DialogProps> = ({
-  id,
   open,
   onClose,
   title,
@@ -158,15 +156,15 @@ export const Dialog: React.FC<DialogProps> = ({
     <S.Dialog
       ref={dialogRef}
       onKeyDown={handleKeyDown}
-      aria-labelledby={`dialog-title-${id}`}
+      aria-labelledby="dialog-title"
       aria-modal="true"
       onCancel={(e) => {
         e.preventDefault();
         onClose();
       }}
     >
-      <S.Header><S.Title id={`dialog-title-${id}`}>{title}</S.Title></S.Header>
-      <S.CloseButton lang='ru' ref={closeBtnRef} type="button" onClick={onClose} aria-label='Закрыть модальное окно'/>
+      <S.Header><S.Title id="dialog-title">{title}</S.Title></S.Header>
+      <S.CloseButton lang='ru' ref={closeBtnRef} type="button" onClick={onClose}/>
       <div>{children}</div>
     </S.Dialog>
   );

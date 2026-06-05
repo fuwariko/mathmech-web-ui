@@ -1,82 +1,82 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Modal } from '../components/dialog/Dialog';
-import { useState } from 'react';
+
 import { Button } from '../components/button/Button';
 import { RadioStars } from '../components/radio/RadioStars';
 import { InputText } from '../components/inputText/InputText';
 import { Textarea } from '../components/textarea/Textarea';
+import { useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
+import { Dialog } from '../components/dialog/Dialog';
+import { Radio } from '../components/radio/Radio';
 
-const meta = {
+const meta: Meta<typeof Dialog> = {
   title: 'Atoms/Dialog',
-  component: Modal,
+  component: Dialog,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
-  args: {
-    title: 'Заголовок модального окна',
+  argTypes: {
+    open: {
+      control: 'boolean',
+      description: 'Открыто ли модальное окно',
+    },
+    onClose: {
+      action: 'closed',
+      description: 'Обработчик закрытия модального окна',
+    },
+    title: {
+      control: 'text',
+      description: 'Заголовок модального окна',
+    },
+    children: {
+      control: { type: 'text' },
+      description: 'Содержимое модального окна',
+    },
   },
-} satisfies Meta<typeof Modal>;
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
-
-const DemoContent = () => (
-  <div style={{ display: 'grid' }}>
-    <p lang="ru" style={{ margin: '5px' }}>
-      Управлять открытием и закрытием модального окна можно с помощью состояния:
-    </p>
-    <p style={{ margin: '5px' }}>
-      {'const [open, setOpen] = useState(false);'}
-      </p>
-    <p lang="ru" style={{ margin: '5px' }}>
-      В открывающей кнопке:
-    </p>
-    <p style={{ margin: '5px' }}>
-      {'onClick={() => setOpen(true)}'}
-    </p>
-    <p lang="ru" style={{ margin: '5px' }}>
-      В компоненте Dialog:
-    </p>
-    <p style={{ margin: '5px' }}>
-      {'open={open} onClose={() => setOpen(false)}'}
-    </p>
-    <fieldset style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 0 0 0', margin: '0', border: 'none'}}>
-      <Button lang='ru' color='mainNavy'>А еще оно...</Button>
-      <Button lang='ru' color='mainNavy'>...удерживает фокус</Button>
-    </fieldset>
-    
-  </div>
-);
+type Story = StoryObj<typeof Dialog>;
 
 export const Default: Story = {
   render: (args) => {
-    const [open, setOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(args.open);
+    
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '800px', height: '450px'}}>
+      <>
         <Button 
           lang='ru'
           color='mainNavy' 
-          onClick={() => setOpen(true)}
+          onClick={() => setIsOpen(true)}
         >
           Открыть модальное окно
         </Button>
-        <Modal {...args} open={open} onClose={() => setOpen(false)} />
-      </div>
+        <Dialog
+          {...args}
+          open={isOpen}
+          onClose={() => setIsOpen(false)}
+        />
+      </>
     );
   },
   args: {
-    title: 'Инструкция',
-    children: <DemoContent />,
+    id: '2',
+    open: false,
+    title: 'Приветственное окно',
+    children: (
+      <p>
+        Привет, мир!
+      </p>
+    ),
   },
 };
 
 export const ReviewForm: Story = {
   render: (args) => {
-    const [open, setOpen] = useState(false);
-    const [rating, setRating] = useState(1)
+    const [isOpen, setOpen] = useState(false);
+    const [rating, setRating] = useState(0)
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '800px', height: '650px'}}>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
         <Button 
           lang='ru'
           color='mainNavy' 
@@ -84,8 +84,9 @@ export const ReviewForm: Story = {
         >
           Оставить отзыв
         </Button>
-        <Modal {...args} open={open} onClose={() => setOpen(false)}> 
+        <Dialog {...args} id='1' open={isOpen} onClose={() => setOpen(false)}> 
           <form action="" style={{display: 'flex', flexDirection: 'column', gap: '16px'}}>
+            <p>Нам важно твое мнение!</p>
             <RadioStars rating={rating} setRating={setRating}></RadioStars>
             <InputText id={'1'} name='review' type='text' placeholder={'Аноним'} label={'Имя'} />
             <InputText id={'2'} name='review' type='text' placeholder={'@Student'} label={'Телеграм'} />
@@ -106,7 +107,7 @@ export const ReviewForm: Story = {
               </Button>
             </div>
           </form>
-        </Modal>
+        </Dialog>
       </div>
     );
   },

@@ -12,16 +12,16 @@ export const Overlay = styled.div`
   padding: 24px;
 `;
 
-export const Dialog = styled.div`
+export const Dialog = styled.dialog`
+  border: none;
+  border-radius: 10px;
   position: relative;
+  background-color: #fff;
   width: min(100%, 560px);
   max-height: min(90vh, 720px);
-  overflow: vertical;
-  background: #fff;
-  border-radius: 10px;
   box-shadow: 0 24px 80px rgba(15, 23, 42, 0.22);
-  outline: none;
   padding: 40px 32px;
+  overflow: visible;
 `;
 
 export const Header = styled.div`
