@@ -157,6 +157,7 @@ export const Dialog: React.FC<DialogProps> = ({
   return (
     <S.Dialog
       ref={dialogRef}
+      role='dialog'
       onKeyDown={handleKeyDown}
       aria-labelledby={`dialog-title-${id}`}
       aria-modal="true"

@@ -6,7 +6,6 @@ import { Textarea } from '../components/textarea/Textarea';
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Dialog } from '../components/dialog/Dialog';
-import { Radio } from '../components/radio/Radio';
 
 const meta: Meta<typeof Dialog> = {
   title: 'Atoms/Dialog',
@@ -86,7 +85,6 @@ export const ReviewForm: Story = {
         </Button>
         <Dialog {...args} id='1' open={isOpen} onClose={() => setOpen(false)}> 
           <form action="" style={{display: 'flex', flexDirection: 'column', gap: '16px'}}>
-            <p>Нам важно твое мнение!</p>
             <RadioStars rating={rating} setRating={setRating}></RadioStars>
             <InputText id={'1'} name='review' type='text' placeholder={'Аноним'} label={'Имя'} />
             <InputText id={'2'} name='review' type='text' placeholder={'@Student'} label={'Телеграм'} />
