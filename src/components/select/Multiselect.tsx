@@ -245,7 +245,6 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
                 onClick={() => selectOption(option)}
               >
                 {isSelected && <img src={checkImg} alt="" aria-hidden/>}
-                {/* <Checkbox aria-hidden checked={isSelected} disabled={option.disabled} onChange={() => selectOption(option)}/> */}
                 {option.label}
               </S.Option>
             );

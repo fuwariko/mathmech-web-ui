@@ -2,11 +2,23 @@ import { useEffect, useRef } from 'react';
 import * as S from './Dialog.styles';
 
 interface DialogProps extends React.DialogHTMLAttributes<HTMLDialogElement> {
+  /** Идентификатор для связи с другими элементами */
   id: string;
+
+  /** Заголовок модального окна */
   title?: string;
+
+  /** Открытое или закрытое состояние */
   open: boolean;
+
+  /** Обработчик закрытия модального окна */
   onClose: () => void;
+
+  /** Содержимое модального окна */
   children?: React.ReactNode;
+
+  /** Мобильная раскладка */
+  isMobile?: boolean;
 }
 
 const FOCUSABLE_SELECTOR = [
@@ -24,6 +36,7 @@ export const Dialog: React.FC<DialogProps> = ({
   onClose,
   title,
   children,
+  isMobile,
 }) => {
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
@@ -156,6 +169,7 @@ export const Dialog: React.FC<DialogProps> = ({
 
   return (
     <S.Dialog
+      $isMobile={isMobile}
       ref={dialogRef}
       role='dialog'
       onKeyDown={handleKeyDown}
@@ -166,9 +180,16 @@ export const Dialog: React.FC<DialogProps> = ({
         onClose();
       }}
     >
-      <S.Header><S.Title id={`dialog-title-${id}`}>{title}</S.Title></S.Header>
-      <S.CloseButton lang='ru' ref={closeBtnRef} type="button" onClick={onClose} aria-label='Закрыть модальное окно'/>
-      <div>{children}</div>
+      <S.CloseButton 
+        $isMobile={isMobile} 
+        lang='ru' 
+        ref={closeBtnRef} 
+        type="button" 
+        onClick={onClose} 
+        aria-label='Закрыть модальное окно'
+      />
+      <S.Header $isMobile={isMobile}><S.Title $isMobile={isMobile} id={`dialog-title-${id}`}>{title}</S.Title></S.Header>
+      <S.Body $isMobile={isMobile}>{children}</S.Body>
     </S.Dialog>
   );
 };

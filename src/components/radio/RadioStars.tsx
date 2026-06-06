@@ -7,6 +7,7 @@ type RadioStarsProps = {
   rating: number;
   setRating: React.Dispatch<React.SetStateAction<number>>;
   isError?: boolean;
+  isMobile?: boolean;
   className?: string;
 };
 
@@ -14,6 +15,7 @@ export const RadioStars: React.FC<RadioStarsProps> = ({
   rating, 
   setRating,
   isError,
+  isMobile,
   className,
 }) => {
   const handleRatingChange = (value: number) => {
@@ -40,12 +42,12 @@ export const RadioStars: React.FC<RadioStarsProps> = ({
             aria-checked={star === rating ? 'true' : 'false'}
           />
           {star <= rating ? (
-            <S.StarWrapper>
+            <S.StarWrapper $isMobile={isMobile}>
               <S.FocusSpan/>
               <img src={starFull} alt="" aria-hidden="true"/>
             </S.StarWrapper>
             ) : (
-            <S.StarWrapper>
+            <S.StarWrapper $isMobile={isMobile}>
               <S.FocusSpan/>
               <img src={starEmpty} alt="" aria-hidden="true"/>
             </S.StarWrapper>

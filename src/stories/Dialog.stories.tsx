@@ -1,4 +1,3 @@
-
 import { Button } from '../components/button/Button';
 import { RadioStars } from '../components/radio/RadioStars';
 import { InputText } from '../components/inputText/InputText';
@@ -14,25 +13,7 @@ const meta: Meta<typeof Dialog> = {
     layout: 'centered',
   },
   tags: ['autodocs'],
-  argTypes: {
-    open: {
-      control: 'boolean',
-      description: 'Открыто ли модальное окно',
-    },
-    onClose: {
-      action: 'closed',
-      description: 'Обработчик закрытия модального окна',
-    },
-    title: {
-      control: 'text',
-      description: 'Заголовок модального окна',
-    },
-    children: {
-      control: { type: 'text' },
-      description: 'Содержимое модального окна',
-    },
-  },
-};
+} satisfies Meta<typeof Dialog>;
 
 export default meta;
 type Story = StoryObj<typeof Dialog>;
@@ -67,6 +48,7 @@ export const Default: Story = {
         Привет, мир!
       </p>
     ),
+    isMobile: false,
   },
 };
 
@@ -86,6 +68,50 @@ export const ReviewForm: Story = {
         <Dialog {...args} id='1' open={isOpen} onClose={() => setOpen(false)}> 
           <form action="" style={{display: 'flex', flexDirection: 'column', gap: '16px'}}>
             <RadioStars rating={rating} setRating={setRating}></RadioStars>
+            <InputText id={'1'} name='review' type='text' placeholder={'Аноним'} label={'Имя'} />
+            <InputText id={'2'} name='review' type='text' placeholder={'@Student'} label={'Телеграм'} />
+            <Textarea id={"3"} name="review" placeholder={"Чем бы вы хотели поделиться?"} style={{height: '125px', resize: 'none'}}/>
+            <div style={{display: 'flex', justifyContent: 'flex-end', gap: '15px'}}>
+              <Button 
+                lang='ru'
+                color='lightGrey02' 
+                textColor='darkGrey01'
+              >
+                Отмена
+              </Button>
+              <Button 
+                lang='ru'
+                color='mainNavy' 
+              >
+                Отправить
+              </Button>
+            </div>
+          </form>
+        </Dialog>
+      </div>
+    );
+  },
+  args: {
+    title: 'Форма обратной связи',
+  },
+};
+
+export const MobileReviewForm: Story = {
+  render: (args) => {
+    const [isOpen, setOpen] = useState(false);
+    const [rating, setRating] = useState(0)
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <Button 
+          lang='ru'
+          color='mainNavy' 
+          onClick={() => setOpen(true)}
+        >
+          Оставить отзыв
+        </Button>
+        <Dialog {...args} id='1' open={isOpen} onClose={() => setOpen(false)} isMobile> 
+          <form action="" style={{display: 'flex', flexDirection: 'column', gap: '16px'}}>
+            <RadioStars rating={rating} setRating={setRating} isMobile></RadioStars>
             <InputText id={'1'} name='review' type='text' placeholder={'Аноним'} label={'Имя'} />
             <InputText id={'2'} name='review' type='text' placeholder={'@Student'} label={'Телеграм'} />
             <Textarea id={"3"} name="review" placeholder={"Чем бы вы хотели поделиться?"} style={{height: '125px', resize: 'none'}}/>
