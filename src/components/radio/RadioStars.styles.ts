@@ -53,7 +53,7 @@ export const FocusSpan = styled.span`
   }
 `;
 
-export const StarWrapper = styled.div`
+export const StarWrapper = styled.div<{ $isMobile?: boolean }>`
     position: relative;
     display: flex;
     flex-wrap: nowrap;
@@ -65,9 +65,15 @@ export const StarWrapper = styled.div`
   & img {
     width: 60px;
     height: 60px;
-    // aria-hidden="true";
     alt="Звезда";
     role="none";
+    ${({ $isMobile }) =>
+    $isMobile
+      ? `
+        width: 50px;
+        height: 50px;
+      `
+      : ''}
   }
 `;
 
