@@ -96,6 +96,7 @@ export const CloseButton = styled.button <{ $isMobile?: boolean }>`
 export const Body = styled.div<{ $isMobile?: boolean }>`
   height: 100%;
   width: 100%;
+  padding: 2px;
   overflow-Y: auto;
   max-height: calc(
     min(90vh, 720px) -

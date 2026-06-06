@@ -2,17 +2,12 @@ import React from 'react';
 import * as S from './InputText.styles.ts';
 import { type TColors } from '../../theme/tokens.ts';
 
-export type InputTypes = 'text' | 'password' | 'email' | 'tel' | 'url' | 'number' | 'date' | 'time' | 'search';
-
-interface InputTextProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'type'> {
+interface InputTextProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   /** Идентификатор для связи с другими элементами */
   id?: string;
 
   /** Поле для идентификации и группировки элементов в форме */
   name?: string;
-
-  /** Тип поля ввода */
-  type?: InputTypes;
 
   /** Временный текст */
   placeholder?: string;
