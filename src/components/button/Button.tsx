@@ -1,6 +1,7 @@
-import { css } from '@emotion/css';
+import { css, cx } from '@emotion/css';
 import type {
   ButtonHTMLAttributes,
+  CSSProperties,
   MouseEventHandler,
   ReactNode,
 } from 'react';
@@ -8,30 +9,27 @@ import { useTheme, type TThemeColors } from '../../ThemeContext';
 
 type TButtonSize = 'small' | 'large';
 
-interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  /** Текст внутри кнопки */
-  children?: ReactNode | string;
+interface IButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children?: ReactNode;
 
-  /** Иконка слева */
   icon?: ReactNode;
 
-  /** Дизейбл кнопки */
   disabled?: boolean;
 
-  /** Цвет кнопки */
   color: TThemeColors;
 
-  /** Размер кнопки */
   size?: TButtonSize;
 
-  /** Цвет текста */
   textColor?: TThemeColors;
 
-  /** Радиус */
   radius?: string;
 
-  /** Действие по клику на кнопку */
   onClick?: MouseEventHandler<HTMLButtonElement>;
+
+  className?: string;
+
+  style?: CSSProperties;
 }
 
 export const Button = ({
@@ -43,6 +41,10 @@ export const Button = ({
   textColor,
   radius,
   onClick,
+
+  className,
+  style,
+
   ...props
 }: IButtonProps) => {
   const theme = useTheme();
@@ -51,88 +53,92 @@ export const Button = ({
 
   return (
     <button
+      {...props}
       disabled={disabled}
       onClick={onClick}
-      className={css`
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
+      style={style}
+      className={cx(
+        css`
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
 
-        border: none;
+          border: none;
 
-        width: fit-content;
+          width: fit-content;
 
-        cursor: ${disabled ? 'default' : 'pointer'};
+          cursor: ${disabled ? 'default' : 'pointer'};
 
-        height: ${size === 'large'
-          ? '72px'
-          : '44px'};
+          height: ${size === 'large'
+            ? '72px'
+            : '44px'};
 
-        padding: ${
-          iconOnly
-            ? size === 'large'
-              ? '24px'
-              : '12px'
-            : size === 'large'
-              ? '0 24px'
-              : '0 16px'
-        };
-
-        border-radius: ${
-          radius ??
-          (size === 'large'
-            ? '20px'
-            : '16px')
-        };
-
-        font-size: ${
-          size === 'large'
-            ? '16px'
-            : '14px'
-        };
-
-        font-weight: 500;
-
-        background: ${
-          theme[
-            color as keyof typeof theme
-          ]
-        };
-
-        color: ${
-          textColor
-            ? theme[
-                textColor as keyof typeof theme
-              ]
-            : '#ffffff'
-        };
-
-        opacity: ${disabled ? 0.5 : 1};
-
-        pointer-events: ${
-          disabled ? 'none' : 'auto'
-        };
-
-        transition:
-          opacity 0.2s ease,
-          transform 0.2s ease;
-
-        &:hover {
-          opacity: ${
-            disabled ? 0.5 : 0.9
+          padding: ${
+            iconOnly
+              ? size === 'large'
+                ? '24px'
+                : '12px'
+              : size === 'large'
+                ? '0 24px'
+                : '0 16px'
           };
-        }
 
-        &:active {
-          transform: ${
-            disabled
-              ? 'none'
-              : 'scale(0.98)'
+          border-radius: ${
+            radius ??
+            (size === 'large'
+              ? '20px'
+              : '16px')
           };
-        }
-      `}
-      {...props}
+
+          font-size: ${
+            size === 'large'
+              ? '16px'
+              : '14px'
+          };
+
+          font-weight: 500;
+
+          background: ${
+            theme[
+              color as keyof typeof theme
+            ]
+          };
+
+          color: ${
+            textColor
+              ? theme[
+                  textColor as keyof typeof theme
+                ]
+              : '#fff'
+          };
+
+          opacity: ${disabled ? 0.5 : 1};
+
+          pointer-events: ${
+            disabled ? 'none' : 'auto'
+          };
+
+          transition:
+            opacity 0.2s ease,
+            transform 0.2s ease;
+
+          &:hover {
+            opacity: ${
+              disabled ? 0.5 : 0.9
+            };
+          }
+
+          &:active {
+            transform: ${
+              disabled
+                ? 'none'
+                : 'scale(0.98)'
+            };
+          }
+        `,
+        className,
+      )}
     >
       {icon && (
         <span

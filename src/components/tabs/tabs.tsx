@@ -8,9 +8,9 @@ import {
 } from 'react';
 
 import {
-  сolors,
+  allColors,
   type TColors,
-} from '../../theme/tokens';
+} from '../../theme/color-tokens';
 
 type TTabsVariant = 'filled' | 'underline';
 
@@ -230,7 +230,6 @@ const containerStyles = (
   display: flex;
   flex-direction: ${vertical ? 'row' : 'column'};
   gap: 16px;
-
   width: fit-content;
 `;
 
@@ -312,8 +311,8 @@ const tabStyles = (
 
         background: ${
           active
-            ? сolors[activeColor]
-            : сolors[backgroundColor]
+            ? allColors[activeColor]
+            : allColors[backgroundColor]
         };
 
         color: ${active ? '#fff' : '#111'};
@@ -325,7 +324,7 @@ const tabStyles = (
 
         color: ${
           active
-            ? сolors[activeColor]
+            ? allColors[activeColor]
             : 'rgba(0,0,0,0.6)'
         };
 
@@ -350,13 +349,13 @@ const tabStyles = (
 
         border-bottom: ${
           !vertical && active
-            ? `2px solid ${сolors[activeColor]}`
+            ? `2px solid ${allColors[activeColor]}`
             : '2px solid transparent'
         };
 
         border-left: ${
           vertical && active
-            ? `2px solid ${сolors[activeColor]}`
+            ? `2px solid ${allColors[activeColor]}`
             : '2px solid transparent'
         };
 

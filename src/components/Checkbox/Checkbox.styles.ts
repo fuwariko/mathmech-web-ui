@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { сolors, type TColors } from '../../theme/tokens.ts';
+import { allColors, type TColors } from '../../theme/color-tokens.ts';
 import Check from '../../assets/check.svg?raw'
 
 export const Input = styled.input<{ color: TColors }>`
@@ -8,7 +8,7 @@ export const Input = styled.input<{ color: TColors }>`
   cursor: pointer;
 
   &:checked + span {
-    border-color: ${props => сolors[props.color]};
+    border-color: ${props => allColors[props.color]};
     background-color: #fff;
   }
 
@@ -30,7 +30,7 @@ export const Input = styled.input<{ color: TColors }>`
     content: '';
     width: 12px;
     height: 12px;
-    background-color: ${props => сolors[props.color]};
+    background-color: ${props => allColors[props.color]};
     border-radius: 5%;
     position: absolute;
     top: 50%;
@@ -39,7 +39,7 @@ export const Input = styled.input<{ color: TColors }>`
   }
     
   &:focus + span {
-    box-shadow: 0 0 0 2px ${props => сolors[props.color] + '80'};
+    box-shadow: 0 0 0 2px ${props => allColors[props.color] + '80'};
   }
 
   &:disabled {

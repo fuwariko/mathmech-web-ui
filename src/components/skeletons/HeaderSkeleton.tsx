@@ -1,5 +1,5 @@
 import { css, keyframes } from '@emotion/css';
-import type { TColors } from '../../theme/tokens';
+import type { TColors } from '../../theme/color-tokens';
 const shimmer = keyframes`
   0% { background-position: -200px 0; }
   100% { background-position: 200px 0; }

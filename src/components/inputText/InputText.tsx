@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './InputText.styles.ts';
-import { type TColors } from '../../theme/tokens.ts';
+import { type TColors } from '../../theme/color-tokens.ts';
 
 export type InputTypes = 'text' | 'password' | 'email' | 'tel' | 'url' | 'number' | 'date' | 'time' | 'search';
 

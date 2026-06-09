@@ -1,142 +1,190 @@
 import { css, cx } from '@emotion/css';
-import {
-  useState,
+import React, {
+  cloneElement,
+  isValidElement,
+  useId,
+  type CSSProperties,
+  type ReactElement,
   type ReactNode,
 } from 'react';
+import { allColors, type TColors } from '../../theme/color-tokens';
 
-import {
-  сolors,
-  type TColors,
-} from '../../theme/tokens';
+type THintPosition = 'top' | 'bottom' | 'left' | 'right';
 
-type THintPosition =
-  | 'top'
-  | 'bottom'
-  | 'left'
-  | 'right';
-
-interface IHintProps {
-  /** Элемент */
-  children: ReactNode;
-
-  /** Текст хинта */
-  text: string;
-
-  /** Позиция */
+interface HintProps {
+  children: ReactElement;
+  content: ReactNode;
   position?: THintPosition;
 
-  /** Цвет */
-  color?: TColors;
+  backgroundColor?: TColors;
+  textColor?: TColors;
+  borderColor?: TColors;
 
-  /** Дополнительный класс */
+  borderWidth?: number;
+  borderRadius?: number;
+
   className?: string;
+  offset?:number
 }
 
-export const Hint = ({
+export function Hint({
   children,
-  text,
+  content,
   position = 'top',
-  color = 'darkGrey01',
+  backgroundColor = 'darkGrey01',
+  textColor = 'lightGrey02',
+  borderColor = 'darkGrey01',
+  borderWidth = 0,
+  borderRadius = 10,
+  offset = 8,
   className,
-}: IHintProps) => {
-  const [visible, setVisible] = useState(false);
+}: HintProps) {
+  const id = useId();
+
+  if (!isValidElement(children)) {
+    throw new Error('Hint ожидает единственный ReactElement');
+  }
+
+  const anchorName = `--hint-anchor-${id}`;
+
+  const getPop = () =>
+    document.getElementById(id) as (HTMLElement & {
+      showPopover: (opts?: { source?: HTMLElement }) => void;
+      hidePopover: () => void;
+    }) | null;
+
+  const show = (source: HTMLElement) => {
+    const pop = getPop();
+    if (!pop) return;
+
+    try {
+      pop.showPopover({ source });
+    } catch {}
+  };
+
+  const hide = () => {
+    const pop = getPop();
+    if (!pop) return;
+
+    try {
+      pop.hidePopover();
+    } catch {}
+  };
+
+  const compose =
+    <E extends React.SyntheticEvent>(
+      original?: (e: E) => void,
+      next?: (e: E) => void,
+    ) =>
+    (e: E) => {
+      original?.(e);
+      next?.(e);
+    };
+
+  const trigger = cloneElement(children, {
+    'aria-describedby': id,
+
+    onMouseEnter: compose(
+      (children.props as any).onMouseEnter,
+      (e: React.MouseEvent) => show(e.currentTarget),
+    ),
+
+    onMouseLeave: compose(
+      (children.props as any).onMouseLeave,
+      () => hide(),
+    ),
+
+    onFocus: compose(
+      (children.props as any).onFocus,
+      (e: React.FocusEvent) => show(e.currentTarget),
+    ),
+
+    onBlur: compose(
+      (children.props as any).onBlur,
+      () => hide(),
+    ),
+
+    style: {
+      ...(children.props as any).style,
+      anchorName, // оставляем только anchor
+    } as CSSProperties,
+
+    className: cx((children.props as any).className, className),
+  });
 
   return (
-    <div
-      className={cx(
-        wrapperStyles,
-        className,
-      )}
-      onMouseEnter={() => setVisible(true)}
-      onMouseLeave={() => setVisible(false)}
-    >
-      {children}
+    <>
+      {trigger}
 
       <div
-        className={hintStyles(
-          visible,
-          position,
-          color,
-        )}
+        id={id}
+        popover="auto"
+        role="tooltip"
+        style={
+          {
+            positionAnchor: anchorName,
+            background: allColors[backgroundColor],
+            color: allColors[textColor],
+            border: `${borderWidth}px solid ${allColors[borderColor]}`,
+            borderRadius,
+          } as CSSProperties
+        }
+        className={contentClass(position, offset)}
       >
-        {text}
+        {content}
       </div>
-    </div>
+    </>
   );
-};
+}
 
-const wrapperStyles = css`
-  position: relative;
-
-  display: inline-flex;
-
-  width: fit-content;
-`;
-
-const hintStyles = (
-  visible: boolean,
-  position: THintPosition,
-  color: TColors,
-) => css`
-  position: absolute;
-
-  z-index: 100;
-
-  width: max-content;
-  max-width: 240px;
-
+const contentClass = (position: THintPosition, offset: number) => css`
+  position: fixed;
+  margin: 4px;
   padding: 8px 12px;
 
-  border-radius: 10px;
+  min-width: max-content;
+  max-width: 320px;
+
+  box-sizing: border-box;
 
   font-size: 12px;
   line-height: 16px;
 
-  color: #fff;
-
-  background: ${сolors[color]};
-
-  opacity: ${visible ? 1 : 0};
-
+  z-index: 9999;
   pointer-events: none;
 
-  transition:
-    opacity 0.2s ease,
-    transform 0.2s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
 
-  ${
-    position === 'top' &&
-    `
-      bottom: calc(100% + 8px);
-      left: 50%;
-      transform: translateX(-50%);
-    `
+  position-area: ${position};
+
+  opacity: 0;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+
+  ${position === 'top' && `
+    margin-bottom: ${offset};
+  `}
+
+  ${position === 'bottom' && `
+    margin-top: ${offset};
+  `}
+
+  ${position === 'left' && `
+    margin-right: ${offset};
+  `}
+
+  ${position === 'right' && `
+    margin-left: ${offset};
+  `}
+
+  &:popover-open {
+    opacity: 1;
   }
 
-  ${
-    position === 'bottom' &&
-    `
-      top: calc(100% + 8px);
-      left: 50%;
-      transform: translateX(-50%);
-    `
+  &:focus {
+    outline: none;
   }
 
-  ${
-    position === 'left' &&
-    `
-      right: calc(100% + 8px);
-      top: 50%;
-      transform: translateY(-50%);
-    `
-  }
-
-  ${
-    position === 'right' &&
-    `
-      left: calc(100% + 8px);
-      top: 50%;
-      transform: translateY(-50%);
-    `
+  &::backdrop {
+    background: transparent;
   }
 `;

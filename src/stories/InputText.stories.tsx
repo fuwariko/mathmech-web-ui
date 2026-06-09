@@ -4,7 +4,7 @@ import { type InputTypes } from '../components/inputText/InputText';
 import { useState } from 'react';
 
 const meta:  Meta<typeof InputText> = {
-  title: 'Atoms/InputText',
+  title: 'UI/InputText',
   component: InputText,
   parameters: {
     layout: 'centered',

@@ -2,10 +2,23 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/react-vite';
-import { Accordion } from '../components/accordion/accordion';
 
-const meta = {
-  title: 'Example/Accordion',
+import { Accordion } from '../components/accordion/accordion';
+import { UsersIcon } from '../icons/Icons';
+
+
+type TStoryIcon =
+  | 'plusMinus'
+  | 'chevron'
+  | 'arrow'
+  | 'chevronUpDown'
+  | 'dots'
+  | 'dash'
+  | 'none'
+  | 'custom';
+
+const meta: Meta<typeof Accordion> = {
+  title: 'UI/Accordion',
 
   component: Accordion,
 
@@ -15,10 +28,29 @@ const meta = {
 
   tags: ['autodocs'],
 
+  render: (args) => {
+    const { icon, ...rest } = args;
+
+    return (
+      <Accordion
+        {...rest}
+        icon={
+          icon === 'custom'
+            ? <UsersIcon />
+            : icon
+        }
+      />
+    );
+  },
+
   args: {
     activeColor: 'mainBlue',
 
     multiple: false,
+
+    icon: 'plusMinus',
+
+    iconPosition: 'right',
 
     items: [
       {
@@ -31,7 +63,6 @@ const meta = {
           </div>
         ),
       },
-
       {
         id: '2',
         title: 'Как это работает?',
@@ -42,10 +73,10 @@ const meta = {
           </div>
         ),
       },
-
       {
         id: '3',
-        title: 'Можно ли кастомизировать?',
+        title:
+          'Можно ли кастомизировать?',
         content: (
           <div>
             Да, стили полностью
@@ -60,8 +91,27 @@ const meta = {
     multiple: {
       control: 'boolean',
     },
+
+    iconPosition: {
+      control: 'select',
+      options: ['left', 'right'],
+    },
+
+    icon: {
+      control: 'select',
+      options: [
+        'plusMinus',
+        'chevron',
+        'arrow',
+        'chevronUpDown',
+        'dots',
+        'dash',
+        'none',
+        'custom',
+      ] satisfies TStoryIcon[],
+    },
   },
-} satisfies Meta<typeof Accordion>;
+};
 
 export default meta;
 

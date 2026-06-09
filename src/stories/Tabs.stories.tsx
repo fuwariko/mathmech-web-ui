@@ -85,7 +85,7 @@ const tabs = [
 ];
 
 const meta = {
-  title: 'Example/Tabs',
+  title: 'UI/Tabs',
 
   component: Tabs,
 

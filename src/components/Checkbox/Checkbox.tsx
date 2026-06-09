@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './Checkbox.styles.ts';
-import { type TColors } from '../../theme/tokens.ts';
+import { type TColors } from '../../theme/color-tokens.ts';
 
 interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'type'>{
   /** Поле для идентификации и группировки элементов в форме */

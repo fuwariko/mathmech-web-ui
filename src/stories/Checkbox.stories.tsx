@@ -3,7 +3,7 @@ import { Checkbox } from '../components/Checkbox/Checkbox';
 import { useState } from 'react';
 
 const meta:  Meta<typeof Checkbox> = {
-  title: 'Atoms/Checkbox',
+  title: 'FILTERS/Checkbox',
   component: Checkbox,
   parameters: {
     layout: 'centered',

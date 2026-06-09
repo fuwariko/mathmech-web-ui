@@ -4,7 +4,7 @@ import { Badge } from '../components/badge/Badge';
 import { Card } from '../components/card/Card';
 import {
   BoardIcon,
-  UsersScaleIcon,
+  UsersIcon,
   UsersGroupIcon,
   ArrowUpRightIcon,
   FilterIcon,
@@ -22,7 +22,7 @@ const headerOptions = {
   ),
 
   boardIcon: <BoardIcon size={24} />,
-  usersScale: <UsersScaleIcon size={24} />,
+  usersScale: <UsersIcon size={24} />,
   usersGroup: <UsersGroupIcon size={24} />,
   arrow: <ArrowUpRightIcon size={24} />,
   filter: <FilterIcon size={24} />,

@@ -12,7 +12,7 @@ const colors = [
 const icons = ['info', 'warning', 'question'] as const;
 
 const meta = {
-  title: 'Example/Tooltip',
+  title: 'UI/Tooltip',
   component: Tooltip,
 
   parameters: {

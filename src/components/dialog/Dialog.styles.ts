@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import Cansel from '../../assets/remove.svg?raw';
-import { сolors } from '../../theme/tokens.ts';
+import { allColors } from '../../theme/color-tokens.ts';
 
 export const Dialog = styled.dialog <{ $isMobile?: boolean }>`
   border: none;
@@ -65,7 +65,7 @@ export const CloseButton = styled.button <{ $isMobile?: boolean }>`
   }
   
   &:focus {
-    outline: 2px solid ${сolors.mainNavy};
+    outline: 2px solid ${allColors.mainNavy};
     outline-offset: 2px;
   }
 

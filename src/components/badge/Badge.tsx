@@ -1,5 +1,5 @@
 import { css, cx } from '@emotion/css';
-import { сolors, type TColors } from '../../theme/tokens';
+import { allColors, type TColors } from '../../theme/color-tokens';
 
 interface IBadgeProps {
   /** Текст внутри бейджа */
@@ -63,11 +63,11 @@ const badgeStyles = (
   height: 36px;
   line-height: 28px;
 
-  background: ${сolors[color]};
+  background: ${allColors[color]};
   color: rgb(255, 255, 255);
 
   border: 1px solid
     ${borderColor
-      ? сolors[borderColor]
+      ? allColors[borderColor]
       : 'transparent'};
 `;

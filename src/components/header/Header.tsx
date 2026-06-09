@@ -1,7 +1,7 @@
 import { css } from '@emotion/css';
 import type { ReactNode } from 'react';
 
-import { сolors, type TColors } from '../../theme/tokens';
+import { allColors, type TColors } from '../../theme/color-tokens';
 
 interface IHeaderProps {
   /** Заголовок */
@@ -78,8 +78,8 @@ const headerStyles = (
   position: relative;
   z-index: 2;
 
-  background: ${сolors[backgroundColor]};
-  color: ${сolors[textColor]};
+  background: ${allColors[backgroundColor]};
+  color: ${allColors[textColor]};
 
   box-sizing: border-box;
 

@@ -3,7 +3,7 @@ import { RadioStars } from '../components/radio/RadioStars';
 import { useState } from 'react';
 
 const meta:  Meta<typeof RadioStars> = {
-  title: 'Atoms/RadioStars',
+  title: 'FORMS/RadioStars',
   component: RadioStars,
   parameters: {
     layout: 'centered',

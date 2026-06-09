@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Button } from '../components/button/Button';
 import { Header } from '../components/header/Header';
-import { BoardIcon } from '../icons/BoardIcon';
+
 import { HeaderSkeleton } from '../components/skeletons/HeaderSkeleton';
+import { BoardIcon } from '../icons/Icons';
+import { Button } from '../components/button/Button';
 
 
 const meta: Meta<typeof Header> = {

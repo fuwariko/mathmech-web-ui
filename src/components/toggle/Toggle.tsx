@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './Toggle.styles'
-import { type TColors } from '../../theme/tokens.ts';
+import { type TColors } from '../../theme/color-tokens.ts';
 
 interface ToggleProps {
   /** Идентификатор для связи с другими элементами */

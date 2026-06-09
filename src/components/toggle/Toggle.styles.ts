@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { сolors, type TColors } from '../../theme/tokens.ts';
+import { allColors, type TColors } from '../../theme/color-tokens.ts';
 
 export const ToggleWrapper = styled.label`
   display: flex;
@@ -25,8 +25,8 @@ export const Input = styled.input<{ color: TColors }>`
   overflow: hidden;
 
   &:checked + span {
-    background-color: ${props => сolors[props.color]};
-    border-color: ${props => сolors[props.color]};
+    background-color: ${props => allColors[props.color]};
+    border-color: ${props => allColors[props.color]};
   }
 
   & + span::after {
@@ -37,7 +37,7 @@ export const Input = styled.input<{ color: TColors }>`
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background-color: ${props => сolors[props.color]};
+    background-color: ${props => allColors[props.color]};
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: all .2s ease-in-out;
   }
@@ -48,7 +48,7 @@ export const Input = styled.input<{ color: TColors }>`
   }
 
   &:focus-visible + span {
-    box-shadow: 0 0 0 2px ${props => сolors[props.color] + '80'};
+    box-shadow: 0 0 0 2px ${props => allColors[props.color] + '80'};
   }
 
   &:disabled {
@@ -68,7 +68,7 @@ export const Span = styled.span<{ color: TColors }>`
   width: 54px;
   height: 26px;
   border-radius: 16px;
-  border: 1px solid ${props => сolors[props.color]};
+  border: 1px solid ${props => allColors[props.color]};
   background-color: transparent;
   cursor: pointer;
   transition: all .2s ease-in-out;

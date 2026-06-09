@@ -1,61 +1,87 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from './RadioStars.styles.ts';
-import starFull from '../../assets/BigFullStarOrange.svg'
-import starEmpty from '../../assets/BigEmptyStarOrange.svg'
+import { StarFilledIcon, StarIcon } from '../../icons/Icons.tsx';
+
 
 type RadioStarsProps = {
   rating: number;
   setRating: React.Dispatch<React.SetStateAction<number>>;
+
+  activeColor?: string;
+  inactiveColor?: string;
+  hoverColor?: string;
+
   isError?: boolean;
   isMobile?: boolean;
   className?: string;
 };
 
 export const RadioStars: React.FC<RadioStarsProps> = ({
-  rating, 
+  rating,
   setRating,
+  activeColor = '#C25400',
+  inactiveColor = '#D9D9D9',
+  hoverColor = '#FFB26B',
   isError,
   isMobile,
   className,
 }) => {
-  const handleRatingChange = (value: number) => {
-      setRating(value);
-    };
-  
+  const [hovered, setHovered] = useState<number | null>(null);
+
+  const size = isMobile ? 24 : 48;
+
+  const getColor = (star: number) => {
+    const value = hovered ?? rating;
+
+    if (star <= value) {
+      return hovered !== null ? hoverColor : activeColor;
+    }
+
+    return inactiveColor;
+  };
+
   return (
-  <S.Wrapper>
-    <S.StarsWrapper 
-      role="radiogroup" 
-      aria-labelledby={isError ? "error-label": undefined} 
-      isError={isError} 
-      className={className}
-    >
-      {[1, 2, 3, 4, 5].map((star) => (
-        <label title={star.toString()} >
-          <S.Input
-            name="rating"
-            value={star}
-            id={`${star}-star`}
-            type="radio"
-            onChange={() => handleRatingChange(star)}
-            aria-label={`Оценка ${star}`}
-            aria-checked={star === rating ? 'true' : 'false'}
-          />
-          {star <= rating ? (
-            <S.StarWrapper $isMobile={isMobile}>
-              <S.FocusSpan/>
-              <img src={starFull} alt="" aria-hidden="true"/>
-            </S.StarWrapper>
-            ) : (
-            <S.StarWrapper $isMobile={isMobile}>
-              <S.FocusSpan/>
-              <img src={starEmpty} alt="" aria-hidden="true"/>
-            </S.StarWrapper>
-          )}
-        </label>
-      ))}
-    </S.StarsWrapper>
-    {isError && <S.ErrorMassage role="alert" id="error-label">Поставьте оценку</S.ErrorMassage>}
-  </S.Wrapper>
+    <S.Wrapper>
+      <S.StarsWrapper
+        role="radiogroup"
+        isError={isError}
+        className={className}
+      >
+        {[1, 2, 3, 4, 5].map((star) => {
+          const isFilled = star <= (hovered ?? rating);
+          const color = getColor(star);
+
+          return (
+            <label
+              key={star}
+              onMouseEnter={() => setHovered(star)}
+              onMouseLeave={() => setHovered(null)}
+            >
+              <S.Input
+                type="radio"
+                name="rating"
+                value={star}
+                checked={star === rating}
+                onChange={() => setRating(star)}
+              />
+
+              <S.StarWrapper $isMobile={isMobile}>
+                {isFilled ? (
+                  <StarFilledIcon size={size} color={color} />
+                ) : (
+                  <StarIcon size={size} color={color} />
+                )}
+              </S.StarWrapper>
+            </label>
+          );
+        })}
+      </S.StarsWrapper>
+
+      {isError && (
+        <S.ErrorMassage role="alert" id="error-label">
+          Поставьте оценку
+        </S.ErrorMassage>
+      )}
+    </S.Wrapper>
   );
 };

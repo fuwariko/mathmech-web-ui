@@ -1,25 +1,41 @@
-import type { ReactNode, SVGProps } from 'react';
+import type {
+  CSSProperties,
+  ReactNode,
+  SVGProps,
+} from 'react';
 
-export type IconSize = 8 | 16 | 24 | 32;
+export type IconSize =
+  | 16
+  | 24
+  | 32
+  | 48
+  | 64;
 
 export interface IconProps
-  extends Omit<SVGProps<SVGSVGElement>, 'color' | 'children'> {
-  /** Размер иконки в px */
+  extends Omit<
+    SVGProps<SVGSVGElement>,
+    'color' | 'children'
+  > {
   size?: IconSize;
-  /** Цвет обводки */
+
   color?: string;
-  /** Толщина обводки */
-  strokeWidth?: number;
+
+  strokeWidth?: 1 | 2;
+
+  className?: string;
+
+  style?: CSSProperties;
 }
 
-interface IconBaseProps extends IconProps {
+interface IconBaseProps
+  extends IconProps {
   children: ReactNode;
 }
 
 export const IconBase = ({
   size = 24,
   color = 'currentColor',
-  strokeWidth = 1.8,
+  strokeWidth = 2,
   children,
   ...props
 }: IconBaseProps) => {
@@ -42,12 +58,10 @@ export const IconBase = ({
     </svg>
   );
 };
-
 /**
- * Люди разного размера.
- * Верхняя левая иконка на изображении.
+ * Несколько юзеров от большого к меньшему
  */
-export const UsersScaleIcon = (props: IconProps) => {
+export const UsersIcon = (props: IconProps) => {
   return (
     <IconBase {...props}>
       <circle cx="5" cy="6" r="2.1" />
@@ -66,8 +80,8 @@ export const UsersScaleIcon = (props: IconProps) => {
 };
 
 /**
- * Группа пользователей.
- * Верхняя правая иконка на изображении.
+ * Группа пользователей
+ * 
  */
 export const UsersGroupIcon = (props: IconProps) => {
   return (
@@ -85,7 +99,7 @@ export const UsersGroupIcon = (props: IconProps) => {
 };
 
 /**
- * Стрелка вверх вправо.
+ * Стрелка вверх вправо
  */
 export const ArrowUpRightIcon = (props: IconProps) => {
   return (
@@ -97,7 +111,7 @@ export const ArrowUpRightIcon = (props: IconProps) => {
 };
 
 /**
- * Фильтр.
+ * Фильтр
  */
 export const FilterIcon = (props: IconProps) => {
   return (
@@ -108,8 +122,7 @@ export const FilterIcon = (props: IconProps) => {
 };
 
 /**
- * Доска / презентация.
- * Вариант BoardIcon с управляемой обводкой вместо fill.
+ * Доска / презентация
  */
 export const BoardIcon = (props: IconProps) => {
   return (
@@ -125,7 +138,7 @@ export const BoardIcon = (props: IconProps) => {
 };
 
 /**
- * Список.
+ * Три горизонтальные полоски друг под другом
  */
 export const ListIcon = (props: IconProps) => {
   return (
@@ -138,7 +151,7 @@ export const ListIcon = (props: IconProps) => {
 };
 
 /**
- * Сетка карточек.
+ * Плитка
  */
 export const GridIcon = (props: IconProps) => {
   return (
@@ -152,20 +165,67 @@ export const GridIcon = (props: IconProps) => {
 };
 
 /**
- * Составная иконка переключения вида:
- * список + сетка, как в нижнем блоке изображения.
+ * Звезда
  */
-export const ViewModeIcon = (props: IconProps) => {
+export const StarIcon = (props: IconProps) => {
   return (
     <IconBase {...props}>
-      <path d="M2.5 7H10" />
-      <path d="M2.5 12H10" />
-      <path d="M2.5 17H10" />
+      <path d="M12 3.5L14.7 8.9L20.5 9.7L16.2 13.8L17.3 19.5L12 16.6L6.7 19.5L7.8 13.8L3.5 9.7L9.3 8.9L12 3.5Z" />
+    </IconBase>
+  );
+};
 
-      <rect x="13.5" y="5.2" width="3.3" height="3.3" rx="0.8" />
-      <rect x="18.2" y="5.2" width="3.3" height="3.3" rx="0.8" />
-      <rect x="13.5" y="14.7" width="3.3" height="3.3" rx="0.8" />
-      <rect x="18.2" y="14.7" width="3.3" height="3.3" rx="0.8" />
+/**
+ * Круг с галочкой
+ */
+export const CheckCircleIcon = (props: IconProps) => {
+  return (
+    <IconBase {...props}>
+      <circle
+        cx="12"
+        cy="12"
+        r="9"
+      />
+
+      <path d="M8 12.5L11 15.5L16.5 8.8" />
+    </IconBase>
+  );
+};
+
+/**
+ * Круг пустой
+ */
+export const CircleIcon = (props: IconProps) => {
+  return (
+    <IconBase {...props}>
+      <circle
+        cx="12"
+        cy="12"
+        r="9"
+      />
+    </IconBase>
+  );
+};
+
+/**
+ * Заполненная звезда
+ */
+export const StarFilledIcon = (props: IconProps) => {
+  const {
+    color = 'currentColor',
+    ...rest
+  } = props;
+
+  return (
+    <IconBase
+      {...rest}
+      color={color}
+    >
+      <path
+        d="M12 3.5L14.7 8.9L20.5 9.7L16.2 13.8L17.3 19.5L12 16.6L6.7 19.5L7.8 13.8L3.5 9.7L9.3 8.9L12 3.5Z"
+        fill={color}
+        stroke={color}
+      />
     </IconBase>
   );
 };

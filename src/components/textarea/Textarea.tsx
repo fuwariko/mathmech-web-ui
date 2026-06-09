@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './Textarea.styles.ts';
-import { type TColors } from '../../theme/tokens.ts';
+import { type TColors } from '../../theme/color-tokens.ts';
 
 interface TextareaProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange' | 'type'> {
   /** Идентификатор для связи с другими элементами */

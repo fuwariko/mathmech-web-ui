@@ -9,8 +9,8 @@ import {
   defaultThemeColors,
   fiitThemeColors,
 } from '../ThemeContext';
+import { Button } from '../components/button/button';
 
-import { Button } from '../components/button/Button';
 
 const allColors = [
   ...Object.keys(defaultThemeColors),
@@ -113,7 +113,7 @@ export const CustomIcon: Story = {
       <FilterIcon
         size={32}
         color="#ffffff"
-        strokeWidth={2.5}
+        strokeWidth={2.}
       />
     ),
 

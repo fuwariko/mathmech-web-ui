@@ -11,7 +11,7 @@ const options = [
 ];
 
 const meta = {
-  title: 'Atoms/MultiSelect',
+  title: 'FILTERS/MultiSelect',
   component: MultiSelect,
   parameters: {
     layout: 'centered',

@@ -1,9 +1,20 @@
-import { css, cx } from '@emotion/css';
-import { useState, type ReactNode } from 'react';
-import { сolors, type TColors } from '../../theme/tokens';
+import { css } from '@emotion/css';
+import type { ReactElement, ReactNode } from 'react';
 
-type TTooltipPosition = 'top' | 'bottom' | 'left' | 'right';
-type TTooltipIcon = 'info' | 'warning' | 'question';
+
+import { allColors, type TColors } from '../../theme/color-tokens';
+import { Hint } from '../hint/hint';
+
+type TTooltipPosition =
+  | 'top'
+  | 'bottom'
+  | 'left'
+  | 'right';
+
+type TTooltipIcon =
+  | 'info'
+  | 'warning'
+  | 'question';
 
 interface ITooltipProps {
   /** Контент тултипа */
@@ -15,11 +26,11 @@ interface ITooltipProps {
   /** Цвет */
   color?: TColors;
 
-  /** Иконка триггера */
+  /** Иконка */
   icon?: TTooltipIcon;
 
-  /** Кастомный триггер вместо иконки */
-  children?: ReactNode;
+  /** Кастомный триггер */
+  children?: ReactElement;
 
   className?: string;
 }
@@ -32,34 +43,25 @@ export const Tooltip = ({
   children,
   className,
 }: ITooltipProps) => {
-  const [visible, setVisible] = useState(false);
-
   return (
-    <div
-      className={cx(wrapperStyles, className)}
-      onMouseEnter={() => setVisible(true)}
-      onMouseLeave={() => setVisible(false)}
+    <Hint
+      content={content}
+      position={position}
+      backgroundColor={color}
+      className={className}
     >
-      {children ? (
-        children
-      ) : (
+      {children ?? (
         <div className={iconStyles(color)}>
           {renderIcon(icon)}
         </div>
       )}
-
-      <div
-        className={tooltipStyles(visible, position, color)}
-        role="tooltip"
-      >
-        {content}
-      </div>
-    </div>
+    </Hint>
   );
 };
 
-
-const renderIcon = (icon: TTooltipIcon) => {
+const renderIcon = (
+  icon: TTooltipIcon,
+) => {
   switch (icon) {
     case 'warning':
       return '!';
@@ -70,18 +72,13 @@ const renderIcon = (icon: TTooltipIcon) => {
   }
 };
 
-const wrapperStyles = css`
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-`;
-
-/** круглая иконка */
-const iconStyles = (color: TColors) => css`
+const iconStyles = (
+  color: TColors,
+) => css`
   width: 18px;
   height: 18px;
 
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 
@@ -92,83 +89,17 @@ const iconStyles = (color: TColors) => css`
   line-height: 1;
 
   color: #fff;
-  background: ${сolors[color]};
+  background: ${allColors[color]};
 
   cursor: default;
-
   user-select: none;
 
-  transition: transform 0.15s ease, opacity 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    opacity 0.15s ease;
 
   &:hover {
     transform: scale(1.08);
     opacity: 0.9;
-  }
-`;
-
-const tooltipStyles = (
-  visible: boolean,
-  position: TTooltipPosition,
-  color: TColors,
-) => css`
-  position: absolute;
-  z-index: 100;
-
-  min-width: 200px;
-  max-width: 280px;
-
-  padding: 10px 12px;
-
-  border-radius: 10px;
-
-  font-size: 13px;
-  line-height: 18px;
-
-  color: #fff;
-  background: ${сolors[color]};
-
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
-
-  opacity: ${visible ? 1 : 0};
-  transform: ${visible ? 'translateY(0)' : 'translateY(4px)'};
-
-  pointer-events: none;
-
-  transition: opacity 0.18s ease, transform 0.18s ease;
-
-  ${
-    position === 'top' &&
-    `
-      bottom: calc(100% + 8px);
-      left: 50%;
-      transform: translateX(-50%) translateY(${visible ? '0' : '4px'});
-    `
-  }
-
-  ${
-    position === 'bottom' &&
-    `
-      top: calc(100% + 8px);
-      left: 50%;
-      transform: translateX(-50%) translateY(${visible ? '0' : '-4px'});
-    `
-  }
-
-  ${
-    position === 'left' &&
-    `
-      right: calc(100% + 8px);
-      top: 50%;
-      transform: translateY(-50%) translateX(${visible ? '0' : '4px'});
-    `
-  }
-
-  ${
-    position === 'right' &&
-    `
-      left: calc(100% + 8px);
-      top: 50%;
-      transform: translateY(-50%) translateX(${visible ? '0' : '-4px'});
-    `
   }
 `;

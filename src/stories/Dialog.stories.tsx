@@ -7,7 +7,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Dialog } from '../components/dialog/Dialog';
 
 const meta: Meta<typeof Dialog> = {
-  title: 'Atoms/Dialog',
+  title: 'UI/Dialog',
   component: Dialog,
   parameters: {
     layout: 'centered',

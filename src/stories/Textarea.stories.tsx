@@ -3,7 +3,7 @@ import { Textarea } from '../components/textarea/Textarea';
 import { useState } from 'react';
 
 const meta:  Meta<typeof Textarea> = {
-  title: 'Atoms/Textarea',
+  title: 'FORMS/Textarea',
   component: Textarea,
   parameters: {
     layout: 'centered',

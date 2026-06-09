@@ -3,23 +3,29 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import {
   BoardIcon,
   UsersGroupIcon,
-  UsersScaleIcon,
+  UsersIcon,
   ArrowUpRightIcon,
   FilterIcon,
   ListIcon,
   GridIcon,
-  ViewModeIcon,
+  CircleIcon,
+  CheckCircleIcon,
+  StarIcon,
+  StarFilledIcon,
 } from '../icons/Icons';
 
 const iconMap = {
   board: BoardIcon,
   usersGroup: UsersGroupIcon,
-  usersScale: UsersScaleIcon,
+  usersScale: UsersIcon,
   arrow: ArrowUpRightIcon,
   filter: FilterIcon,
   list: ListIcon,
   grid: GridIcon,
-  viewMode: ViewModeIcon,
+  star: StarIcon,
+  circle: CircleIcon,
+  circleWithTic: CheckCircleIcon,
+  starFilledIcon: StarFilledIcon
 };
 
 const meta: Meta = {
@@ -36,8 +42,8 @@ const meta: Meta = {
     },
 
     size: {
-      control: 'radio',
-      options: [8, 16, 24, 32],
+        control: 'radio',
+        options: [16, 24, 32, 48, 64],
     },
 
     color: {
@@ -45,12 +51,8 @@ const meta: Meta = {
     },
 
     strokeWidth: {
-      control: {
-        type: 'number',
-        min: 0.5,
-        max: 4,
-        step: 0.1,
-      },
+        control: 'radio',
+        options: [1, 2],
     },
   },
 

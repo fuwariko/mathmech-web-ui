@@ -1,4 +1,4 @@
-export const сolors = {
+export const allColors = {
   darkNavy01: '#2C416D',
   darkNavy02: '#0A255E',
   mainNavy: '#1E4391',
@@ -102,4 +102,4 @@ export const fiitThemeColors = {
   lightGrey02: '#F2EFFD',
 }
 
-export type TColors = keyof typeof сolors;
+export type TColors = keyof typeof allColors;

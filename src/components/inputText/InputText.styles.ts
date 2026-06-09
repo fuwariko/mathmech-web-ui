@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { сolors, type TColors } from '../../theme/tokens.ts';
+import { allColors, type TColors } from '../../theme/color-tokens.ts';
 
 export const Input = styled.input<{ isError?: boolean; color: TColors }>`
     height: 48px;
@@ -18,11 +18,11 @@ export const Input = styled.input<{ isError?: boolean; color: TColors }>`
     border: 1px solid #D3D3D3;
 
   &:focus {
-    border-color: ${props => сolors[props.color]};
+    border-color: ${props => allColors[props.color]};
   }
 
   &:focus-visible {
-    box-shadow: 0 0 0 2px ${props => сolors[props.color]+ '80'};
+    box-shadow: 0 0 0 2px ${props => allColors[props.color]+ '80'};
     outline: none;
   }
 
@@ -33,14 +33,14 @@ export const Input = styled.input<{ isError?: boolean; color: TColors }>`
   }
 
   ${({ isError }) => isError && `
-    border-color: ${сolors.mainRed};
+    border-color: ${allColors.mainRed};
     
     &:focus {
-      border-color: ${сolors.mainRed};
+      border-color: ${allColors.mainRed};
     }
       
     &:focus-visible {
-      box-shadow: 0 0 0 2px ${сolors.mainRed + 'b0'};
+      box-shadow: 0 0 0 2px ${allColors.mainRed + 'b0'};
     }
   `}
 `;
@@ -59,14 +59,14 @@ export const DescriptionSpan = styled.span`
   word-break: break-word;
   
   & span {
-    color: ${сolors.mainRed};
+    color: ${allColors.mainRed};
   }
 `
 
 export const ErrorSpan = styled.span`
   font-size: 14px;
   font-weight: 600;
-  color: ${сolors.mainRed};
+  color: ${allColors.mainRed};
   margin-top: 4px;
   overflow-wrap: break-word;
   word-break: break-word;
