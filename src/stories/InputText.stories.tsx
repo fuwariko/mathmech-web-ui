@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { InputText } from '../components/inputText/InputText';
-import { type InputTypes } from '../components/inputText/InputText';
 import { useState } from 'react';
 
 const meta:  Meta<typeof InputText> = {
@@ -38,6 +37,22 @@ export const EmailInputText = {
   },
 };
 
+export const CountryInputText = {
+  render: () => {
+    return (
+      <fieldset role="group" style={{ width: "240px", border: "none"}}>
+          <InputText
+            id={"0"}
+            name="country"
+            type='country'
+            placeholder={"Страна"}
+            label={"Страна"}
+          />
+      </fieldset>
+    );
+  },
+};
+
 export const ErrorInputText = {
   render: () => {
     return (
@@ -61,11 +76,11 @@ export const GroupInputText = {
   render: () => {
     const options: {
       id: string;
-      type: InputTypes;
+      type: string;
       placeholder: string | undefined;
       description: string;
     }[] = [
-      { id: '1', type: 'text', placeholder: 'Иванов Иван', description: 'Имя Фамилия' },
+      { id: '1', type: 'name', placeholder: 'Иванов Иван', description: 'Имя Фамилия' },
       { id: '2', type: 'number', placeholder: undefined, description: 'Возраст' },
       { id: '3', type: 'date', placeholder: undefined, description: 'Дата рождения' },
       { id: '4', type: 'password', placeholder: 'Введите пароль', description: 'Пароль' },
@@ -76,7 +91,7 @@ export const GroupInputText = {
         {options.map((opt) => (
           <InputText
             id={opt.id}
-            name="user"
+            name={opt.type}
             type={opt.type}
             placeholder={opt.placeholder}
             label={opt.description}
