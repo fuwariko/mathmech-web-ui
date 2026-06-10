@@ -1,0 +1,1 @@
+import{n as e,t}from"./react-DikPg5Gs.js";t();export{e as MDXProvider};
