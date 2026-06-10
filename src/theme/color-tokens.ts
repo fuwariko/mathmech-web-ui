@@ -1,4 +1,4 @@
-export const allColors = {
+const colorFallbacks = {
   darkNavy01: '#2C416D',
   darkNavy02: '#0A255E',
   mainNavy: '#1E4391',
@@ -23,8 +23,6 @@ export const allColors = {
   lightRed01: '#E3626B',
   lightRed02: '#EFC0C4',
 
-  
-
   darkCrimson01: '#5A1A5B',
   darkCrimson02: '#822183',
   mainCrimson: '#A92CAB',
@@ -34,7 +32,7 @@ export const allColors = {
   darkBlue01: '#0347BB',
   darkBlue02: '#0756DC',
   mainBlue: '#2B79FF',
-  lightBlue01: '#691B9FF',
+  lightBlue01: '#691B9F',
   lightBlue02: '#B9D3FF',
 
   darkPurple01: '#1E1769',
@@ -42,13 +40,22 @@ export const allColors = {
   mainPurple: '#5146CC',
   lightPurple01: '#948DDE',
   lightPurple02: '#B6B2E6',
-  
+
   darkGrey01: '#87859A',
   darkGrey02: '#B7B6C3',
   mainGrey: '#C6C1DA',
   lightGrey01: '#E2D9FF',
   lightGrey02: '#F2EFFD',
 } as const;
+
+export const allColors = Object.fromEntries(
+  Object.entries(colorFallbacks).map(([token, fallback]) => [
+    token,
+    `var(--mm-${token}, ${fallback})`,
+  ]),
+) as {
+  [Token in keyof typeof colorFallbacks]: `var(--mm-${Token}, ${typeof colorFallbacks[Token]})`;
+};
 
 export const defaultThemeColors = {
   darkNavy01: '#2C416D',
@@ -86,7 +93,7 @@ export const fiitThemeColors = {
   darkBlue01: '#0347BB',
   darkBlue02: '#0756DC',
   mainBlue: '#2B79FF',
-  lightBlue01: '#691B9FF',
+  lightBlue01: '#691B9F',
   lightBlue02: '#B9D3FF',
 
   darkPurple01: '#1E1769',

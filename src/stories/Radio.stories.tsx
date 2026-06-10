@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Radio } from '../components/radio/Radio';
 import { useState } from 'react';
+import { RadioSkeleton } from '../components/skeletons/ComponentSkeletons';
 
 const meta:  Meta<typeof Radio> = {
   title: 'FILTERS/Radio',
@@ -89,4 +90,8 @@ export const GroupRadioWithState = {
       </fieldset>
     );
   },
+};
+
+export const Skeleton: Story = {
+  render: () => <RadioSkeleton />,
 };

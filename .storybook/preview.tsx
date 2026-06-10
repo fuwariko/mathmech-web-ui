@@ -1,6 +1,6 @@
 // .storybook/preview.tsx
 import type { Preview } from '@storybook/react-vite';
-import { MyThemeProvider } from '../src/ThemeContext';
+import { ThemeProvider, type ThemeName } from '../src/ThemeContext';
 import '../src/global.css';
 
 
@@ -9,21 +9,21 @@ export const globalTypes = {
     name: 'Theme',
     description: 'Глобальная тема',
 
-    defaultValue: 'light',
+    defaultValue: 'default',
 
     toolbar: {
       icon: 'circlehollow',
 
       items: [
         {
-          value: 'light',
-          title: 'Light',
+          value: 'default',
+          title: 'Default',
           icon: 'sun',
         },
 
         {
-          value: 'dark',
-          title: 'Dark',
+          value: 'fiit',
+          title: 'FIIT',
           icon: 'moon',
         },
       ],
@@ -35,7 +35,7 @@ export const globalTypes = {
 
 const preview: Preview = {
   initialGlobals: {
-    theme: 'light',
+    theme: 'default',
   },
 
   parameters: {
@@ -53,9 +53,9 @@ const preview: Preview = {
 
   decorators: [
     (Story, context) => (
-      <MyThemeProvider mode={context.globals.theme}>
+      <ThemeProvider mode={context.globals.theme as ThemeName}>
         <Story />
-      </MyThemeProvider>
+      </ThemeProvider>
     ),
   ],
 };

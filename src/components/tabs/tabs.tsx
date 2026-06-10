@@ -1,6 +1,5 @@
 import { css, cx } from '@emotion/css';
 import {
-  useEffect,
   useRef,
   useState,
   type KeyboardEvent,
@@ -69,12 +68,9 @@ export const Tabs = ({
   );
 
   const tabListRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!tabs.find((tab) => tab.id === activeTab)) {
-      setActiveTab(tabs[0]?.id);
-    }
-  }, [tabs, activeTab]);
+  const selectedTabId = tabs.some((tab) => tab.id === activeTab)
+    ? activeTab
+    : tabs[0]?.id;
 
   const scrollTabs = (
     direction: 'prev' | 'next',
@@ -144,6 +140,7 @@ export const Tabs = ({
         {withScrollButtons && (
           <button
             type="button"
+            aria-label={vertical ? 'Прокрутить вкладки вверх' : 'Прокрутить вкладки влево'}
             className={scrollButtonStyles}
             onClick={() => scrollTabs('prev')}
           >
@@ -163,7 +160,7 @@ export const Tabs = ({
           )}
         >
           {tabs.map((tab, index) => {
-            const isActive = activeTab === tab.id;
+            const isActive = selectedTabId === tab.id;
 
             return (
               <button
@@ -196,6 +193,7 @@ export const Tabs = ({
         {withScrollButtons && (
           <button
             type="button"
+            aria-label={vertical ? 'Прокрутить вкладки вниз' : 'Прокрутить вкладки вправо'}
             className={scrollButtonStyles}
             onClick={() => scrollTabs('next')}
           >
@@ -205,7 +203,7 @@ export const Tabs = ({
       </div>
 
       {tabs.map((tab) => {
-        const isActive = activeTab === tab.id;
+        const isActive = selectedTabId === tab.id;
 
         return (
           <div

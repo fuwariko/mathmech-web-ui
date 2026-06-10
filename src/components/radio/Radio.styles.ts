@@ -22,7 +22,7 @@ export const Input = styled.input<{ color: TColors }>`
     transform: translate(-50%, -50%);
   }
   &:focus + span {
-    box-shadow: 0 0 0 2px ${props => allColors[props.color]+ '80'};
+    box-shadow: 0 0 0 2px ${props => `color-mix(in srgb, ${allColors[props.color]} 50%, transparent)`};
   }
 
   &:disabled {

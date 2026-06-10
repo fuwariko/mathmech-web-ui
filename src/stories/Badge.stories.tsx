@@ -1,8 +1,9 @@
+import { css } from '@emotion/css';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Badge } from '../components/badge/Badge';
+import { BadgeSkeleton } from '../components/skeletons/ComponentSkeletons';
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
   title: 'UI/Badge',
   component: Badge,
@@ -14,61 +15,37 @@ const meta = {
   tags: ['autodocs'],
 
   args: {
-    lable: 'Осень',
-    color: 'darkGreen02',
-    icon: false,
+    variant: 'online',
+    size: 'medium',
   },
 
   argTypes: {
+    variant: {
+      control: 'select',
+      options: [
+        'online',
+        'offline',
+        'withTest',
+        'places',
+        'retake',
+        'subject',
+      ],
+    },
+
+    size: {
+      control: 'select',
+      options: ['small', 'medium', 'large'],
+    },
+
     color: {
       control: 'select',
       options: [
-        'darkNavy01',
-        'darkNavy02',
-        'mainNavy',
-        'lightNavy01',
-        'lightNavy02',
-
-        'darkOrange01',
-        'darkOrange02',
-        'mainOrange',
-        'lightOrange01',
-        'lightOrange02',
-
-        'darkGreen01',
-        'darkGreen02',
+        undefined,
         'mainGreen',
-        'lightGreen01',
-        'lightGreen02',
-
-        'darkRed01',
-        'darkRed02',
-        'mainRed',
-        'lightRed01',
-        'lightRed02',
-
-        'darkCrimson01',
-        'darkCrimson02',
-        'mainCrimson',
-        'lightCrimson01',
-        'lightCrimson02',
-
-        'darkBlue01',
-        'darkBlue02',
-        'mainBlue',
-        'lightBlue01',
-        'lightBlue02',
-
-        'darkPurple01',
-        'darkPurple02',
-        'mainPurple',
-        'lightPurple01',
-        'lightPurple02',
-
-        'darkGrey01',
-        'darkGrey02',
+        'darkGreen01',
+        'lightOrange01',
+        'lightNavy01',
         'mainGrey',
-        'lightGrey01',
         'lightGrey02',
       ],
     },
@@ -77,59 +54,11 @@ const meta = {
       control: 'select',
       options: [
         undefined,
-
-        'darkNavy01',
-        'darkNavy02',
-        'mainNavy',
-        'lightNavy01',
-        'lightNavy02',
-
-        'darkOrange01',
-        'darkOrange02',
-        'mainOrange',
-        'lightOrange01',
-        'lightOrange02',
-
         'darkGreen01',
-        'darkGreen02',
-        'mainGreen',
-        'lightGreen01',
-        'lightGreen02',
-
-        'darkRed01',
-        'darkRed02',
-        'mainRed',
-        'lightRed01',
-        'lightRed02',
-
-        'darkCrimson01',
-        'darkCrimson02',
-        'mainCrimson',
-        'lightCrimson01',
-        'lightCrimson02',
-
-        'darkBlue01',
-        'darkBlue02',
-        'mainBlue',
-        'lightBlue01',
-        'lightBlue02',
-
-        'darkPurple01',
-        'darkPurple02',
-        'mainPurple',
-        'lightPurple01',
-        'lightPurple02',
-
+        'mainNavy',
         'darkGrey01',
-        'darkGrey02',
         'mainGrey',
-        'lightGrey01',
-        'lightGrey02',
       ],
-    },
-
-    icon: {
-      control: 'boolean',
     },
   },
 } satisfies Meta<typeof Badge>;
@@ -138,40 +67,55 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const Default: Story = {
+export const Default: Story = {};
+
+export const Presets: Story = {
+  render: () => (
+    <div className={presetStackStyles}>
+      <Badge variant="online" size="large" />
+      <Badge variant="offline" size="large" />
+      <Badge variant="withTest" size="large" />
+      <Badge variant="places" value={20} size="large" />
+      <Badge variant="retake" size="large" />
+      <Badge variant="subject" value="Математика" size="large" />
+    </div>
+  ),
+};
+
+export const CourseCardSet: Story = {
+  render: () => (
+    <div className={rowStyles}>
+      <Badge variant="online" size="small" />
+      <Badge variant="withTest" size="small" />
+      <Badge variant="places" value={20} size="small" />
+      <Badge variant="subject" value="Математика" size="small" />
+    </div>
+  ),
+};
+
+export const Custom: Story = {
   args: {
     lable: 'Осень',
     color: 'darkGreen02',
+    borderColor: undefined,
   },
 };
 
-export const Success: Story = {
-  args: {
-    lable: 'Весна',
-    color: 'darkCrimson02',
-  },
+export const Skeleton: Story = {
+  render: () => <BadgeSkeleton />,
 };
 
-export const Small: Story = {
-  args: {
-    lable: 'Тег',
-    color: 'lightGrey01',
-  },
-};
+const presetStackStyles = css`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 36px;
+  padding: 32px;
+`;
 
-export const WithBorder: Story = {
-  args: {
-    lable: 'Outlined',
-    color: 'mainBlue',
-    borderColor: 'lightGrey02',
-  },
-};
-
-export const Dark: Story = {
-  args: {
-    lable: 'Dark badge',
-    color: 'darkGrey01',
-    borderColor: 'lightGrey02',
-  },
-};
+const rowStyles = css`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+`;

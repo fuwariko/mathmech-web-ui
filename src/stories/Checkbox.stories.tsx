@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Checkbox } from '../components/Checkbox/Checkbox';
 import { useState } from 'react';
+import { CheckboxSkeleton } from '../components/skeletons/ComponentSkeletons';
 
 const meta:  Meta<typeof Checkbox> = {
   title: 'FILTERS/Checkbox',
@@ -59,7 +60,7 @@ export const GroupCheckbox = {
 
 export const GroupCheckboxWithState = {
   render: () => {
-    const [selected, setSelected] = useState<String[]>(['blue']);
+    const [selected, setSelected] = useState<string[]>(['blue']);
 
     const handleChange = (value: string) => {
         setSelected((prev) =>
@@ -67,7 +68,7 @@ export const GroupCheckboxWithState = {
             ? prev.filter((v) => v !== value)
             : [...prev, value]                
         );
-};
+    };
 
     const options = [
       { id: '1', value: 'blue', description: 'Синий' },
@@ -97,4 +98,8 @@ export const GroupCheckboxWithState = {
       </fieldset>
     );
   },
+};
+
+export const Skeleton: Story = {
+  render: () => <CheckboxSkeleton />,
 };

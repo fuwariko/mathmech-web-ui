@@ -4,6 +4,7 @@ import type {
 } from '@storybook/react-vite';
 
 import { Text } from '../components/text/Text';
+import { TextSkeleton } from '../components/skeletons/ComponentSkeletons';
 
 const meta = {
   title: 'ATOMS/Text',
@@ -220,6 +221,14 @@ export const BodyText: Story = {
       >
         Extra Small
       </Text>
+    </div>
+  ),
+};
+
+export const Skeleton: Story = {
+  render: () => (
+    <div style={{ width: 360 }}>
+      <TextSkeleton lines={3} />
     </div>
   ),
 };

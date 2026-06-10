@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { InputText } from '../components/inputText/InputText';
 import { useState } from 'react';
+import { InputTextSkeleton } from '../components/skeletons/ComponentSkeletons';
 
 const meta:  Meta<typeof InputText> = {
   title: 'UI/InputText',
@@ -126,4 +127,12 @@ export const ControlledInputText = {
     isError: true,
     errorMassage: 'Некорректный домен',
   }
+};
+
+export const Skeleton: Story = {
+  render: () => (
+    <div style={{ width: 240 }}>
+      <InputTextSkeleton />
+    </div>
+  ),
 };

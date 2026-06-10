@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { RadioStars } from '../components/radio/RadioStars';
 import { useState } from 'react';
+import { RadioStarsSkeleton } from '../components/skeletons/ComponentSkeletons';
 
 const meta:  Meta<typeof RadioStars> = {
   title: 'FORMS/RadioStars',
@@ -36,4 +37,8 @@ export const ExampleWithError: Story = {
         <RadioStars rating={rating} setRating={setRating} isError/>
     )
   }
+};
+
+export const Skeleton: Story = {
+  render: () => <RadioStarsSkeleton />,
 };

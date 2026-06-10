@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 import * as S from './RadioStars.styles.ts';
 import { StarFilledIcon, StarIcon } from '../../icons/Icons.tsx';
+import { isRadioStarFilled } from './RadioStars.utils.ts';
 
 
-type RadioStarsProps = {
+export type RadioStarsProps = {
   rating: number;
   setRating: React.Dispatch<React.SetStateAction<number>>;
 
@@ -13,6 +14,8 @@ type RadioStarsProps = {
 
   isError?: boolean;
   isMobile?: boolean;
+  name?: string;
+  ariaLabel?: string;
   className?: string;
 };
 
@@ -24,16 +27,18 @@ export const RadioStars: React.FC<RadioStarsProps> = ({
   hoverColor = '#FFB26B',
   isError,
   isMobile,
+  name,
+  ariaLabel = 'Оценка',
   className,
 }) => {
   const [hovered, setHovered] = useState<number | null>(null);
+  const generatedName = useId();
+  const groupName = name ?? `rating-${generatedName}`;
 
   const size = isMobile ? 24 : 48;
 
   const getColor = (star: number) => {
-    const value = hovered ?? rating;
-
-    if (star <= value) {
+    if (isRadioStarFilled(star, rating, hovered)) {
       return hovered !== null ? hoverColor : activeColor;
     }
 
@@ -44,11 +49,14 @@ export const RadioStars: React.FC<RadioStarsProps> = ({
     <S.Wrapper>
       <S.StarsWrapper
         role="radiogroup"
+        aria-label={ariaLabel}
+        aria-invalid={isError || undefined}
+        aria-describedby={isError ? `${groupName}-error` : undefined}
         isError={isError}
         className={className}
       >
         {[1, 2, 3, 4, 5].map((star) => {
-          const isFilled = star <= (hovered ?? rating);
+          const isFilled = isRadioStarFilled(star, rating, hovered);
           const color = getColor(star);
 
           return (
@@ -59,9 +67,10 @@ export const RadioStars: React.FC<RadioStarsProps> = ({
             >
               <S.Input
                 type="radio"
-                name="rating"
+                name={groupName}
                 value={star}
                 checked={star === rating}
+                aria-label={`${star} из 5`}
                 onChange={() => setRating(star)}
               />
 
@@ -78,7 +87,7 @@ export const RadioStars: React.FC<RadioStarsProps> = ({
       </S.StarsWrapper>
 
       {isError && (
-        <S.ErrorMassage role="alert" id="error-label">
+        <S.ErrorMassage role="alert" id={`${groupName}-error`}>
           Поставьте оценку
         </S.ErrorMassage>
       )}
