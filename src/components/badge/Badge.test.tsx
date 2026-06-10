@@ -20,8 +20,8 @@ describe('Badge', () => {
     expect(html).toContain('20 мест');
   });
 
-  it('uses a valid blue token for prepared places badge background', () => {
-    expect(allColors.lightBlue01).toMatch(/^#[0-9A-Fa-f]{6}$/);
+  it('uses a theme-aware blue token for prepared places badge background', () => {
+    expect(allColors.lightBlue01).toBe('var(--mm-lightBlue01, #691B9F)');
   });
 
   it('keeps custom label rendering for existing usage', () => {

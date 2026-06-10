@@ -1,5 +1,18 @@
-export { MyThemeProvider, defaultThemeColors, fiitThemeColors, themes, useTheme } from './ThemeContext';
-export type { TThemeColors, Theme } from './ThemeContext';
+export {
+  DARK_THEME,
+  DEFAULT_THEME,
+  FIIT_THEME,
+  LIGHT_THEME,
+  MyThemeProvider,
+  ThemeProvider,
+  createTheme,
+  defaultThemeColors,
+  fiitThemeColors,
+  getThemeCssVariables,
+  themes,
+  useTheme,
+} from './ThemeContext';
+export type { AppTheme, TThemeColors, Theme, ThemeName } from './ThemeContext';
 
 export { Accordion } from './components/accordion/accordion';
 export { Badge } from './components/badge/Badge';

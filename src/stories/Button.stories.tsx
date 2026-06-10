@@ -7,16 +7,12 @@ import {
 import { ButtonSkeleton } from '../components/skeletons/ComponentSkeletons';
 
 import {
-  defaultThemeColors,
-  fiitThemeColors,
+  DEFAULT_THEME,
 } from '../ThemeContext';
 import { Button } from '../components/button/Button';
 
 
-const allColors = [
-  ...Object.keys(defaultThemeColors),
-  ...Object.keys(fiitThemeColors),
-];
+const allColors = Object.keys(DEFAULT_THEME);
 
 const meta: Meta<typeof Button> = {
   title: 'UI/Button',
@@ -30,8 +26,7 @@ const meta: Meta<typeof Button> = {
 
   args: {
     children: 'Button',
-    color: 'mainNavy',
-    textColor: 'lightNavy02',
+    variant: 'primary',
     size: 'small',
     disabled: false,
   },
@@ -50,6 +45,11 @@ const meta: Meta<typeof Button> = {
     color: {
       control: 'select',
       options: allColors,
+    },
+
+    variant: {
+      control: 'radio',
+      options: ['primary', 'secondary', 'danger'],
     },
 
     textColor: {
@@ -118,8 +118,7 @@ export const CustomIcon: Story = {
       />
     ),
 
-    color: 'mainNavy',
-    textColor: 'lightNavy02',
+    variant: 'primary',
   },
 };
 

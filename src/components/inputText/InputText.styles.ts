@@ -22,7 +22,7 @@ export const Input = styled.input<{ isError?: boolean; color: TColors }>`
   }
 
   &:focus-visible {
-    box-shadow: 0 0 0 2px ${props => allColors[props.color]+ '80'};
+    box-shadow: 0 0 0 2px ${props => `color-mix(in srgb, ${allColors[props.color]} 50%, transparent)`};
     outline: none;
   }
 
@@ -40,7 +40,7 @@ export const Input = styled.input<{ isError?: boolean; color: TColors }>`
     }
       
     &:focus-visible {
-      box-shadow: 0 0 0 2px ${allColors.mainRed + 'b0'};
+      box-shadow: 0 0 0 2px color-mix(in srgb, ${allColors.mainRed} 70%, transparent);
     }
   `}
 `;
