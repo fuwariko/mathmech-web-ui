@@ -12,6 +12,24 @@ const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(file
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
   plugins: [react()],
+  build: {
+    lib: {
+      entry: path.resolve(dirname, 'src/index.ts'),
+      name: 'MathmechUiKit',
+      formats: ['es', 'cjs'],
+      fileName: (format) => format === 'es' ? 'index.js' : 'index.cjs'
+    },
+    rollupOptions: {
+      external: ['react', 'react-dom', 'react/jsx-runtime'],
+      output: {
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+          'react/jsx-runtime': 'React'
+        }
+      }
+    }
+  },
   test: {
     projects: [{
       extends: true,

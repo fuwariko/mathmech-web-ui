@@ -10,6 +10,15 @@ import React, {
 import { allColors, type TColors } from '../../theme/color-tokens';
 
 type THintPosition = 'top' | 'bottom' | 'left' | 'right';
+type HintChildProps = {
+  'aria-describedby'?: string;
+  onMouseEnter?: React.MouseEventHandler<HTMLElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLElement>;
+  onFocus?: React.FocusEventHandler<HTMLElement>;
+  onBlur?: React.FocusEventHandler<HTMLElement>;
+  style?: CSSProperties;
+  className?: string;
+};
 
 interface HintProps {
   children: ReactElement;
@@ -59,7 +68,9 @@ export function Hint({
 
     try {
       pop.showPopover({ source });
-    } catch {}
+    } catch {
+      // Browsers can throw if the popover state changes between pointer events.
+    }
   };
 
   const hide = () => {
@@ -68,7 +79,9 @@ export function Hint({
 
     try {
       pop.hidePopover();
-    } catch {}
+    } catch {
+      // Browsers can throw if the popover has already been closed.
+    }
   };
 
   const compose =
@@ -81,35 +94,36 @@ export function Hint({
       next?.(e);
     };
 
-  const trigger = cloneElement(children, {
+  const child = children as ReactElement<HintChildProps>;
+  const trigger = cloneElement(child, {
     'aria-describedby': id,
 
     onMouseEnter: compose(
-      (children.props as any).onMouseEnter,
-      (e: React.MouseEvent) => show(e.currentTarget),
+      child.props.onMouseEnter,
+      (e: React.MouseEvent<HTMLElement>) => show(e.currentTarget),
     ),
 
     onMouseLeave: compose(
-      (children.props as any).onMouseLeave,
+      child.props.onMouseLeave,
       () => hide(),
     ),
 
     onFocus: compose(
-      (children.props as any).onFocus,
-      (e: React.FocusEvent) => show(e.currentTarget),
+      child.props.onFocus,
+      (e: React.FocusEvent<HTMLElement>) => show(e.currentTarget),
     ),
 
     onBlur: compose(
-      (children.props as any).onBlur,
+      child.props.onBlur,
       () => hide(),
     ),
 
     style: {
-      ...(children.props as any).style,
+      ...child.props.style,
       anchorName, // оставляем только anchor
     } as CSSProperties,
 
-    className: cx((children.props as any).className, className),
+    className: cx(child.props.className, className),
   });
 
   return (
