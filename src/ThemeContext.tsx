@@ -4,6 +4,8 @@ import React, {
   useMemo,
 } from 'react';
 
+/* eslint-disable react-refresh/only-export-components */
+
 export const defaultThemeColors = {
   darkNavy01: '#2C416D',
   darkNavy02: '#0A255E',

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import * as S from './Select.styles.ts';
 import openImg from './../../assets/open.svg'
 
@@ -56,6 +56,10 @@ export const Select: React.FC<SelectProps> = ({
     () => options.find((option) => option.value === currentValue),
     [currentValue, options],
   );
+  const selectedIndex = selectedOption
+    ? options.findIndex((option) => option.value === selectedOption.value)
+    : 0;
+  const initialActiveIndex = selectedIndex >= 0 ? selectedIndex : 0;
 
   const selectOption = (option: SelectOption) => {
     if (option.disabled) return;
@@ -69,26 +73,19 @@ export const Select: React.FC<SelectProps> = ({
     buttonRef.current?.focus();
   };
 
-  useEffect(() => {
-    if (!open) return;
-    const index = selectedOption
-      ? options.findIndex((option) => option.value === selectedOption.value)
-      : 0;
-
-    setActiveIndex(index >= 0 ? index : 0);
-  }, [open, options, selectedOption]);
-
   const onKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
   if (disabled) return;
 
   switch (event.key) {
     case 'ArrowDown':
       event.preventDefault();
+      if (!open) setActiveIndex(initialActiveIndex);
       setOpen(true);
       setActiveIndex((prev) => (prev + 1 >= options.length ? 0 : prev + 1));
       break;
     case 'ArrowUp':
       event.preventDefault();
+      if (!open) setActiveIndex(initialActiveIndex);
       setOpen(true);
       setActiveIndex((prev) => (prev - 1 < 0 ? options.length - 1 : prev - 1));
       break;
@@ -99,6 +96,7 @@ export const Select: React.FC<SelectProps> = ({
         const option = options[activeIndex];
         if (option) selectOption(option);
       } else {
+        setActiveIndex(initialActiveIndex);
         setOpen(true);
       }
       break;
@@ -137,7 +135,11 @@ export const Select: React.FC<SelectProps> = ({
         aria-describedby={isError ? errorId : undefined}
         aria-activedescendant={open ? `${listId}-option-${options[activeIndex]?.value}` : undefined}
         disabled={disabled}
-        onClick={() => !disabled && setOpen((prev) => !prev)}
+        onClick={() => {
+          if (disabled) return;
+          if (!open) setActiveIndex(initialActiveIndex);
+          setOpen((prev) => !prev);
+        }}
         onKeyDown={onKeyDown}
       >
         <S.Value $isPlaceholder={!selectedOption}>

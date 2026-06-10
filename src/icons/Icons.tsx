@@ -122,6 +122,19 @@ export const FilterIcon = (props: IconProps) => {
 };
 
 /**
+ * Монитор
+ */
+export const MonitorIcon = (props: IconProps) => {
+  return (
+    <IconBase {...props}>
+      <rect x="4" y="5" width="16" height="11" rx="1.8" />
+      <path d="M12 16V20" />
+      <path d="M8 20H16" />
+    </IconBase>
+  );
+};
+
+/**
  * Доска / презентация
  */
 export const BoardIcon = (props: IconProps) => {
@@ -188,6 +201,17 @@ export const CheckCircleIcon = (props: IconProps) => {
       />
 
       <path d="M8 12.5L11 15.5L16.5 8.8" />
+    </IconBase>
+  );
+};
+
+/**
+ * Галочка
+ */
+export const CheckIcon = (props: IconProps) => {
+  return (
+    <IconBase {...props}>
+      <path d="M5 12.5L9.2 16.7L19 6.8" />
     </IconBase>
   );
 };

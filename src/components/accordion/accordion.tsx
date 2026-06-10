@@ -142,8 +142,10 @@ export const Accordion = ({
           item.id,
         );
 
+        const triggerId = `accordion-trigger-${item.id}`;
+        const panelId = `accordion-panel-${item.id}`;
         const iconNode = (
-          <span className={iconStyles}>
+          <span className={iconStyles} aria-hidden="true">
             {getIcon(isOpen)}
           </span>
         );
@@ -155,7 +157,10 @@ export const Accordion = ({
           >
             <button
               type="button"
+              id={triggerId}
               disabled={item.disabled}
+              aria-expanded={isOpen}
+              aria-controls={panelId}
               className={triggerStyles(
                 isOpen,
                 activeColor,
@@ -176,7 +181,12 @@ export const Accordion = ({
             </button>
 
             {isOpen && (
-              <div className={contentStyles}>
+              <div
+                id={panelId}
+                role="region"
+                aria-labelledby={triggerId}
+                className={contentStyles}
+              >
                 {item.content}
               </div>
             )}

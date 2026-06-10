@@ -4,12 +4,13 @@ import {
   BoardIcon,
   FilterIcon,
 } from '../icons/Icons';
+import { ButtonSkeleton } from '../components/skeletons/ComponentSkeletons';
 
 import {
   defaultThemeColors,
   fiitThemeColors,
 } from '../ThemeContext';
-import { Button } from '../components/button/button';
+import { Button } from '../components/button/Button';
 
 
 const allColors = [
@@ -120,4 +121,8 @@ export const CustomIcon: Story = {
     color: 'mainNavy',
     textColor: 'lightNavy02',
   },
+};
+
+export const Skeleton: Story = {
+  render: () => <ButtonSkeleton />,
 };

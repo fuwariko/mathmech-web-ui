@@ -12,6 +12,7 @@ import {
   CheckCircleIcon,
   StarIcon,
   StarFilledIcon,
+  type IconProps,
 } from '../icons/Icons';
 
 const iconMap = {
@@ -67,7 +68,7 @@ const meta: Meta = {
 export default meta;
 
 type Story = StoryObj<{
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<IconProps>;
   size: 8 | 16 | 24 | 32;
   color: string;
   strokeWidth: number;

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Toggle } from '../components/toggle/Toggle';
 import { useState } from 'react';
+import { ToggleSkeleton } from '../components/skeletons/ComponentSkeletons';
 
 const meta:  Meta<typeof Toggle> = {
   title: 'FILTERS/Toggle',
@@ -56,7 +57,7 @@ export const GroupToggle = {
 
 export const GroupToggleWithState = {
   render: () => {
-    const [selected, setSelected] = useState<String[]>([]);
+    const [selected, setSelected] = useState<string[]>([]);
 
     const handleChange = (value: string) => {
         setSelected((prev) =>
@@ -64,7 +65,7 @@ export const GroupToggleWithState = {
             ? prev.filter((v) => v !== value)
             : [...prev, value]                
         );
-};
+    };
 
     const options = [
       { id: '1', value: 'Speed', label: 'Скорость' },
@@ -93,4 +94,8 @@ export const GroupToggleWithState = {
       </fieldset>
     );
   },
+};
+
+export const Skeleton: Story = {
+  render: () => <ToggleSkeleton />,
 };

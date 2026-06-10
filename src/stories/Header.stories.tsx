@@ -1,15 +1,44 @@
+import { css } from '@emotion/css';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Header } from '../components/header/Header';
-
-import { HeaderSkeleton } from '../components/skeletons/HeaderSkeleton';
-import { BoardIcon } from '../icons/Icons';
+import { Badge } from '../components/badge/Badge';
 import { Button } from '../components/button/Button';
+import { Header } from '../components/header/Header';
+import { HeaderSkeleton } from '../components/skeletons/HeaderSkeleton';
+import { BadgeSkeleton, TextSkeleton } from '../components/skeletons/ComponentSkeletons';
+import { ArrowUpRightIcon, BoardIcon } from '../icons/Icons';
 
+const slotOptions = {
+  none: undefined,
+  text: 'МатМех',
+  nav: <nav style={{ display: 'flex', gap: 24, fontSize: 18 }}>Курсы Преподаватели Профиль</nav>,
+  icon: <BoardIcon size={24} />,
+  button: <Button color="mainBlue">Войти</Button>,
+  badge: <Badge variant="online" />,
+  skeleton: <BadgeSkeleton />,
+};
+
+const childrenOptions = {
+  none: undefined,
+  title: <h1 style={{ margin: 0, color: '#1e4391' }}>Каталог курсов</h1>,
+  titleWithLink: (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <h1 style={{ margin: 0, fontSize: 40, fontWeight: 400 }}>Каталог курсов</h1>
+      <a href="/favorites" style={{ display: 'inline-flex', alignItems: 'center', gap: 4, color: 'inherit', textDecoration: 'none', fontSize: 20 }}>
+        Избранные <ArrowUpRightIcon size={16} />
+      </a>
+    </div>
+  ),
+  skeleton: <TextSkeleton lines={2} />,
+};
 
 const meta: Meta<typeof Header> = {
   title: 'UI/Header',
   component: Header,
+
+  parameters: {
+    layout: 'fullscreen',
+  },
 
   tags: ['autodocs'],
 
@@ -18,187 +47,52 @@ const meta: Meta<typeof Header> = {
     backgroundColor: 'mainBlue',
     textColor: 'lightGrey02',
     sticky: false,
-
-    leftAccessory: 'МатМех',
-
-    rightAccessory: (
-      <Button color="mainGreen">
-        Войти
-      </Button>
-    ),
+    topLeft: 'МатМех',
+    topRight: 'Курсы   Преподаватели   Профиль',
   },
 
   argTypes: {
+    topLeft: {
+      control: 'select',
+      options: Object.keys(slotOptions),
+      mapping: slotOptions,
+    },
+
+    topRight: {
+      control: 'select',
+      options: Object.keys(slotOptions),
+      mapping: slotOptions,
+    },
+
+    children: {
+      control: 'select',
+      options: Object.keys(childrenOptions),
+      mapping: childrenOptions,
+    },
+
     backgroundColor: {
       control: 'select',
-
       options: [
         'darkNavy01',
         'darkNavy02',
         'mainNavy',
         'lightNavy01',
-        'lightNavy02',
-
-        'darkOrange01',
-        'darkOrange02',
-        'mainOrange',
-        'lightOrange01',
-        'lightOrange02',
-
-        'darkGreen01',
-        'darkGreen02',
-        'mainGreen',
-        'lightGreen01',
-        'lightGreen02',
-
-        'darkRed01',
-        'darkRed02',
-        'mainRed',
-        'lightRed01',
-        'lightRed02',
-
-        'darkCrimson01',
-        'darkCrimson02',
-        'mainCrimson',
-        'lightCrimson01',
-        'lightCrimson02',
-
-        'darkBlue01',
-        'darkBlue02',
-        'mainBlue',
         'lightBlue01',
-        'lightBlue02',
-
-        'darkPurple01',
-        'darkPurple02',
-        'mainPurple',
-        'lightPurple01',
-        'lightPurple02',
-
-        'darkGrey01',
-        'darkGrey02',
-        'mainGrey',
-        'lightGrey01',
-        'lightGrey02',
+        'mainBlue',
       ],
     },
 
     textColor: {
       control: 'select',
+      options: ['lightGrey02', 'darkGrey01', 'mainNavy'],
+    },
 
-      options: [
-        'darkNavy01',
-        'darkNavy02',
-        'mainNavy',
-        'lightNavy01',
-        'lightNavy02',
-
-        'darkOrange01',
-        'darkOrange02',
-        'mainOrange',
-        'lightOrange01',
-        'lightOrange02',
-
-        'darkGreen01',
-        'darkGreen02',
-        'mainGreen',
-        'lightGreen01',
-        'lightGreen02',
-
-        'darkRed01',
-        'darkRed02',
-        'mainRed',
-        'lightRed01',
-        'lightRed02',
-
-        'darkCrimson01',
-        'darkCrimson02',
-        'mainCrimson',
-        'lightCrimson01',
-        'lightCrimson02',
-
-        'darkBlue01',
-        'darkBlue02',
-        'mainBlue',
-        'lightBlue01',
-        'lightBlue02',
-
-        'darkPurple01',
-        'darkPurple02',
-        'mainPurple',
-        'lightPurple01',
-        'lightPurple02',
-
-        'darkGrey01',
-        'darkGrey02',
-        'mainGrey',
-        'lightGrey01',
-        'lightGrey02',
-      ],
+    filled: {
+      control: 'boolean',
     },
 
     sticky: {
       control: 'boolean',
-    },
-
-    leftAccessory: {
-      control: 'select',
-
-      options: [
-        'none',
-        'text',
-        'icon',
-        'button',
-      ],
-
-      mapping: {
-        none: undefined,
-
-        text: 'МатМех',
-
-        icon: <BoardIcon />,
-
-        button: (
-          <Button color="mainOrange">
-            Назад
-          </Button>
-        ),
-      },
-    },
-
-    rightAccessory: {
-      control: 'select',
-
-      options: [
-        'none',
-        'text',
-        'icon',
-        'button',
-        'largeButton',
-      ],
-
-      mapping: {
-        none: undefined,
-
-        text: 'Курсы Преподаватели Профиль',
-
-        icon: <BoardIcon />,
-
-        button: (
-          <Button color="mainGreen">
-            Войти
-          </Button>
-        ),
-
-        largeButton: (
-          <Button
-            color="mainPurple"
-            size="large"
-          >
-            Записаться
-          </Button>
-        ),
-      },
     },
   },
 };
@@ -207,79 +101,174 @@ export default meta;
 
 type Story = StoryObj<typeof Header>;
 
-export const Default: Story = {};
-
-export const Sticky: Story = {
+export const Playground: Story = {
   args: {
-    sticky: true,
+    title: undefined,
+    topLeft: slotOptions.text,
+    topRight: slotOptions.nav,
+    children: childrenOptions.titleWithLink,
   },
 };
 
-export const WithIcons: Story = {
-  args: {
-    leftAccessory: <BoardIcon />,
-    rightAccessory: <BoardIcon />,
-  },
+export const Catalog: Story = {
+  render: () => (
+    <Header
+      topLeft={<span className={brandStyles}>МатМех</span>}
+      topRight={<nav className={navStyles}>Курсы Преподаватели Профиль</nav>}
+      backgroundColor="mainBlue"
+      contentMaxWidth={980}
+      contentPaddingX={32}
+    >
+      <div className={catalogTitleStyles}>
+        <h1>Каталог курсов</h1>
+        <a href="/favorites">
+          Избранные <ArrowUpRightIcon size={16} />
+        </a>
+      </div>
+    </Header>
+  ),
 };
 
-export const WithoutAccessories: Story = {
-  args: {
-    leftAccessory: undefined,
-    rightAccessory: undefined,
-  },
+export const CoursePage: Story = {
+  render: () => (
+    <Header
+      topLeft={<span className={brandStyles}>МатМех</span>}
+      topRight={<nav className={navStyles}>Курсы Преподаватели Профиль</nav>}
+      backgroundColor="mainBlue"
+      contentMaxWidth={900}
+      contentPaddingX={40}
+    >
+      <div className={courseHeroStyles}>
+        <div className={badgeRowsStyles}>
+          <Badge variant="offline" />
+          <Badge variant="withTest" />
+          <Badge variant="places" value={20} />
+          <Badge variant="subject" value="Программирование" />
+        </div>
+
+        <div className={courseMainStyles}>
+          <div>
+            <h1>Теория множеств</h1>
+            <p>Хлопин Д. В.  КМА</p>
+            <p>Для ФИИТ-3, ФИИТ-4</p>
+          </div>
+
+          <button className={favoriteButtonStyles} type="button" aria-label="Добавить в избранное">
+            ♡
+          </button>
+        </div>
+      </div>
+    </Header>
+  ),
 };
 
-export const WithButtons: Story = {
-  args: {
-    leftAccessory: (
-      <Button color="mainOrange">
-        Назад
-      </Button>
-    ),
-
-    rightAccessory: (
-      <Button color="mainGreen">
-        Войти
-      </Button>
-    ),
-  },
-};
-
-export const WithLargeButton: Story = {
-  args: {
-    leftAccessory: 'Каталог',
-
-    rightAccessory: (
-      <Button
-        color="mainPurple"
-        size="large"
-      >
-        Записаться
-      </Button>
-    ),
-  },
-};
-
-export const CustomColors: Story = {
-  args: {
-    backgroundColor: 'mainPurple',
-    textColor: 'lightGrey02',
-
-    leftAccessory: 'МатМех',
-
-    rightAccessory: (
-      <Button color="mainOrange">
-        Меню
-      </Button>
-    ),
-  },
+export const WithoutFill: Story = {
+  render: () => (
+    <Header
+      filled={false}
+      textColor="mainNavy"
+      contentMaxWidth={900}
+      topLeft={<span className={brandDarkStyles}>МатМех</span>}
+      topRight={
+        <Button color="mainBlue">
+          Войти
+        </Button>
+      }
+    >
+      <h1 className={plainTitleStyles}>Страница без заливки</h1>
+    </Header>
+  ),
 };
 
 export const Skeleton: Story = {
-  render: (args) => (
-    <HeaderSkeleton
-      backgroundColor={'darkGrey01'}
-      sticky={args.sticky}
-    />
-  ),
+  render: () => <HeaderSkeleton />,
 };
+
+const brandStyles = css`
+  font-size: 40px;
+  line-height: 1;
+`;
+
+const brandDarkStyles = css`
+  font-size: 40px;
+  line-height: 1;
+  color: #1e4391;
+`;
+
+const navStyles = css`
+  display: flex;
+  gap: 24px;
+  font-size: 18px;
+`;
+
+const catalogTitleStyles = css`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  h1 {
+    margin: 0;
+    font-size: 40px;
+    font-weight: 400;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: inherit;
+    text-decoration: none;
+    font-size: 20px;
+  }
+`;
+
+const courseHeroStyles = css`
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+`;
+
+const badgeRowsStyles = css`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+`;
+
+const courseMainStyles = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+
+  h1 {
+    margin: 0 0 8px;
+    font-size: 44px;
+    font-weight: 400;
+  }
+
+  p {
+    margin: 0 0 16px;
+    font-size: 24px;
+  }
+`;
+
+const favoriteButtonStyles = css`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border: 0;
+  background: transparent;
+  color: #ffffff;
+  font-size: 64px;
+  line-height: 1;
+  cursor: pointer;
+`;
+
+const plainTitleStyles = css`
+  margin: 0;
+  color: #1e4391;
+`;

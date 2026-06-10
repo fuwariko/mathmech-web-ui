@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import * as S from './Multiselect.styles.ts';
 import openImg from './../../assets/open.svg';
 import deleteImg from './../../assets/remove.svg';
@@ -85,7 +85,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
     buttonRef.current?.focus();
   };
 
-  const removeOption = (optionValue: string, event: React.MouseEvent) => {
+  const removeOption = (optionValue: string, event: React.SyntheticEvent) => {
     event.stopPropagation();
     event.preventDefault();
     
@@ -101,16 +101,10 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
     buttonRef.current?.focus();
   };
 
-  useEffect(() => {
-    if (!open) return;
-    const index = selectedOptions.length > 0
-      ? options.findIndex((option) => option.value === selectedOptions[selectedOptions.length - 1].value)
-      : activeIndex;
-     setActiveIndex((prev) => {
-    if (prev >= 0 && prev < options.length) return prev;
-    return index >= 0 ? index : 0;
-  });
-}, [open]);
+  const lastSelectedIndex = selectedOptions.length > 0
+    ? options.findIndex((option) => option.value === selectedOptions[selectedOptions.length - 1].value)
+    : 0;
+  const initialActiveIndex = lastSelectedIndex >= 0 ? lastSelectedIndex : 0;
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
     if (disabled) return;
@@ -118,11 +112,13 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
     switch (event.key) {
       case 'ArrowDown':
         event.preventDefault();
+        if (!open) setActiveIndex(initialActiveIndex);
         setOpen(true);
         setActiveIndex((prev) => (prev + 1 >= options.length ? 0 : prev + 1));
         break;
       case 'ArrowUp':
         event.preventDefault();
+        if (!open) setActiveIndex(initialActiveIndex);
         setOpen(true);
         setActiveIndex((prev) => (prev - 1 < 0 ? options.length - 1 : prev - 1));
         break;
@@ -133,6 +129,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
           const option = options[activeIndex];
           if (option) selectOption(option);
         } else {
+          setActiveIndex(initialActiveIndex);
           setOpen(true);
         }
         break;
@@ -183,7 +180,11 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
         aria-describedby={isError ? errorId : undefined}
         aria-activedescendant={open ? `${listId}-option-${options[activeIndex]?.value}` : undefined}
         disabled={disabled}
-        onClick={() => !disabled && setOpen((prev) => !prev)}
+        onClick={() => {
+          if (disabled) return;
+          if (!open) setActiveIndex(initialActiveIndex);
+          setOpen((prev) => !prev);
+        }}
         onKeyDown={onKeyDown}
       >
         <S.ValueContainer>
@@ -202,7 +203,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
                 onKeyDown={(e) => {
                   if (e.key === 'Backspace' || e.key === 'Delete') {
                     e.preventDefault();
-                    removeOption(option.value, e as any);
+	                    removeOption(option.value, e);
                   }
                 }}
               >
@@ -212,7 +213,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
                   onClick={(e) => removeOption(option.value, e)}
                   tabIndex={-1}
                   disabled={disabled}
-                  aria-hidden
+	                  aria-label={`Удалить ${option.label}`}
                 >
                   <img src={deleteImg} alt="" aria-hidden/>
                 </S.TagClose>

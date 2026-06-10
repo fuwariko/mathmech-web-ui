@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Tabs } from '../components/tabs/tabs';
+import { TabsSkeleton } from '../components/skeletons/ComponentSkeletons';
 
 
 const colors = [
@@ -204,4 +205,8 @@ export const DisabledTab: Story = {
       tabs[2],
     ],
   },
+};
+
+export const Skeleton: Story = {
+  render: () => <TabsSkeleton />,
 };

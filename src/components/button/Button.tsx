@@ -50,10 +50,12 @@ export const Button = ({
   const theme = useTheme();
 
   const iconOnly = !!icon && !children;
+  const ariaLabel = props['aria-label'] ?? (iconOnly ? 'Действие' : undefined);
 
   return (
     <button
       {...props}
+      aria-label={ariaLabel}
       disabled={disabled}
       onClick={onClick}
       style={style}

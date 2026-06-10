@@ -3,8 +3,15 @@ import { RadioStars } from '../components/radio/RadioStars';
 import { InputText } from '../components/inputText/InputText';
 import { Textarea } from '../components/textarea/Textarea';
 import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Dialog } from '../components/dialog/Dialog';
+import { DialogSkeleton, TextSkeleton } from '../components/skeletons/ComponentSkeletons';
+
+const dialogContentOptions = {
+  text: <p>Привет, мир!</p>,
+  formIntro: <TextSkeleton lines={3} />,
+  skeleton: <DialogSkeleton />,
+};
 
 const meta: Meta<typeof Dialog> = {
   title: 'UI/Dialog',
@@ -13,6 +20,13 @@ const meta: Meta<typeof Dialog> = {
     layout: 'centered',
   },
   tags: ['autodocs'],
+  argTypes: {
+    children: {
+      control: 'select',
+      options: Object.keys(dialogContentOptions),
+      mapping: dialogContentOptions,
+    },
+  },
 } satisfies Meta<typeof Dialog>;
 
 export default meta;
@@ -43,11 +57,7 @@ export const Default: Story = {
     id: '2',
     open: false,
     title: 'Приветственное окно',
-    children: (
-      <p>
-        Привет, мир!
-      </p>
-    ),
+    children: dialogContentOptions.text,
     isMobile: false,
   },
 };
@@ -138,4 +148,8 @@ export const MobileReviewForm: Story = {
   args: {
     title: 'Форма обратной связи',
   },
+};
+
+export const Skeleton: Story = {
+  render: () => <DialogSkeleton />,
 };

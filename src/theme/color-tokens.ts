@@ -34,7 +34,7 @@ export const allColors = {
   darkBlue01: '#0347BB',
   darkBlue02: '#0756DC',
   mainBlue: '#2B79FF',
-  lightBlue01: '#691B9FF',
+  lightBlue01: '#691B9F',
   lightBlue02: '#B9D3FF',
 
   darkPurple01: '#1E1769',
@@ -86,7 +86,7 @@ export const fiitThemeColors = {
   darkBlue01: '#0347BB',
   darkBlue02: '#0756DC',
   mainBlue: '#2B79FF',
-  lightBlue01: '#691B9FF',
+  lightBlue01: '#691B9F',
   lightBlue02: '#B9D3FF',
 
   darkPurple01: '#1E1769',

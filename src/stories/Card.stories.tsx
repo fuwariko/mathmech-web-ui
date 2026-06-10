@@ -10,6 +10,7 @@ import {
   FilterIcon,
 } from '../icons/Icons';
 import { CardSkeleton } from '../components/skeletons/CardSkeleton';
+import { TextSkeleton } from '../components/skeletons/ComponentSkeletons';
 
 const headerOptions = {
   none: undefined,
@@ -28,6 +29,7 @@ const headerOptions = {
   filter: <FilterIcon size={24} />,
 
   text: <div style={{ fontWeight: 600 }}>Header text</div>,
+  skeleton: <TextSkeleton lines={1} />,
 };
 
 const contentOptions = {
@@ -53,11 +55,13 @@ const contentOptions = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
       <img
         src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d"
+        alt="Команда за рабочим столом"
         style={{ width: '100%', borderRadius: 12 }}
       />
       <div style={{ fontSize: 14, opacity: 0.7 }}>Контент с изображением</div>
     </div>
   ),
+  skeleton: <TextSkeleton lines={3} />,
 };
 
 const footerOptions = {
@@ -68,6 +72,7 @@ const footerOptions = {
   ),
 
   badge: <Badge lable="3зе" color="mainPurple" />,
+  skeleton: <TextSkeleton lines={1} />,
 
   mixed: (
     <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>

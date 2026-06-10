@@ -60,20 +60,9 @@ export const StarWrapper = styled.div<{ $isMobile?: boolean }>`
     height: auto;
     align-items: center;
     cursor: pointer;
-    aria-hidden="true";
 
-  & img {
-    width: 60px;
-    height: 60px;
-    alt="Звезда";
-    role="none";
-    ${({ $isMobile }) =>
-    $isMobile
-      ? `
-        width: 50px;
-        height: 50px;
-      `
-      : ''}
+  & svg {
+    display: block;
   }
 `;
 

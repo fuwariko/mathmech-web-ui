@@ -1,9 +1,10 @@
 import React from 'react';
 import * as S from './RatingStars.styles.ts';
 import { StarFilledIcon, StarIcon } from '../../icons/Icons.tsx';
+import { getRatingFillPercent, getRatingStarSize } from './RatingStars.utils.ts';
 
 
-interface RatingStarsProps {
+export interface RatingStarsProps {
   /** Оценка */
   rating: number;
 
@@ -19,7 +20,7 @@ export const RatingStars: React.FC<RatingStarsProps> = ({
   isSmall,
   ariaHidden,
 }) => {
-  const size = isSmall ? 16 : 24;
+  const size = getRatingStarSize(isSmall);
 
   return (
     <div
@@ -27,21 +28,16 @@ export const RatingStars: React.FC<RatingStarsProps> = ({
       role={ariaHidden ? undefined : 'img'}
       aria-hidden={ariaHidden}
     >
-      <S.StarsYes rating={rating} isSmall={isSmall}>
-        {[1, 2, 3, 4, 5].map((i) => (
-          <S.StarContainer key={i}>
-            <StarFilledIcon size={size} />
-          </S.StarContainer>
-        ))}
-      </S.StarsYes>
-
-      <S.StarsNo>
-        {[1, 2, 3, 4, 5].map((i) => (
-          <S.StarContainer key={i}>
+      <S.StarsRow>
+        {[1, 2, 3, 4, 5].map((star) => (
+          <S.StarContainer key={star} size={size}>
             <StarIcon size={size} />
+            <S.StarFill fillPercent={getRatingFillPercent(rating, star)}>
+              <StarFilledIcon size={size} />
+            </S.StarFill>
           </S.StarContainer>
         ))}
-      </S.StarsNo>
+      </S.StarsRow>
     </div>
   );
 };
