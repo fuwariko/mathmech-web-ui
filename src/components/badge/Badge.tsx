@@ -1,13 +1,13 @@
 import { css, cx } from '@emotion/css';
 import type { CSSProperties, ReactNode } from 'react';
-import { allColors, type TColors } from '../../theme/color-tokens';
+import { useTheme, type AppTheme, type TThemeColors } from '../../ThemeContext';
 import {
   BoardIcon,
   CheckIcon,
   MonitorIcon,
   UsersGroupIcon,
   type IconSize,
-} from '../../icons/Icons';
+} from '../../Icons/Icons';
 
 export type BadgeVariant =
   | 'online'
@@ -29,14 +29,12 @@ type BadgeVariantConfig = {
   label: string;
   tone: BadgeTone;
   icon?: ReactNode;
+  iconOffsetY?: string;
 };
 
 export interface BadgeProps {
   /** Текст внутри бейджа */
   lable?: string;
-
-  /** Текст внутри бейджа */
-  label?: string;
 
   /** Заготовленный вариант */
   variant?: BadgeVariant;
@@ -45,10 +43,10 @@ export interface BadgeProps {
   value?: string | number;
 
   /** Цвет фона */
-  color?: TColors;
+  color?: TThemeColors;
 
   /** Цвет обводки */
-  borderColor?: TColors;
+  borderColor?: TThemeColors;
 
   /** Иконка */
   icon?: boolean | ReactNode;
@@ -63,7 +61,6 @@ export interface BadgeProps {
 
 export const Badge = ({
   lable,
-  label,
   variant,
   value,
   color,
@@ -73,11 +70,12 @@ export const Badge = ({
   className,
   style,
 }: BadgeProps) => {
+  const theme = useTheme();
   const variantConfig = variant
-    ? getVariantConfig(variant, value, size)
+    ? getVariantConfig(theme, variant, value, size)
     : undefined;
   const resolvedLabel =
-    label ?? lable ?? variantConfig?.label ?? '';
+    lable ?? variantConfig?.label ?? '';
   const resolvedIcon =
     icon === false
       ? undefined
@@ -85,7 +83,7 @@ export const Badge = ({
         ? variantConfig?.icon
         : icon;
   const tone =
-    getResolvedTone(variantConfig, color, borderColor);
+    getResolvedTone(theme, variantConfig, color, borderColor);
 
   return (
     <span
@@ -97,7 +95,9 @@ export const Badge = ({
     >
       {resolvedIcon && (
         <span className={iconStyles} aria-hidden="true">
-          {resolvedIcon}
+          <span className={iconInnerStyles(variantConfig?.iconOffsetY)}>
+            {resolvedIcon}
+          </span>
         </span>
       )}
 
@@ -107,16 +107,17 @@ export const Badge = ({
 };
 
 const getResolvedTone = (
+  theme: AppTheme,
   variantConfig?: BadgeVariantConfig,
-  color?: TColors,
-  borderColor?: TColors,
+  color?: TThemeColors,
+  borderColor?: TThemeColors,
 ): BadgeTone => ({
   background: color
-    ? allColors[color]
-    : (variantConfig?.tone.background ?? allColors.lightBlue01),
-  color: variantConfig?.tone.color ?? '#ffffff',
+    ? theme[color]
+    : (variantConfig?.tone.background ?? theme.lightBlue01),
+  color: variantConfig?.tone.color ?? theme.white,
   border: borderColor
-    ? allColors[borderColor]
+    ? theme[borderColor]
     : (variantConfig?.tone.border ?? 'transparent'),
 });
 
@@ -126,19 +127,26 @@ const getIconSize = (size: BadgeSize): IconSize => {
   return 16;
 };
 
+const getPlacesIconSize = (size: BadgeSize): IconSize => {
+  if (size === 'large') return 32;
+  return 24;
+};
+
 const getVariantConfig = (
+  theme: AppTheme,
   variant: BadgeVariant,
   value?: string | number,
   size: BadgeSize = 'medium',
 ): BadgeVariantConfig => {
   const iconSize = getIconSize(size);
+  const placesIconSize = getPlacesIconSize(size);
 
   const configs: Record<BadgeVariant, BadgeVariantConfig> = {
     online: {
       label: 'Онлайн',
       tone: {
-        background: allColors.mainGreen,
-        color: '#ffffff',
+        background: theme.mainGreen,
+        color: theme.white,
         border: 'transparent',
       },
       icon: <MonitorIcon size={iconSize} />,
@@ -148,8 +156,8 @@ const getVariantConfig = (
       label: 'Офлайн',
       tone: {
         background: 'transparent',
-        color: allColors.darkGreen01,
-        border: allColors.darkGreen01,
+        color: theme.darkGreen01,
+        border: theme.darkGreen01,
       },
       icon: <BoardIcon size={iconSize} />,
     },
@@ -157,38 +165,39 @@ const getVariantConfig = (
     withTest: {
       label: 'С тестовым',
       tone: {
-        background: allColors.lightOrange01,
-        color: '#ffffff',
+        background: theme.lightOrange01,
+        color: theme.white,
         border: 'transparent',
       },
       icon: <CheckIcon size={iconSize} />,
     },
 
     places: {
-      label: `${value ?? 20} мест`,
+      label: `${value} мест`,
       tone: {
-        background: allColors.lightNavy01,
-        color: '#ffffff',
+        background: theme.lightNavy01,
+        color: theme.white,
         border: 'transparent',
       },
-      icon: <UsersGroupIcon size={iconSize} />,
+      icon: <UsersGroupIcon size={placesIconSize} />,
+      iconOffsetY: '0.08em',
     },
 
     retake: {
       label: 'Перезачёт',
       tone: {
-        background: allColors.mainGrey,
-        color: '#4d4d4d',
+        background: theme.mainGrey,
+        color: theme.textSecondary,
         border: 'transparent',
       },
     },
 
     subject: {
-      label: String(value ?? 'Математика'),
+      label: String(value),
       tone: {
         background: 'transparent',
-        color: '#4d4d4d',
-        border: '#4d4d4d',
+        color: theme.textSecondary,
+        border: theme.textSecondary,
       },
     },
   };
@@ -212,7 +221,8 @@ const badgeStyles = (
     : size === 'small'
       ? '11px'
       : '14px'};
-  font-weight: 600;
+      
+  font-weight: 500;
 
   padding: ${size === 'large'
     ? '12px 28px'
@@ -224,7 +234,7 @@ const badgeStyles = (
 
   margin: 0 6px 0 0;
 
-  text-wrap: nowrap;
+  text-wrap: none;
 
   min-width: 0;
   min-height: ${size === 'large'
@@ -245,4 +255,11 @@ const iconStyles = css`
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
+`;
+
+const iconInnerStyles = (offsetY?: string) => css`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform: ${offsetY ? `translateY(${offsetY})` : 'none'};
 `;

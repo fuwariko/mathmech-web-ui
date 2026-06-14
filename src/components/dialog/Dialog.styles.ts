@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components';
 import Cansel from '../../assets/remove.svg?raw';
-import { allColors } from '../../theme/color-tokens.ts';
 
 export const Dialog = styled.dialog <{ $isMobile?: boolean }>`
   border: none;
   border-radius: 10px;
-  background-color: #fff;
+  background-color: var(--mm-backgroundPrimary, #fff);
+  color: var(--mm-textPrimary, #1B1E22);
   width: min(100%, 560px);
   max-height: min(90vh, 720px);
   box-shadow: 0 24px 80px rgba(15, 23, 42, 0.22);
@@ -50,7 +50,8 @@ export const CloseButton = styled.button <{ $isMobile?: boolean }>`
   top: 0;
   right: -60px;        
   border: 0;
-  background: #fff;
+  background: var(--mm-backgroundPrimary, #fff);
+  color: var(--mm-textPrimary, #1B1E22);
   cursor: pointer;
   padding: 8px 12px;
   border-radius: 50%;
@@ -61,11 +62,11 @@ export const CloseButton = styled.button <{ $isMobile?: boolean }>`
   box-shadow: 0 2px 8px rgba(15, 23, 42, 0.15);
   
   &:hover {
-    background: #f1f5f9;
+    background: var(--mm-backgroundSecondary, #f1f5f9);
   }
   
   &:focus {
-    outline: 2px solid ${allColors.mainNavy};
+    outline: 2px solid var(--mm-globalBlue, #1E4391);
     outline-offset: 2px;
   }
 

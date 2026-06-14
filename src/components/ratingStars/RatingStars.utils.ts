@@ -1,15 +1,25 @@
-const getStarSize = (isSmall?: boolean) => isSmall ? 16 : 24;
+const DEFAULT_STAR_SIZE = 24;
+const SMALL_STAR_SIZE = 16;
+
+const getStarSize = (isSmall?: boolean, size?: number) => {
+  if (size !== undefined) {
+    return Math.max(1, size);
+  }
+
+  return isSmall ? SMALL_STAR_SIZE : DEFAULT_STAR_SIZE;
+};
 
 export const getRatingFillWidth = (
   rating: number,
   isSmall?: boolean,
+  size?: number,
 ) => {
   const normalizedRating = Math.min(
     5,
     Math.max(0, rating),
   );
 
-  return normalizedRating * getStarSize(isSmall);
+  return normalizedRating * getStarSize(isSmall, size);
 };
 
 export const getRatingStarSize = getStarSize;

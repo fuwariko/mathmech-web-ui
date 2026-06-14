@@ -11,7 +11,7 @@ export const Root = styled.div`
 `;
 
 export const Label = styled.label`
-  color: #000;
+  color: var(--mm-textPrimary, #000);
   font-size: 18px;
   font-weight: 500;
   margin-bottom: 6px;
@@ -19,7 +19,7 @@ export const Label = styled.label`
   word-break: break-word;
 
   & span {
-    color: #D41926;
+    color: var(--mm-error, #D41926);
   }; 
 `;
 
@@ -31,10 +31,10 @@ export const Control = styled.button<{ isError?: boolean }>`
   width: 100%;
   height: 48px;
   padding: 8px 16px;
-  border: 1px solid #D3D3D3;
+  border: 1px solid var(--mm-mainGrey, #D3D3D3);
   border-radius: 10px;
-  background: #fff;
-  color: #222;
+  background: var(--mm-backgroundPrimary, #fff);
+  color: var(--mm-textPrimary, #222);
   font-size: 14px;
   justify-content: space-between;
   cursor: pointer;
@@ -45,23 +45,23 @@ export const Control = styled.button<{ isError?: boolean }>`
   }
 
   &:focus {
-    border-color: #1E4391;
+    border-color: var(--mm-globalBlue, #1E4391);
   }
   
   &:focus-visible {
-    box-shadow: 0 0 0 2px #1e429179;
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--mm-globalBlue, #1E4391) 50%, transparent);
     outline: none;
   }
 
   ${({ isError }) => isError && `
-    border-color: #D41926;
+    border-color: var(--mm-error, #D41926);
     
     &:focus {
-      border-color: #D41926;
+      border-color: var(--mm-error, #D41926);
     }
       
     &:focus-visible {
-      box-shadow: 0 0 0 2px #d41925b0;
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--mm-error, #D41926) 70%, transparent);
     }
   `}
 `;
@@ -74,7 +74,7 @@ export const Value = styled.span<{ $isPlaceholder: boolean }>`
   ${(p) =>
     p.$isPlaceholder &&
     css`
-      color: #222;
+      color: var(--mm-textSecondary, #222);
     `}
 `;
 
@@ -100,9 +100,9 @@ export const Listbox = styled.ul`
   margin: 0;
   padding: 0;
   list-style: none;
-  border: 1px solid #cbd5e1;
+  border: 1px solid var(--mm-mainGrey, #cbd5e1);
   border-radius: 10px;
-  background: #fff;
+  background: var(--mm-backgroundPrimary, #fff);
   box-sizing: border-box;
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
   max-height: 195px;
@@ -115,7 +115,7 @@ export const Listbox = styled.ul`
     &::-webkit-scrollbar-thumb {
     background-clip: content-box;
     border: 2px solid transparent;
-    background-color: #d3d3d3;
+    background-color: var(--mm-mainGrey, #d3d3d3);
     border-radius: 10px;
   }
 `;
@@ -126,15 +126,15 @@ export const Option = styled.li<{ $active: boolean; $selected: boolean }>`
   width: 100%;
   border: 0;
   background: transparent;
-  color: #000;
+  color: var(--mm-textPrimary, #000);
   text-align: left;
   cursor: pointer;
   box-sizing: border-box;
   min-height: 48px;
   height: 100%;
-  background-color: #fff;
+  background-color: var(--mm-backgroundPrimary, #fff);
   border: 1px solid transparent;
-  border-bottom: 1px solid #CAD1E1;
+  border-bottom: 1px solid var(--mm-mainGrey, #CAD1E1);
   padding: 13px 16px;
   padding-left: 40px;
   font-weight: 400;
@@ -148,8 +148,8 @@ export const Option = styled.li<{ $active: boolean; $selected: boolean }>`
   ${(p) =>
     p.$active &&
     css`
-      background: #eff6ff;
-      border: 1px solid #1E4391;
+      background: var(--mm-backgroundSecondary, #eff6ff);
+      border: 1px solid var(--mm-globalBlue, #1E4391);
     `}
 
   ${(p) =>
@@ -160,12 +160,12 @@ export const Option = styled.li<{ $active: boolean; $selected: boolean }>`
     `}
 
   &:disabled {
-    color: #9ca3af;
+    color: var(--mm-textTertiary, #9ca3af);
     cursor: not-allowed;
   }
 
   &:focus-visible {
-    outline: 2px solid #1E4391;
+    outline: 2px solid var(--mm-globalBlue, #1E4391);
     outline-offset: 2px;
   }
 `;
@@ -174,7 +174,7 @@ export const Error = styled.div`
   position: absolute;
   font-size: 14px;
   font-weight: 600;
-  color: #D41926;
+  color: var(--mm-error, #D41926);
   top: 90px;
   overflow-wrap: break-word;
   word-break: break-word;
@@ -203,19 +203,19 @@ export const ValueContainer = styled.ul`
   &::-webkit-scrollbar-thumb {
     background-clip: content-box;
     border: 2px solid transparent;
-    background-color: #d3d3d3;
+    background-color: var(--mm-mainGrey, #d3d3d3);
     border-radius: 10px;
   }
 `;
 
 export const Tag = styled.li`
   gap: 10px;
-  color: #222;
+  color: var(--mm-textPrimary, #222);
   display: flex;
   font-weight: 400;
   font-size: 12px;
   line-height: 16.8px;
-  background-color: #e7f2ff;
+  background-color: var(--mm-lightBlue02, #e7f2ff);
   padding: 8px 12px;
   margin: 2px;
   height: 33px;
@@ -223,8 +223,8 @@ export const Tag = styled.li`
   box-sizing: border-box;
   
   &:focus-visible {
-    outline: 1px solid #1E4391;
-    box-shadow: 0 0 0 2px #1e429179;
+    outline: 1px solid var(--mm-globalBlue, #1E4391);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--mm-globalBlue, #1E4391) 50%, transparent);
     outline-offset: 1px;
   }
 `;
@@ -249,7 +249,7 @@ export const TagClose = styled.button`
   }
 
   &:hover {
-    background: #1e429113;
+    background: color-mix(in srgb, var(--mm-globalBlue, #1E4391) 8%, transparent);
   }
 
   &[disabled]:hover {
@@ -257,8 +257,8 @@ export const TagClose = styled.button`
   }
 
   &:focus-visible {
-    outline: 1px solid #1E4391;
-    box-shadow: 0 0 0 2px #1e429179;
+    outline: 1px solid var(--mm-globalBlue, #1E4391);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--mm-globalBlue, #1E4391) 50%, transparent);
     outline-offset: 1px;
   }
 

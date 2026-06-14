@@ -24,6 +24,8 @@ interface IButtonProps
 
   color?: TThemeColors;
 
+  borderColor?: TThemeColors;
+
   variant?: ButtonVariant;
 
   size?: TButtonSize;
@@ -31,6 +33,8 @@ interface IButtonProps
   textColor?: TThemeColors;
 
   radius?: string;
+
+  bareIcon?: boolean;
 
   onClick?: MouseEventHandler<HTMLButtonElement>;
 
@@ -44,10 +48,12 @@ export const Button = ({
   icon,
   disabled = false,
   color,
+  borderColor,
   variant = 'primary',
   size = 'small',
   textColor,
   radius,
+  bareIcon = false,
   onClick,
 
   className,
@@ -58,6 +64,7 @@ export const Button = ({
   const theme = useTheme();
 
   const iconOnly = !!icon && !children;
+  const isBareIcon = iconOnly && bareIcon;
   const ariaLabel = props['aria-label'] ?? (iconOnly ? 'Действие' : undefined);
 
   return (
@@ -68,9 +75,9 @@ export const Button = ({
       onClick={onClick}
       style={style}
       className={cx(
-        styles.base(theme, disabled, textColor),
-        styles.variant(theme, variant, color),
-        styles.size(theme, size, iconOnly),
+        styles.base(theme, disabled, textColor, isBareIcon),
+        styles.variant(theme, variant, color, borderColor, isBareIcon),
+        styles.size(theme, size, iconOnly, isBareIcon),
         styles.radius(size, radius),
         className,
       )}
@@ -91,23 +98,29 @@ const styles = {
     theme: AppTheme,
     disabled: boolean,
     textColor?: TThemeColors,
+    isBareIcon?: boolean,
   ) => css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     width: fit-content;
-    border: none;
+    box-sizing: border-box;
+    border: 1px solid transparent;
     cursor: ${disabled ? 'default' : 'pointer'};
-    color: ${textColor ? theme[textColor] : theme.buttonColorText};
+    color: ${textColor
+      ? theme[textColor]
+      : isBareIcon
+        ? theme.textPrimary
+        : theme.buttonColorText};
     font-weight: 500;
     opacity: ${disabled ? 0.5 : 1};
     pointer-events: ${disabled ? 'none' : 'auto'};
     transition:
       background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease,
       opacity 0.2s ease,
-      padding 0.2s ease,
-      font-size 0.2s ease,
       transform 0.2s ease;
 
     &:hover {
@@ -115,7 +128,7 @@ const styles = {
     }
 
     &:active {
-      transform: ${disabled ? 'none' : 'scale(0.98)'};
+      transform: none;
     }
   `,
 
@@ -123,7 +136,16 @@ const styles = {
     theme: AppTheme,
     variant: ButtonVariant,
     color?: TThemeColors,
+    borderColor?: TThemeColors,
+    isBareIcon?: boolean,
   ) => {
+    if (isBareIcon) {
+      return css`
+        background: transparent;
+        border-color: transparent;
+      `;
+    }
+
     const backgroundColor = color
       ? theme[color]
       : {
@@ -134,6 +156,7 @@ const styles = {
 
     return css`
       background: ${backgroundColor};
+      border-color: ${borderColor ? theme[borderColor] : 'transparent'};
     `;
   },
 
@@ -141,7 +164,20 @@ const styles = {
     theme: AppTheme,
     size: TButtonSize,
     iconOnly: boolean,
+    isBareIcon: boolean,
   ) => {
+    if (isBareIcon) {
+      return css`
+        height: auto;
+        min-width: 0;
+        padding: 0;
+        font-size: ${size === 'large'
+          ? theme.buttonFontSizeL
+          : theme.buttonFontSizeM};
+        line-height: 1;
+      `;
+    }
+
     const map = {
       small: css`
         height: 44px;

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { renderToStaticMarkup } from 'react-dom/server';
 
 import { Link } from './Link';
-import { ArrowUpRightIcon } from '../../icons/Icons';
+import { ArrowUpRightIcon } from '../../Icons/Icons';
 
 describe('Link', () => {
   it('renders as a text link by default', () => {

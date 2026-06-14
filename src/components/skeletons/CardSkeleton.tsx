@@ -1,5 +1,5 @@
 import { css, cx, keyframes } from '@emotion/css';
-import type { TCardDirection } from '../card/Card';
+import type { TCardDirection } from '../Card/Card';
 
 const shimmer = keyframes`
   0% { background-position: -200px 0; }

@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './Checkbox.styles.ts';
-import { type TColors } from '../../theme/color-tokens.ts';
+import { useTheme, type TThemeColors } from '../../ThemeContext';
 
 interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'type'>{
   /** Поле для идентификации и группировки элементов в форме */
@@ -16,7 +16,7 @@ interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>
   label?: string;
 
   /** Цвет чекбокса */
-  color?: TColors;
+  color?: TThemeColors;
 
   /** Положение текста, отосительно чекбокса */
   reverse?: boolean;
@@ -47,6 +47,8 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   required,
   ...rest
 }) => {
+  const theme = useTheme();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange?.(e.target.value);
   };
@@ -61,7 +63,8 @@ export const Checkbox: React.FC<CheckboxProps> = ({
             disabled={disabled}
             onChange={handleChange}
             required={required}
-            color={color}
+            $color={theme[color]}
+            $backgroundColor={theme.backgroundPrimary}
             {...rest}
         />
         {!reverse && <S.Span/>}

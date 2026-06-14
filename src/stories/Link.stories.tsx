@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-
 import { Link } from '../components/link/Link';
 import { LinkSkeleton } from '../components/skeletons/ComponentSkeletons';
-import { ArrowUpRightIcon, BoardIcon, FilterIcon } from '../icons/Icons';
+import { ArrowUpRightIcon, BoardIcon, FilterIcon } from '../Icons/Icons';
+
 
 const iconOptions = {
   none: undefined,

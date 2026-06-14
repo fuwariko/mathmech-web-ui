@@ -1,20 +1,19 @@
 import styled from '@emotion/styled';
-import { allColors, type TColors } from '../../theme/color-tokens.ts';
 
-export const Input = styled.input<{ color: TColors }>`
+export const Input = styled.input<{ $color: string; $backgroundColor: string }>`
   position: absolute;
   opacity: 0;
   cursor: pointer;
 
   &:checked + span {
-    border-color: ${props => allColors[props.color]};
-    background-color: #fff;
+    border-color: ${props => props.$color};
+    background-color: ${props => props.$backgroundColor};
   }
   &:checked + span::before {
     content: '';
     width: 9px;
     height: 9px;
-    background-color: ${props => allColors[props.color]};
+    background-color: ${props => props.$color};
     border-radius: 50%;
     position: absolute;
     top: 50%;
@@ -22,7 +21,7 @@ export const Input = styled.input<{ color: TColors }>`
     transform: translate(-50%, -50%);
   }
   &:focus + span {
-    box-shadow: 0 0 0 2px ${props => `color-mix(in srgb, ${allColors[props.color]} 50%, transparent)`};
+    box-shadow: 0 0 0 2px ${props => `color-mix(in srgb, ${props.$color} 50%, transparent)`};
   }
 
   &:disabled {
@@ -50,9 +49,13 @@ export const Span = styled.span`
   box-sizing: border-box;
   width: 16px;
   height: 16px;
-  border: 1px solid #d3d3d3;
+  border: 1px solid var(--mm-mainGrey, #d3d3d3);
   border-radius: 50%;
   position: relative;
-  transition: all 0.2s;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
   margin: 0;
 `;

@@ -1,12 +1,13 @@
 import { css } from '@emotion/css';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-
-import { Badge } from '../components/badge/Badge';
+import { ArrowUpRightIcon, BoardIcon } from '../Icons/Icons';
 import { Button } from '../components/button/Button';
-import { Header } from '../components/header/Header';
-import { HeaderSkeleton } from '../components/skeletons/HeaderSkeleton';
+import { Badge } from '../components/Badge/Badge';
+import { HeaderSkeleton } from '../components/Skeletons/HeaderSkeleton';
 import { BadgeSkeleton, TextSkeleton } from '../components/skeletons/ComponentSkeletons';
-import { ArrowUpRightIcon, BoardIcon } from '../icons/Icons';
+import { Header } from '../components/Header/Header';
+
+
 
 const slotOptions = {
   none: undefined,

@@ -7,7 +7,7 @@ import React, {
   type ReactElement,
   type ReactNode,
 } from 'react';
-import { allColors, type TColors } from '../../theme/color-tokens';
+import { useTheme, type TThemeColors } from '../../ThemeContext';
 
 type THintPosition = 'top' | 'bottom' | 'left' | 'right';
 type HintChildProps = {
@@ -25,9 +25,9 @@ interface HintProps {
   content: ReactNode;
   position?: THintPosition;
 
-  backgroundColor?: TColors;
-  textColor?: TColors;
-  borderColor?: TColors;
+  backgroundColor?: TThemeColors;
+  textColor?: TThemeColors;
+  borderColor?: TThemeColors;
 
   borderWidth?: number;
   borderRadius?: number;
@@ -48,6 +48,7 @@ export function Hint({
   offset = 8,
   className,
 }: HintProps) {
+  const theme = useTheme();
   const id = useId();
 
   if (!isValidElement(children)) {
@@ -137,9 +138,9 @@ export function Hint({
         style={
           {
             positionAnchor: anchorName,
-            background: allColors[backgroundColor],
-            color: allColors[textColor],
-            border: `${borderWidth}px solid ${allColors[borderColor]}`,
+            background: theme[backgroundColor],
+            color: theme[textColor],
+            border: `${borderWidth}px solid ${theme[borderColor]}`,
             borderRadius,
           } as CSSProperties
         }

@@ -1,5 +1,5 @@
 import { css, keyframes } from '@emotion/css';
-import type { TColors } from '../../theme/color-tokens';
+import { useTheme, type TThemeColors } from '../../ThemeContext';
 const shimmer = keyframes`
   0% { background-position: -200px 0; }
   100% { background-position: 200px 0; }
@@ -19,15 +19,18 @@ const skeletonBase = css`
 `;
 
 interface IHeaderSkeletonProps {
-  backgroundColor?: TColors;
+  backgroundColor?: TThemeColors;
   sticky?: boolean;
 }
 
 export const HeaderSkeleton = ({
+  backgroundColor = 'backgroundPrimary',
   sticky = false,
 }: IHeaderSkeletonProps) => {
+  const theme = useTheme();
+
   return (
-    <header className={headerStyles(sticky)}>
+    <header className={headerStyles(sticky, theme[backgroundColor])}>
       <div className={contentStyles}>
         <div className={topStyles}>
           <div className={leftAccessory} />
@@ -43,6 +46,7 @@ export const HeaderSkeleton = ({
 
 const headerStyles = (
   sticky: boolean,
+  backgroundColor: string,
 ) => css`
   display: flex;
   width: 100%;
@@ -52,7 +56,7 @@ const headerStyles = (
   gap: 40px;
   padding: 32px 0;
 
-  background: #ffffff;
+  background: ${backgroundColor};
   box-sizing: border-box;
 
   ${sticky &&

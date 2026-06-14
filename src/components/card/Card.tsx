@@ -1,5 +1,6 @@
 import { css, cx } from '@emotion/css';
 import type { ReactNode } from 'react';
+import { useTheme } from '../../ThemeContext';
 
 export type TCardDirection = 'vertical' | 'horizontal';
 
@@ -31,10 +32,17 @@ export const Card = ({
   borderRadius = 15,
   className,
 }: ICardProps) => {
+  const theme = useTheme();
+
   return (
     <div
       className={cx(
-        cardStyles(direction, borderRadius),
+        cardStyles(
+          direction,
+          borderRadius,
+          theme.backgroundPrimary,
+          theme.mainGrey,
+        ),
         className,
       )}
     >
@@ -62,6 +70,8 @@ export const Card = ({
 const cardStyles = (
   direction: TCardDirection,
   borderRadius: number,
+  backgroundColor: string,
+  borderColor: string,
 ) => css`
   box-sizing: border-box;
 
@@ -75,11 +85,11 @@ const cardStyles = (
 
   padding: 24px 20px 20px;
 
-  border: 1px solid #d8d8d8;
+  border: 1px solid ${borderColor};
 
   border-radius: ${borderRadius}px;
 
-  background: #ffffff;
+  background: ${backgroundColor};
 
   min-width: 300px;
 

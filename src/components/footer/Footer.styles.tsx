@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { allColors } from '../../theme/color-tokens';
 
 export const Wrapper = styled.footer`
   display: flex;
@@ -7,8 +6,9 @@ export const Wrapper = styled.footer`
   justify-content: space-between;
   align-items: center;
   padding: 16px 24px;
-  background: ${allColors.lightGrey02};
-  border-top: 1px solid ${allColors.mainGrey};
+  background: var(--mm-backgroundSecondary, #F2EFFD);
+  border-top: 1px solid var(--mm-mainGrey, #C6C1DA);
+  color: var(--mm-textPrimary, #1B1E22);
 
   font-size: 14px;
   text-align: center;

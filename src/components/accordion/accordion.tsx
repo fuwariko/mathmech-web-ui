@@ -5,10 +5,7 @@ import {
   type ReactNode,
 } from 'react';
 
-import {
-  allColors,
-  type TColors,
-} from '../../theme/color-tokens';
+import { useTheme, type TThemeColors } from '../../ThemeContext';
 
 interface IAccordionItem {
   /** Id */
@@ -38,7 +35,7 @@ interface IAccordionProps {
   items: IAccordionItem[];
 
   /** Цвет активного */
-  activeColor?: TColors;
+  activeColor?: TThemeColors;
 
   /** Разрешить несколько открытых */
   multiple?: boolean;
@@ -66,6 +63,7 @@ export const Accordion = ({
   iconPosition = 'right',
   className,
 }: IAccordionProps) => {
+  const theme = useTheme();
   const [opened, setOpened] = useState<string[]>([]);
 
   const toggleItem = (id: string) => {
@@ -163,7 +161,8 @@ export const Accordion = ({
               aria-controls={panelId}
               className={triggerStyles(
                 isOpen,
-                activeColor,
+                theme[activeColor],
+                theme.textPrimary,
               )}
               onClick={() =>
                 toggleItem(item.id)
@@ -185,7 +184,7 @@ export const Accordion = ({
                 id={panelId}
                 role="region"
                 aria-labelledby={triggerId}
-                className={contentStyles}
+                className={contentStyles(theme.textSecondary)}
               >
                 {item.content}
               </div>
@@ -212,7 +211,8 @@ const itemStyles = css`
 
 const triggerStyles = (
   isOpen: boolean,
-  activeColor: TColors,
+  activeColor: string,
+  textColor: string,
 ) => css`
   width: 100%;
 
@@ -233,8 +233,8 @@ const triggerStyles = (
   font-weight: 600;
 
   color: ${isOpen
-    ? allColors[activeColor]
-    : '#111'};
+    ? activeColor
+    : textColor};
 
   transition: color 0.2s ease;
 
@@ -265,13 +265,13 @@ const iconStyles = css`
   line-height: 1;
 `;
 
-const contentStyles = css`
+const contentStyles = (textColor: string) => css`
   padding: 0 0 16px;
 
   font-size: 14px;
   line-height: 22px;
 
-  color: rgba(0, 0, 0, 0.7);
+  color: ${textColor};
 
   overflow-wrap: break-word;
   word-break: break-word;

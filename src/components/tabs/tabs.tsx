@@ -6,10 +6,7 @@ import {
   type ReactNode,
 } from 'react';
 
-import {
-  allColors,
-  type TColors,
-} from '../../theme/color-tokens';
+import { useTheme, type TThemeColors } from '../../ThemeContext';
 
 type TTabsVariant = 'filled' | 'underline';
 
@@ -44,10 +41,10 @@ interface ITabsProps {
   variant?: TTabsVariant;
 
   /** Цвет активного таба */
-  activeColor?: TColors;
+  activeColor?: TThemeColors;
 
   /** Цвет фона */
-  backgroundColor?: TColors;
+  backgroundColor?: TThemeColors;
 
   /** Дополнительный класс */
   className?: string;
@@ -63,6 +60,7 @@ export const Tabs = ({
   backgroundColor = 'lightGrey01',
   className,
 }: ITabsProps) => {
+  const theme = useTheme();
   const [activeTab, setActiveTab] = useState(
     defaultTabId ?? tabs[0]?.id,
   );
@@ -175,8 +173,10 @@ export const Tabs = ({
                 className={tabStyles(
                   isActive,
                   variant,
-                  activeColor,
-                  backgroundColor,
+                  theme[activeColor],
+                  theme[backgroundColor],
+                  theme.white,
+                  theme.textPrimary,
                   vertical,
                 )}
                 onClick={() => setActiveTab(tab.id)}
@@ -272,8 +272,10 @@ const tabListStyles = (
 const tabStyles = (
   active: boolean,
   variant: TTabsVariant,
-  activeColor: TColors,
-  backgroundColor: TColors,
+  activeColor: string,
+  backgroundColor: string,
+  activeTextColor: string,
+  textColor: string,
   vertical: boolean,
 ) => css`
   border: none;
@@ -284,7 +286,8 @@ const tabStyles = (
   white-space: nowrap;
 
   transition:
-    background 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
     color 0.2s ease,
     opacity 0.2s ease;
 
@@ -309,11 +312,11 @@ const tabStyles = (
 
         background: ${
           active
-            ? allColors[activeColor]
-            : allColors[backgroundColor]
+            ? activeColor
+            : backgroundColor
         };
 
-        color: ${active ? '#fff' : '#111'};
+        color: ${active ? activeTextColor : textColor};
 
         flex-shrink: 0;
       `
@@ -322,8 +325,8 @@ const tabStyles = (
 
         color: ${
           active
-            ? allColors[activeColor]
-            : 'rgba(0,0,0,0.6)'
+            ? activeColor
+            : textColor
         };
 
         display: flex;
@@ -347,13 +350,13 @@ const tabStyles = (
 
         border-bottom: ${
           !vertical && active
-            ? `2px solid ${allColors[activeColor]}`
+            ? `2px solid ${activeColor}`
             : '2px solid transparent'
         };
 
         border-left: ${
           vertical && active
-            ? `2px solid ${allColors[activeColor]}`
+            ? `2px solid ${activeColor}`
             : '2px solid transparent'
         };
 

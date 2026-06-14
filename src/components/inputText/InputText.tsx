@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './InputText.styles.ts';
-import { type TColors } from '../../theme/color-tokens.ts';
+import { useTheme, type TThemeColors } from '../../ThemeContext';
 
 interface InputTextProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   /** Идентификатор для связи с другими элементами */
@@ -16,7 +16,7 @@ interface InputTextProps extends Omit<React.InputHTMLAttributes<HTMLInputElement
   label?: string;
 
   /** Цвет фокуса */
-  color?: TColors;
+  color?: TThemeColors;
 
   /** Заблокированное состояние */
   disabled?: boolean;
@@ -52,6 +52,8 @@ export const InputText: React.FC<InputTextProps> = ({
   errorMassage,
   ...rest
 }) => {
+  const theme = useTheme();
+
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     if (onChange) {
       onChange(e.target.value);
@@ -60,7 +62,7 @@ export const InputText: React.FC<InputTextProps> = ({
   return (
     <S.TextLabel title={label !== undefined ? label : "Строка ввода"}>
       {label && 
-      <S.DescriptionSpan id={`text-description-${id}`}>
+      <S.DescriptionSpan id={`text-description-${id}`} $errorColor={theme.error}>
         {label}{required && <span aria-hidden>{"*"}</span>}
       </S.DescriptionSpan>}
       <S.Input
@@ -68,7 +70,10 @@ export const InputText: React.FC<InputTextProps> = ({
         name={name}
         lang="ru"
         type={type}
-        color={color}
+        $focusColor={theme[color]}
+        $errorColor={theme.error}
+        $textColor={theme.textPrimary}
+        $backgroundColor={theme.backgroundPrimary}
         placeholder={placeholder}
         value={value}
         onChange={handleChange}
@@ -82,7 +87,7 @@ export const InputText: React.FC<InputTextProps> = ({
         {...rest}
       />
       {isError && (
-        <S.ErrorSpan id={`error-massage-${id}`} role="alert">
+        <S.ErrorSpan id={`error-massage-${id}`} role="alert" $errorColor={theme.error}>
           {errorMassage}
         </S.ErrorSpan>
       )}

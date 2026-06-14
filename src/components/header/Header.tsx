@@ -1,7 +1,7 @@
 import { css, cx } from '@emotion/css';
 import type { CSSProperties, ReactNode } from 'react';
 
-import { allColors, type TColors } from '../../theme/color-tokens';
+import { useTheme, type TThemeColors } from '../../ThemeContext';
 
 export interface HeaderProps {
   /** Заголовок */
@@ -23,10 +23,10 @@ export interface HeaderProps {
   children?: ReactNode;
 
   /** Цвет фона */
-  backgroundColor?: TColors;
+  backgroundColor?: TThemeColors;
 
   /** Цвет текста */
-  textColor?: TColors;
+  textColor?: TThemeColors;
 
   /** Растягивать цвет фона на всю ширину */
   filled?: boolean;
@@ -61,6 +61,7 @@ export const Header = ({
   className,
   style,
 }: HeaderProps) => {
+  const theme = useTheme();
   const left = topLeft ?? leftAccessory;
   const right = topRight ?? rightAccessory;
   const hasTop = !!left || !!right;
@@ -71,8 +72,8 @@ export const Header = ({
       style={style}
       className={cx(
         headerStyles(
-          backgroundColor,
-          textColor,
+          theme[backgroundColor],
+          theme[textColor],
           filled,
           sticky,
         ),
@@ -117,8 +118,8 @@ const toCssSize = (value: number | string) =>
   typeof value === 'number' ? `${value}px` : value;
 
 const headerStyles = (
-  backgroundColor: TColors,
-  textColor: TColors,
+  backgroundColor: string,
+  textColor: string,
   filled: boolean,
   sticky: boolean,
 ) => css`
@@ -137,8 +138,8 @@ const headerStyles = (
   position: relative;
   z-index: 2;
 
-  background: ${filled ? allColors[backgroundColor] : 'transparent'};
-  color: ${allColors[textColor]};
+  background: ${filled ? backgroundColor : 'transparent'};
+  color: ${textColor};
 
   box-sizing: border-box;
 

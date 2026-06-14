@@ -42,4 +42,30 @@ describe('Button', () => {
 
     expect(styles).toContain(`background: ${FIIT_THEME.buttonColorDanger}`);
   });
+
+  it('uses themed border color token', () => {
+    const html = renderToStaticMarkup(
+      <ThemeProvider mode="fiit">
+        <Button borderColor="white">Сохранить</Button>
+      </ThemeProvider>,
+    );
+
+    const styles = getRenderedStyles(html);
+
+    expect(styles).toContain(`border-color: ${FIIT_THEME.white}`);
+  });
+
+  it('can render icon-only buttons without a visible button background', () => {
+    const html = renderToStaticMarkup(
+      <ThemeProvider mode="fiit">
+        <Button icon={<span>i</span>} bareIcon aria-label="Информация" />
+      </ThemeProvider>,
+    );
+
+    const styles = getRenderedStyles(html);
+
+    expect(styles).toContain('background: transparent');
+    expect(styles).toContain('padding: 0');
+    expect(styles).toContain(`color: ${FIIT_THEME.textPrimary}`);
+  });
 });

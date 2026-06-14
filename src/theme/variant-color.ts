@@ -1,4 +1,8 @@
 export const colors = {
+  black: '#000000',
+
+  white: '#FFFFFF',
+
   /** Status */
 
   error: '#D41926',
@@ -50,6 +54,10 @@ export const semanticColors = {
   success: colors.success,
 
   accent: colors.accent,
+
+  black: colors.black,
+
+  white: colors.white,
 
   textPrimary: colors.light.text.primary,
 

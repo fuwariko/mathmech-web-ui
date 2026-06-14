@@ -18,6 +18,8 @@ describe('Badge', () => {
     );
 
     expect(html).toContain('20 мест');
+    expect(html).toContain('width="24"');
+    expect(html).toContain('height="24"');
   });
 
   it('uses a theme-aware blue token for prepared places badge background', () => {

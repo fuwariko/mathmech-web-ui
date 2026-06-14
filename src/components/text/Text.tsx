@@ -5,10 +5,7 @@ import {
   type ReactNode,
 } from 'react';
 
-import {
-  allColors,
-  type TColors,
-} from '../../theme/color-tokens';
+import { useTheme, type TThemeColors } from '../../ThemeContext';
 
 export type TTextVariant =
   | 'h1'
@@ -125,7 +122,7 @@ interface ITextProps {
   italic?: boolean;
 
   /** Цвет */
-  color?: TColors;
+  color?: TThemeColors;
 
   /** Выравнивание */
   align?: CSSProperties['textAlign'];
@@ -145,6 +142,7 @@ export const Text = ({
   align = 'left',
   className,
 }: ITextProps) => {
+  const theme = useTheme();
   const preset = variants[variant];
 
   return (
@@ -159,7 +157,7 @@ export const Text = ({
             weight ??
             preset.weight,
           italic,
-          color,
+          color: theme[color],
           align,
         }),
         className,
@@ -175,7 +173,7 @@ interface ITextStyles {
   lineHeight: number;
   weight: number;
   italic: boolean;
-  color: TColors;
+  color: string;
   align: CSSProperties['textAlign'];
 }
 
@@ -197,7 +195,7 @@ const textStyles = ({
     ? 'italic'
     : 'normal'};
 
-  color: ${allColors[color]};
+  color: ${color};
 
   text-align: ${align};
 

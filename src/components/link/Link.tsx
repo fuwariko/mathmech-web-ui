@@ -79,7 +79,7 @@ export const Link = ({
           textColor: textColor
             ? theme[textColor as keyof typeof theme]
             : variant === 'button'
-              ? '#ffffff'
+              ? theme.white
               : theme[color as keyof typeof theme],
           radius,
           disabled,
@@ -126,7 +126,6 @@ const linkStyles = ({
   pointer-events: ${disabled ? 'none' : 'auto'};
   transition:
     opacity 0.2s ease,
-    transform 0.2s ease,
     text-decoration-color 0.2s ease;
 
   ${variant === 'button'
@@ -140,17 +139,18 @@ const linkStyles = ({
     : css`
         padding: 0;
         background: transparent;
-        text-decoration-line: ${underline === 'always' ? 'underline' : 'none'};
+        text-decoration-line: ${underline === 'none' ? 'none' : 'underline'};
+        text-decoration-color: ${underline === 'hover' ? 'transparent' : 'currentColor'};
         text-underline-offset: 0.2em;
       `}
 
   &:hover {
     opacity: ${disabled ? 0.55 : 0.9};
-    text-decoration-line: ${underline === 'hover' ? 'underline' : underline === 'always' ? 'underline' : 'none'};
+    ${underline === 'hover' ? 'text-decoration-color: currentColor;' : ''}
   }
 
   &:active {
-    transform: ${disabled || variant !== 'button' ? 'none' : 'scale(0.98)'};
+    transform: none;
   }
 `;
 

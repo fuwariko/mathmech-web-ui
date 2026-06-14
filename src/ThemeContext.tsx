@@ -8,6 +8,9 @@ import React, { createContext, useContext, useMemo } from 'react';
 /* eslint-disable react-refresh/only-export-components */
 
 export const defaultThemeColors = {
+  black: '#000000',
+  white: '#FFFFFF',
+
   darkNavy01: '#2C416D',
   darkNavy02: '#0A255E',
   mainNavy: '#1E4391',
@@ -34,6 +37,9 @@ export const defaultThemeColors = {
 } as const;
 
 export const fiitThemeColors = {
+  black: '#000000',
+  white: '#FFFFFF',
+
   darkCrimson01: '#5A1A5B',
   darkCrimson02: '#822183',
   mainCrimson: '#A92CAB',
@@ -65,6 +71,8 @@ const basePalette = {
 } as const;
 
 export interface AppTheme {
+  black: string;
+  white: string;
   darkNavy01: string;
   darkNavy02: string;
   mainNavy: string;
@@ -119,6 +127,7 @@ export interface AppTheme {
   globalBlue: string;
   globalGray: string;
   globalRed: string;
+  globalBlack: string;
   globalWhite: string;
   globalSpaceS: string;
   globalSpaceM: string;
@@ -160,6 +169,7 @@ export const DEFAULT_THEME: AppTheme = {
   globalBlue: '#1E4391',
   globalGray: '#545454',
   globalRed: '#D41926',
+  globalBlack: '#000000',
   globalWhite: '#FFFFFF',
   globalSpaceS: '8px',
   globalSpaceM: '16px',
@@ -224,6 +234,8 @@ export const FIIT_THEME = createTheme({
   globalBlue: '#2B79FF',
   globalGray: '#C6C1DA',
   globalRed: '#D41926',
+  globalBlack: '#000000',
+  globalWhite: '#FFFFFF',
   buttonColorPrimary: '#2B79FF',
   buttonColorSecondary: '#C6C1DA',
   buttonColorDanger: '#D41926',

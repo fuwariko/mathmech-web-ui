@@ -1,9 +1,8 @@
 import { css } from '@emotion/css';
 import type { ReactElement, ReactNode } from 'react';
 
-
-import { allColors, type TColors } from '../../theme/color-tokens';
-import { Hint } from '../hint/hint';
+import { useTheme, type TThemeColors } from '../../ThemeContext';
+import { Hint } from '../Hint/hint';
 
 type TTooltipPosition =
   | 'top'
@@ -24,7 +23,7 @@ interface ITooltipProps {
   position?: TTooltipPosition;
 
   /** Цвет */
-  color?: TColors;
+  color?: TThemeColors;
 
   /** Иконка */
   icon?: TTooltipIcon;
@@ -43,6 +42,8 @@ export const Tooltip = ({
   children,
   className,
 }: ITooltipProps) => {
+  const theme = useTheme();
+
   return (
     <Hint
       content={content}
@@ -51,7 +52,7 @@ export const Tooltip = ({
       className={className}
     >
       {children ?? (
-        <div className={iconStyles(color)}>
+        <div className={iconStyles(theme[color], theme.white)}>
           {renderIcon(icon)}
         </div>
       )}
@@ -73,7 +74,8 @@ const renderIcon = (
 };
 
 const iconStyles = (
-  color: TColors,
+  color: string,
+  textColor: string,
 ) => css`
   width: 18px;
   height: 18px;
@@ -88,8 +90,8 @@ const iconStyles = (
   font-weight: 600;
   line-height: 1;
 
-  color: #fff;
-  background: ${allColors[color]};
+  color: ${textColor};
+  background: ${color};
 
   cursor: default;
   user-select: none;

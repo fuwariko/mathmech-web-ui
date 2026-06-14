@@ -1,4 +1,7 @@
 const colorFallbacks = {
+  black: '#000000',
+  white: '#FFFFFF',
+
   darkNavy01: '#2C416D',
   darkNavy02: '#0A255E',
   mainNavy: '#1E4391',
@@ -58,6 +61,9 @@ export const allColors = Object.fromEntries(
 };
 
 export const defaultThemeColors = {
+  black: '#000000',
+  white: '#FFFFFF',
+
   darkNavy01: '#2C416D',
   darkNavy02: '#0A255E',
   mainNavy: '#1E4391',
@@ -84,6 +90,9 @@ export const defaultThemeColors = {
 }
 
 export const fiitThemeColors = {
+  black: '#000000',
+  white: '#FFFFFF',
+
   darkCrimson01: '#5A1A5B',
   darkCrimson02: '#822183',
   mainCrimson: '#A92CAB',

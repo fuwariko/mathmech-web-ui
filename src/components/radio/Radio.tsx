@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './Radio.styles.ts';
-import { type TColors } from '../../theme/color-tokens.ts';
+import { useTheme, type TThemeColors } from '../../ThemeContext';
 
 interface RadioProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'type'>{
   /** Поле для идентификации и группировки элементов в форме */
@@ -16,7 +16,7 @@ interface RadioProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, '
   label?: string;
 
   /** Цвет радио-кнопки */
-  color?: TColors;
+  color?: TThemeColors;
 
   /** Положение текста, относительно радио-кнопки*/
   reverse?: boolean;
@@ -47,6 +47,8 @@ export const Radio: React.FC<RadioProps> = ({
   required,
   ...rest
 }) => {
+  const theme = useTheme();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange?.(e.target.value);
   };
@@ -57,7 +59,8 @@ export const Radio: React.FC<RadioProps> = ({
         type="radio"
         name={name}
         value={value}
-        color={color}
+        $color={theme[color]}
+        $backgroundColor={theme.backgroundPrimary}
         checked={checked}
         disabled={disabled}
         onChange={handleChange}

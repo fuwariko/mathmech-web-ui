@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './Toggle.styles'
-import { type TColors } from '../../theme/color-tokens.ts';
+import { useTheme, type TThemeColors } from '../../ThemeContext';
 
 interface ToggleProps {
   /** Идентификатор для связи с другими элементами */
@@ -16,7 +16,7 @@ interface ToggleProps {
   label?: string;
 
   /** Цвет тоггла */
-  color?: TColors;
+  color?: TThemeColors;
 
   /** Состояние "Выбрано"/"Не выбрано" */
   checked?: boolean;
@@ -46,6 +46,8 @@ export const Toggle: React.FC<ToggleProps> = ({
   disabled,
   required,
 }) => {
+  const theme = useTheme();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       onChange?.(e.target.value);
     };
@@ -54,7 +56,8 @@ export const Toggle: React.FC<ToggleProps> = ({
         {reverse && <span id={`label-id-${id}`}>{label}</span>}
         <S.Input type="checkbox" 
                 id={id}
-                color={color}
+                $color={theme[color]}
+                $backgroundColor={theme.backgroundPrimary}
                 name={name}
                 role="switch" 
                 checked={checked}
@@ -64,7 +67,7 @@ export const Toggle: React.FC<ToggleProps> = ({
                 disabled={disabled}
                 required={required}>
         </S.Input>
-        <S.Span color={color}></S.Span>
+        <S.Span $color={theme[color]}></S.Span>
         {!reverse && <span id={`label-id-${id}`}>{label}</span>}
     </S.ToggleWrapper>
   );

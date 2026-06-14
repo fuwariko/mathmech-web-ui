@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { allColors, type TColors } from '../../theme/color-tokens.ts';
 
 export const ToggleWrapper = styled.label`
   display: flex;
@@ -13,7 +12,7 @@ export const ToggleWrapper = styled.label`
   }
 `;
 
-export const Input = styled.input<{ color: TColors }>`
+export const Input = styled.input<{ $color: string; $backgroundColor: string }>`
   position: absolute;
   width: 1px;
   height: 1px;
@@ -25,8 +24,8 @@ export const Input = styled.input<{ color: TColors }>`
   overflow: hidden;
 
   &:checked + span {
-    background-color: ${props => allColors[props.color]};
-    border-color: ${props => allColors[props.color]};
+    background-color: ${props => props.$color};
+    border-color: ${props => props.$color};
   }
 
   & + span::after {
@@ -37,18 +36,18 @@ export const Input = styled.input<{ color: TColors }>`
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background-color: ${props => allColors[props.color]};
+    background-color: ${props => props.$color};
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: all .2s ease-in-out;
   }
 
   &:checked + span::after {
     transform: translateX(26px);
-    background-color: #fff;
+    background-color: ${props => props.$backgroundColor};
   }
 
   &:focus-visible + span {
-    box-shadow: 0 0 0 2px ${props => `color-mix(in srgb, ${allColors[props.color]} 50%, transparent)`};
+    box-shadow: 0 0 0 2px ${props => `color-mix(in srgb, ${props.$color} 50%, transparent)`};
   }
 
   &:disabled {
@@ -61,15 +60,19 @@ export const Input = styled.input<{ color: TColors }>`
   }
 `;
 
-export const Span = styled.span<{ color: TColors }>`
+export const Span = styled.span<{ $color: string }>`
   display: inline-flex;
   position: relative;
   margin: 2px 0;
   width: 54px;
   height: 26px;
   border-radius: 16px;
-  border: 1px solid ${props => allColors[props.color]};
+  border: 1px solid ${props => props.$color};
   background-color: transparent;
   cursor: pointer;
-  transition: all .2s ease-in-out;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
 `;

@@ -47,6 +47,11 @@ const meta: Meta<typeof Button> = {
       options: allColors,
     },
 
+    borderColor: {
+      control: 'select',
+      options: allColors,
+    },
+
     variant: {
       control: 'radio',
       options: ['primary', 'secondary', 'danger'],
@@ -69,6 +74,10 @@ const meta: Meta<typeof Button> = {
 
     radius: {
       control: 'text',
+    },
+
+    bareIcon: {
+      control: 'boolean',
     },
   },
 };
@@ -103,6 +112,16 @@ export const WithIcon: Story = {
   args: {
     icon: <BoardIcon size={16} />,
     children: 'Add item',
+  },
+};
+
+export const BareIcon: Story = {
+  args: {
+    children: undefined,
+    icon: <FilterIcon size={24} />,
+    bareIcon: true,
+    textColor: 'mainNavy',
+    'aria-label': 'Фильтр',
   },
 };
 
