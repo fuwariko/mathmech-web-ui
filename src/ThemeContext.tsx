@@ -118,6 +118,7 @@ export interface AppTheme {
   success: string;
   accent: string;
   textPrimary: string;
+  textParagraph: string;
   textSecondary: string;
   textTertiary: string;
   backgroundPrimary: string;
@@ -160,6 +161,7 @@ export const DEFAULT_THEME: AppTheme = {
   success: '#00852A',
   accent: '#C25400',
   textPrimary: '#1B1E22',
+  textParagraph: '#1B1E22',
   textSecondary: '#545454',
   textTertiary: '#6F6F6F',
   backgroundPrimary: '#FFFFFF',

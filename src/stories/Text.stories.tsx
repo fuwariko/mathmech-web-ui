@@ -31,7 +31,7 @@ const meta = {
 
     weight: undefined,
 
-    color: 'darkBlue01',
+    color: undefined,
 
     align: 'left',
   },

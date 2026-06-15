@@ -68,7 +68,7 @@ const variants: Record<
   h4: {
     size: 22,
     lineHeight: 1.5,
-    weight: 600,
+    weight: 500,
   },
 
   h5: {
@@ -138,12 +138,20 @@ export const Text = ({
   size,
   weight,
   italic = false,
-  color = 'darkBlue01',
+  color,
   align = 'left',
   className,
 }: ITextProps) => {
   const theme = useTheme();
   const preset = variants[variant];
+  const isHeading = isHeadingVariant(variant);
+  const resolvedColor = color
+    ? theme[color]
+    : isHeading
+      ? theme.mainNavy
+      : variant === 'paragraph'
+        ? theme.textParagraph
+        : theme.textPrimary;
 
   return (
     <Component
@@ -154,11 +162,12 @@ export const Text = ({
           lineHeight:
             preset.lineHeight,
           weight:
-            weight ??
+          weight ??
             preset.weight,
           italic,
-          color: theme[color],
+          color: resolvedColor,
           align,
+          isHeading,
         }),
         className,
       )}
@@ -175,6 +184,7 @@ interface ITextStyles {
   italic: boolean;
   color: string;
   align: CSSProperties['textAlign'];
+  isHeading: boolean;
 }
 
 const textStyles = ({
@@ -184,8 +194,9 @@ const textStyles = ({
   italic,
   color,
   align,
+  isHeading,
 }: ITextStyles) => css`
-  margin: 0;
+  margin: ${isHeading ? '4px 0' : '0'};
   padding: 0;
 
   font-size: ${size}px;
@@ -202,3 +213,11 @@ const textStyles = ({
   overflow-wrap: break-word;
   word-break: break-word;
 `;
+
+const isHeadingVariant = (variant: TTextVariant) =>
+  variant === 'h1' ||
+  variant === 'h2' ||
+  variant === 'h3' ||
+  variant === 'h4' ||
+  variant === 'h5' ||
+  variant === 'h6';
