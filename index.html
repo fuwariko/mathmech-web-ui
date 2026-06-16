@@ -57,7 +57,13 @@
     <link href="./sb-addons/docs-4/manager-bundle.js" rel="modulepreload" />
     
     <link href="./sb-addons/onboarding-5/manager-bundle.js" rel="modulepreload" />
-       
+    
+    <link href="./sb-addons/storybook-6/manager-bundle.js" rel="modulepreload" />
+      <!--
+  Storybook 10 in this project does not load manager-head.html.
+  Manager UI styles are connected through .storybook/manager.ts + .storybook/manager.css.
+-->
+ 
 
     <style>
       #storybook-root[hidden] {
@@ -65,6 +71,8 @@
       }
     </style>
 
+    
+    <link href="./sb-addons/storybook-6/manager-bundle.css" rel="stylesheet" />
     
   </head>
   <body>
@@ -148,6 +156,8 @@
         import './sb-addons/docs-4/manager-bundle.js';
       
         import './sb-addons/onboarding-5/manager-bundle.js';
+      
+        import './sb-addons/storybook-6/manager-bundle.js';
       
 
       import './sb-manager/runtime.js';
