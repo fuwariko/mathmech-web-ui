@@ -1,8 +1,8 @@
 import { css } from '@emotion/css';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Badge } from '../components/Badge/Badge';
+import { BadgeSkeleton } from '../components/Skeletons/ComponentSkeletons';
 
-import { Badge } from '../components/badge/Badge';
-import { BadgeSkeleton } from '../components/skeletons/ComponentSkeletons';
 
 const meta = {
   title: 'UI/Badge',
@@ -17,6 +17,7 @@ const meta = {
   args: {
     variant: 'online',
     size: 'medium',
+    value: 20,
   },
 
   argTypes: {
@@ -35,6 +36,10 @@ const meta = {
     size: {
       control: 'select',
       options: ['small', 'medium', 'large'],
+    },
+
+    value: {
+      control: 'text',
     },
 
     color: {

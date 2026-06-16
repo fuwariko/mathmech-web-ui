@@ -72,7 +72,7 @@ export const Badge = ({
 }: BadgeProps) => {
   const theme = useTheme();
   const variantConfig = variant
-    ? getVariantConfig(theme, variant, value, size)
+    ? getVariantConfig(variant, value, size)
     : undefined;
   const resolvedLabel =
     lable ?? variantConfig?.label ?? '';
@@ -132,21 +132,28 @@ const getPlacesIconSize = (size: BadgeSize): IconSize => {
   return 24;
 };
 
+const getOfflineIconSize = (size: BadgeSize): IconSize => {
+  if (size === 'large') return 32;
+  return 24;
+};
+
 const getVariantConfig = (
-  theme: AppTheme,
   variant: BadgeVariant,
   value?: string | number,
   size: BadgeSize = 'medium',
 ): BadgeVariantConfig => {
   const iconSize = getIconSize(size);
   const placesIconSize = getPlacesIconSize(size);
+  const offlineIconSize = getOfflineIconSize(size);
+  const placesValue = value ?? 20;
+  const subjectValue = value ?? 'Предмет';
 
   const configs: Record<BadgeVariant, BadgeVariantConfig> = {
     online: {
       label: 'Онлайн',
       tone: {
-        background: theme.mainGreen,
-        color: theme.white,
+        background: '#EFC0C4',
+        color: '#890812',
         border: 'transparent',
       },
       icon: <MonitorIcon size={iconSize} />,
@@ -155,49 +162,50 @@ const getVariantConfig = (
     offline: {
       label: 'Офлайн',
       tone: {
-        background: 'transparent',
-        color: theme.darkGreen01,
-        border: theme.darkGreen01,
+        background: '#B2E0B9',
+        color: '#004F19',
+        border: 'transparent',
       },
-      icon: <BoardIcon size={iconSize} />,
+      icon: <BoardIcon size={offlineIconSize} strokeWidth={1} />,
+      iconOffsetY: '0.06em',
     },
 
     withTest: {
       label: 'С тестовым',
       tone: {
-        background: theme.lightOrange01,
-        color: theme.white,
+        background: '#F2D4BD',
+        color: '#994200',
         border: 'transparent',
       },
       icon: <CheckIcon size={iconSize} />,
     },
 
     places: {
-      label: `${value} мест`,
+      label: `${placesValue} мест`,
       tone: {
-        background: theme.lightNavy01,
-        color: theme.white,
+        background: '#ACC7FF',
+        color: '#0A255E',
         border: 'transparent',
       },
-      icon: <UsersGroupIcon size={placesIconSize} />,
+      icon: <UsersGroupIcon size={placesIconSize} strokeWidth={1} />,
       iconOffsetY: '0.08em',
     },
 
     retake: {
       label: 'Перезачёт',
       tone: {
-        background: theme.mainGrey,
-        color: theme.textSecondary,
+        background: '#C6C1DA',
+        color: '#3F3F3F',
         border: 'transparent',
       },
     },
 
     subject: {
-      label: String(value),
+      label: String(subjectValue),
       tone: {
-        background: 'transparent',
-        color: theme.textSecondary,
-        border: theme.textSecondary,
+        background: '#F2F2F2',
+        color: '#3F3F3F',
+        border: 'transparent',
       },
     },
   };
@@ -222,7 +230,7 @@ const badgeStyles = (
       ? '11px'
       : '14px'};
       
-  font-weight: 500;
+  font-weight: 600;
 
   padding: ${size === 'large'
     ? '12px 28px'

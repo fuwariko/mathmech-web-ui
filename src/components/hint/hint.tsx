@@ -40,7 +40,7 @@ export function Hint({
   children,
   content,
   position = 'top',
-  backgroundColor = 'darkGrey01',
+  backgroundColor = 'hintBackground',
   textColor = 'lightGrey02',
   borderColor = 'darkGrey01',
   borderWidth = 0,

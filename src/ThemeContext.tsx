@@ -114,6 +114,8 @@ export interface AppTheme {
   lightGrey01: string;
   lightGrey02: string;
 
+  hintBackground: string;
+
   error: string;
   success: string;
   accent: string;
@@ -167,6 +169,8 @@ export const DEFAULT_THEME: AppTheme = {
   backgroundPrimary: '#FFFFFF',
   backgroundSecondary: '#F3F3F3',
   colorBg: '#FFFFFF',
+
+  hintBackground: '#767487',
 
   globalBlue: '#1E4391',
   globalGray: '#545454',
