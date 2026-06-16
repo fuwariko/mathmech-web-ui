@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Textarea } from '../components/textarea/Textarea';
 import { useState } from 'react';
-import { TextareaSkeleton } from '../components/skeletons/ComponentSkeletons';
+import { Textarea } from '../components/Textarea/Textarea';
+
 
 const meta:  Meta<typeof Textarea> = {
   title: 'FORMS/Textarea',
@@ -121,10 +121,3 @@ export const ControlledInputText = {
   },
 };
 
-export const Skeleton: Story = {
-  render: () => (
-    <div style={{ width: 360 }}>
-      <TextareaSkeleton />
-    </div>
-  ),
-};

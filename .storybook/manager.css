@@ -1,0 +1,118 @@
+.sidebar-container,
+.sidebar-container > div,
+.sidebar-container [data-radix-scroll-area-viewport] {
+  background: #1f4391 !important;
+}
+
+.sidebar-container a,
+.sidebar-container button,
+.sidebar-container input,
+.sidebar-container svg,
+.sidebar-container .sidebar-header,
+.sidebar-container .sidebar-header *,
+.sidebar-container .sidebar-item,
+.sidebar-container .sidebar-item *,
+.sidebar-container [data-action='collapse-root'] {
+  color: #ffffff !important;
+}
+
+#storybook-checklist-widget,
+#sidebar-bottom-spacer,
+#sidebar-bottom-wrapper {
+  display: none !important;
+}
+
+.sidebar-container button[aria-label='Create a new story'] {
+  display: none !important;
+}
+
+.sidebar-item:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.sidebar-container [aria-label='Collapse'],
+.sidebar-container [data-selected='true'] {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.25) !important;
+  font-weight: 400 !important;
+}
+
+.sidebar-item:hover * {
+  color: #ffffff;
+}
+
+.sidebar-container [data-testid='context-menu'],
+.sidebar-container [data-testid='context-menu']:hover,
+.sidebar-container [data-testid='context-menu']:focus,
+.sidebar-container [data-testid='context-menu']:focus-visible {
+  color: #ffffff !important;
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.sidebar-container [data-testid='context-menu'] svg {
+  color: #ffffff !important;
+}
+
+.sidebar-item [type] {
+  width: 0;
+  margin-left: -2px;
+}
+
+a[title='Storybook'] svg {
+  display: none;
+}
+
+a[title='Storybook']::after {
+  content: 'Mathmech UI';
+  font-size: 20px;
+}
+
+.search-field [placeholder]::placeholder {
+  color: #ffffff !important;
+}
+
+.search-field,
+.search-field input {
+  background: transparent !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  box-shadow: none !important;
+  color: #ffffff !important;
+}
+
+.search-field input::selection {
+  background: rgba(255, 255, 255, 0.18) !important;
+  color: #ffffff !important;
+}
+
+.search-field:has(:focus) {
+  background: transparent !important;
+  outline-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+.search-field [aria-label='Tag filters'],
+.search-field [aria-label='Create a new story'],
+.search-field [aria-label='Clear search'] {
+  background: transparent !important;
+}
+
+.search-result-item,
+.search-result-item *,
+.search-result-recentlyOpened,
+.search-result-recentlyOpened * {
+  color: #ffffff !important;
+}
+
+.search-result-item:hover,
+.search-result-item:focus,
+.search-result-item[aria-selected='true'] {
+  background: rgba(255, 255, 255, 0.14) !important;
+}
+
+.search-result-item mark {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.18) !important;
+}

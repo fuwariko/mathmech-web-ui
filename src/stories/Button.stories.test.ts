@@ -9,10 +9,12 @@ describe('Button stories', () => {
     expect(meta.args?.textColor).toBeUndefined();
   });
 
-  it('offers semantic tokens in color controls', () => {
+  it('offers canonical color tokens in color controls', () => {
     const colorOptions = meta.argTypes?.color?.options;
 
-    expect(colorOptions).toContain('buttonColorPrimary');
-    expect(colorOptions).toContain('backgroundPrimary');
+    expect(colorOptions).toContain('mainNavy');
+    expect(colorOptions).toContain('white');
+    expect(colorOptions).not.toContain('buttonColorPrimary');
+    expect(colorOptions).not.toContain('backgroundPrimary');
   });
 });

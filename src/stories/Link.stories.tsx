@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Link } from '../components/link/Link';
-import { LinkSkeleton } from '../components/skeletons/ComponentSkeletons';
 import { ArrowUpRightIcon, BoardIcon, FilterIcon } from '../Icons/Icons';
+import { colorTokenNames } from '../ThemeContext';
 
 
 const iconOptions = {
@@ -51,6 +51,17 @@ const meta: Meta<typeof Link> = {
       options: Object.keys(iconOptions),
       mapping: iconOptions,
     },
+    color: {
+      control: 'select',
+      options: colorTokenNames,
+    },
+    textColor: {
+      control: 'select',
+      options: [
+        undefined,
+        ...colorTokenNames,
+      ],
+    },
   },
 };
 
@@ -81,8 +92,4 @@ export const External: Story = {
     children: 'Внешняя ссылка',
     rightIcon: <ArrowUpRightIcon size={16} />,
   },
-};
-
-export const Skeleton: Story = {
-  render: () => <LinkSkeleton />,
 };

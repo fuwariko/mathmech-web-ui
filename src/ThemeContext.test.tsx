@@ -16,6 +16,10 @@ const ThemeProbe = () => {
     <div
       data-background={theme.backgroundPrimary}
       data-button={theme.buttonColorPrimary}
+      data-header-background={theme.headerBackground}
+      data-header-text={theme.headerText}
+      data-surface={theme.surfacePrimary}
+      data-surface-text={theme.surfaceText}
       data-text={theme.textPrimary}
     />
   );
@@ -30,6 +34,7 @@ describe('ThemeContext', () => {
     );
 
     expect(html).toContain('data-background="#FFFFFF"');
+    expect(html).toContain('data-surface="#FFFFFF"');
     expect(html).toContain('data-text="#1B1E22"');
     expect(html).toContain('data-button="#1E4391"');
   });
@@ -41,9 +46,13 @@ describe('ThemeContext', () => {
       </ThemeProvider>,
     );
 
-    expect(html).toContain('data-background="#1E4391"');
-    expect(html).toContain('data-text="#FFFFFF"');
-    expect(html).toContain('data-button="#2B79FF"');
+    expect(html).toContain('data-background="#5A1A5B"');
+    expect(html).toContain('data-surface="#F2EFFD"');
+    expect(html).toContain('data-surface-text="#A92CAB"');
+    expect(html).toContain('data-header-background="#F2EFFD"');
+    expect(html).toContain('data-header-text="#A92CAB"');
+    expect(html).toContain('data-text="#F2EFFD"');
+    expect(html).toContain('data-button="#A92CAB"');
   });
 
   it('lets consumers create custom themes from a base theme', () => {
@@ -78,6 +87,24 @@ describe('ThemeContext', () => {
 
   it('exports explicit default and fiit theme objects', () => {
     expect(DEFAULT_THEME.backgroundPrimary).toBe('#FFFFFF');
-    expect(FIIT_THEME.backgroundPrimary).toBe('#1E4391');
+    expect(FIIT_THEME.backgroundPrimary).toBe('#5A1A5B');
+    expect(FIIT_THEME.surfacePrimary).toBe('#F2EFFD');
+    expect(FIIT_THEME.surfaceText).toBe('#A92CAB');
+    expect(FIIT_THEME.headerBackground).toBe('#F2EFFD');
+    expect(FIIT_THEME.headerText).toBe('#A92CAB');
+    expect(FIIT_THEME.mainBlue).toBe('#A92CAB');
+    expect(FIIT_THEME.white).toBe('#F2EFFD');
+    expect(FIIT_THEME.globalWhite).toBe('#F2EFFD');
+    expect(FIIT_THEME.textPrimary).toBe('#F2EFFD');
+    expect(FIIT_THEME.buttonColorText).toBe('#F2EFFD');
+    expect(FIIT_THEME.buttonPaddingMx).toBe('12px');
+    expect(FIIT_THEME.buttonFontSizeL).toBe('16px');
+    expect(FIIT_THEME.buttonHeightL).toBe('72px');
+    expect(FIIT_THEME.buttonSizeDefault).toBe('large');
+    expect(FIIT_THEME.badgeVariantBackground).toBe('#F2EFFD');
+    expect(FIIT_THEME.badgeVariantText).toBe('#A92CAB');
+    expect(FIIT_THEME.badgeSizeDefault).toBe('large');
+    expect(FIIT_THEME.accordionBackground).toBe('#F2EFFD');
+    expect(FIIT_THEME.accordionText).toBe('#A92CAB');
   });
 });

@@ -1,11 +1,12 @@
 import { Button } from '../components/button/Button';
-import { RadioStars } from '../components/radio/RadioStars';
-import { InputText } from '../components/inputText/InputText';
-import { Textarea } from '../components/textarea/Textarea';
+
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Dialog } from '../components/dialog/Dialog';
-import { DialogSkeleton, TextSkeleton } from '../components/skeletons/ComponentSkeletons';
+import { DialogSkeleton, TextSkeleton } from '../components/Skeletons/ComponentSkeletons';
+import { Dialog } from '../components/Dialog/Dialog';
+import { InputText } from '../components/InputText/InputText';
+import { RadioStars } from '../components/Radio/RadioStars';
+import { Textarea } from '../components/Textarea/Textarea';
 
 const dialogContentOptions = {
   text: <p>Привет, мир!</p>,
@@ -148,8 +149,4 @@ export const MobileReviewForm: Story = {
   args: {
     title: 'Форма обратной связи',
   },
-};
-
-export const Skeleton: Story = {
-  render: () => <DialogSkeleton />,
 };

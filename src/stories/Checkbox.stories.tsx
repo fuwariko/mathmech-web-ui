@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Checkbox } from '../components/Checkbox/Checkbox';
 import { useState } from 'react';
-import { CheckboxSkeleton } from '../components/skeletons/ComponentSkeletons';
 
 const meta:  Meta<typeof Checkbox> = {
   title: 'FILTERS/Checkbox',
@@ -98,8 +97,4 @@ export const GroupCheckboxWithState = {
       </fieldset>
     );
   },
-};
-
-export const Skeleton: Story = {
-  render: () => <CheckboxSkeleton />,
 };

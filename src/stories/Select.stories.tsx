@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Select } from '../components/select/Select';
 import { useState } from 'react';
-import { SelectSkeleton } from '../components/skeletons/ComponentSkeletons';
+import { Select } from '../components/Select/Select';
 
 const meta:  Meta<typeof Select> = {
   title: 'FILTERS/Select',
@@ -141,12 +140,4 @@ export const Required: Story = {
     required: true,
     onChange: (value) => console.log(value),
   },
-};
-
-export const Skeleton: Story = {
-  render: () => (
-    <div style={{ width: 256 }}>
-      <SelectSkeleton />
-    </div>
-  ),
 };

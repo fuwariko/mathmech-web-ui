@@ -5,6 +5,8 @@ import {
 } from '@emotion/react';
 import React, { createContext, useContext, useMemo } from 'react';
 
+import { layoutTokens } from './theme/layout-tokens';
+
 /* eslint-disable react-refresh/only-export-components */
 
 export const defaultThemeColors = {
@@ -70,6 +72,14 @@ const basePalette = {
   ...fiitThemeColors,
 } as const;
 
+export const canonicalColorTokens = basePalette;
+
+export type CanonicalColorTokenName = keyof typeof canonicalColorTokens;
+
+export const colorTokenNames = Object.keys(
+  canonicalColorTokens,
+) as CanonicalColorTokenName[];
+
 export interface AppTheme {
   black: string;
   white: string;
@@ -126,6 +136,10 @@ export interface AppTheme {
   backgroundPrimary: string;
   backgroundSecondary: string;
   colorBg: string;
+  surfacePrimary: string;
+  surfaceText: string;
+  headerBackground: string;
+  headerText: string;
 
   globalBlue: string;
   globalGray: string;
@@ -152,6 +166,24 @@ export interface AppTheme {
   buttonFontSizeS: string;
   buttonFontSizeM: string;
   buttonFontSizeL: string;
+  buttonHeightS: string;
+  buttonHeightL: string;
+  buttonSizeDefault: 'small' | 'large';
+
+  badgeVariantBackground: string;
+  badgeVariantText: string;
+  badgeVariantBorder: string;
+  badgeSizeDefault: 'small' | 'medium' | 'large';
+
+  accordionBackground: string;
+  accordionText: string;
+  accordionActiveText: string;
+  accordionContentText: string;
+  accordionBorder: string;
+  accordionFontSize: string;
+  accordionContentFontSize: string;
+  accordionIconSize: string;
+  accordionPaddingY: string;
 }
 
 export type TThemeColors = keyof AppTheme;
@@ -169,6 +201,10 @@ export const DEFAULT_THEME: AppTheme = {
   backgroundPrimary: '#FFFFFF',
   backgroundSecondary: '#F3F3F3',
   colorBg: '#FFFFFF',
+  surfacePrimary: '#FFFFFF',
+  surfaceText: '#1B1E22',
+  headerBackground: '#2B79FF',
+  headerText: '#F2EFFD',
 
   hintBackground: '#767487',
 
@@ -197,6 +233,24 @@ export const DEFAULT_THEME: AppTheme = {
   buttonFontSizeS: '12px',
   buttonFontSizeM: '14px',
   buttonFontSizeL: '16px',
+  buttonHeightS: '44px',
+  buttonHeightL: '72px',
+  buttonSizeDefault: 'small',
+
+  badgeVariantBackground: '',
+  badgeVariantText: '',
+  badgeVariantBorder: '',
+  badgeSizeDefault: 'medium',
+
+  accordionBackground: '',
+  accordionText: '',
+  accordionActiveText: '',
+  accordionContentText: '',
+  accordionBorder: '',
+  accordionFontSize: '15px',
+  accordionContentFontSize: '14px',
+  accordionIconSize: '18px',
+  accordionPaddingY: '16px',
 };
 
 export const createTheme = (
@@ -219,33 +273,79 @@ export const createTheme = (
 };
 
 export const FIIT_THEME = createTheme({
-  darkNavy01: '#0347BB',
-  darkNavy02: '#0756DC',
-  mainNavy: '#2B79FF',
-  lightNavy01: '#691B9F',
-  lightNavy02: '#B9D3FF',
-  darkOrange01: '#5A1A5B',
-  darkOrange02: '#822183',
-  mainOrange: '#A92CAB',
-  lightOrange01: '#C947CB',
-  lightOrange02: '#DC5ADE',
+  white: fiitThemeColors.lightGrey02,
 
-  textPrimary: '#FFFFFF',
-  textSecondary: '#F3F3F3',
-  textTertiary: '#E8F0FA',
-  backgroundPrimary: '#1E4391',
-  backgroundSecondary: '#0F2B5E',
-  colorBg: '#1E4391',
+  darkNavy01: fiitThemeColors.darkCrimson01,
+  darkNavy02: fiitThemeColors.darkCrimson02,
+  mainNavy: fiitThemeColors.mainCrimson,
+  lightNavy01: fiitThemeColors.lightCrimson01,
+  lightNavy02: fiitThemeColors.lightCrimson02,
+  darkOrange01: fiitThemeColors.darkCrimson01,
+  darkOrange02: fiitThemeColors.darkCrimson02,
+  mainOrange: fiitThemeColors.mainCrimson,
+  lightOrange01: fiitThemeColors.lightCrimson01,
+  lightOrange02: fiitThemeColors.lightCrimson02,
+  darkBlue01: fiitThemeColors.darkCrimson01,
+  darkBlue02: fiitThemeColors.darkCrimson02,
+  mainBlue: fiitThemeColors.mainCrimson,
+  lightBlue01: fiitThemeColors.lightCrimson01,
+  lightBlue02: fiitThemeColors.lightCrimson02,
 
-  globalBlue: '#2B79FF',
+  error: fiitThemeColors.darkCrimson02,
+  accent: fiitThemeColors.mainCrimson,
+  textPrimary: fiitThemeColors.lightGrey02,
+  textParagraph: fiitThemeColors.lightGrey02,
+  textSecondary: fiitThemeColors.lightGrey01,
+  textTertiary: fiitThemeColors.mainGrey,
+  backgroundPrimary: fiitThemeColors.darkCrimson01,
+  backgroundSecondary: fiitThemeColors.darkCrimson02,
+  colorBg: fiitThemeColors.darkCrimson01,
+  surfacePrimary: fiitThemeColors.lightGrey02,
+  surfaceText: fiitThemeColors.mainCrimson,
+  headerBackground: fiitThemeColors.lightGrey02,
+  headerText: fiitThemeColors.mainCrimson,
+
+  hintBackground: fiitThemeColors.darkCrimson02,
+
+  globalBlue: fiitThemeColors.mainCrimson,
   globalGray: '#C6C1DA',
-  globalRed: '#D41926',
+  globalRed: fiitThemeColors.darkCrimson02,
   globalBlack: '#000000',
-  globalWhite: '#FFFFFF',
-  buttonColorPrimary: '#2B79FF',
-  buttonColorSecondary: '#C6C1DA',
-  buttonColorDanger: '#D41926',
-  buttonColorText: '#FFFFFF',
+  globalWhite: fiitThemeColors.lightGrey02,
+  globalSpaceS: `${layoutTokens.mobile.card.gap}px`,
+  globalSpaceM: `${layoutTokens.mobile.card.padding}px`,
+  globalSpaceL: `${layoutTokens.mobile.section.gap}px`,
+  buttonColorPrimary: fiitThemeColors.mainCrimson,
+  buttonColorSecondary: fiitThemeColors.darkCrimson02,
+  buttonColorDanger: fiitThemeColors.darkCrimson02,
+  buttonColorText: fiitThemeColors.lightGrey02,
+  buttonPaddingSx: '12px',
+  buttonPaddingSy: '8px',
+  buttonPaddingMx: '12px',
+  buttonPaddingMy: '8px',
+  buttonPaddingLx: '12px',
+  buttonPaddingLy: '8px',
+  buttonFontSizeS: '16px',
+  buttonFontSizeM: '16px',
+  buttonFontSizeL: '16px',
+  buttonHeightS: '72px',
+  buttonHeightL: '72px',
+  buttonSizeDefault: 'large',
+
+  badgeVariantBackground: fiitThemeColors.lightGrey02,
+  badgeVariantText: fiitThemeColors.mainCrimson,
+  badgeVariantBorder: fiitThemeColors.lightCrimson02,
+  badgeSizeDefault: 'large',
+
+  accordionBackground: fiitThemeColors.lightGrey02,
+  accordionText: fiitThemeColors.mainCrimson,
+  accordionActiveText: fiitThemeColors.darkCrimson02,
+  accordionContentText: fiitThemeColors.darkCrimson02,
+  accordionBorder: fiitThemeColors.lightCrimson02,
+  accordionFontSize: '18px',
+  accordionContentFontSize: '16px',
+  accordionIconSize: '24px',
+  accordionPaddingY: '24px',
 });
 
 export const LIGHT_THEME = DEFAULT_THEME;

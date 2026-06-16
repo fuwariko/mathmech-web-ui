@@ -1,57 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Tabs } from '../components/tabs/tabs';
-import { TabsSkeleton } from '../components/skeletons/ComponentSkeletons';
+import { colorTokenNames } from '../ThemeContext';
+import { Tabs } from '../components/Tabs/tabs';
 
 
-const colors = [
-  'darkNavy01',
-  'darkNavy02',
-  'mainNavy',
-  'lightNavy01',
-  'lightNavy02',
-
-  'darkOrange01',
-  'darkOrange02',
-  'mainOrange',
-  'lightOrange01',
-  'lightOrange02',
-
-  'darkGreen01',
-  'darkGreen02',
-  'mainGreen',
-  'lightGreen01',
-  'lightGreen02',
-
-  'darkRed01',
-  'darkRed02',
-  'mainRed',
-  'lightRed01',
-  'lightRed02',
-
-  'darkCrimson01',
-  'darkCrimson02',
-  'mainCrimson',
-  'lightCrimson01',
-  'lightCrimson02',
-
-  'darkBlue01',
-  'darkBlue02',
-  'mainBlue',
-  'lightBlue01',
-  'lightBlue02',
-
-  'darkPurple01',
-  'darkPurple02',
-  'mainPurple',
-  'lightPurple01',
-  'lightPurple02',
-
-  'darkGrey01',
-  'darkGrey02',
-  'mainGrey',
-  'lightGrey01',
-  'lightGrey02',
-] as const;
+const colors = colorTokenNames;
 
 const tabs = [
   {
@@ -165,27 +117,6 @@ export const VerticalUnderline: Story = {
   },
 };
 
-export const WithScrollButtons: Story = {
-  args: {
-    withScrollButtons: true,
-
-    variant: 'underline',
-
-    tabs: Array.from(
-      { length: 10 },
-      (_, index) => ({
-        id: `${index}`,
-        label: `Tab ${index + 1}`,
-        content: (
-          <div style={{ padding: 16 }}>
-            Контент таба {index + 1}
-          </div>
-        ),
-      }),
-    ),
-  },
-};
-
 export const DisabledTab: Story = {
   args: {
     tabs: [
@@ -207,6 +138,3 @@ export const DisabledTab: Story = {
   },
 };
 
-export const Skeleton: Story = {
-  render: () => <TabsSkeleton />,
-};

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Footer } from '../components/footer/Footer';
-import { Badge } from '../components/badge/Badge';
-import { FooterSkeleton, LinkSkeleton } from '../components/skeletons/ComponentSkeletons';
+import { Badge } from '../components/Badge/Badge';
+import { LinkSkeleton } from '../components/Skeletons/ComponentSkeletons';
 
 const sideOptions = {
   none: undefined,
@@ -51,8 +51,4 @@ export const Mobile: Story = {
   args: {
     left: sideOptions.copyright,
   },
-};
-
-export const Skeleton: Story = {
-  render: () => <FooterSkeleton />,
 };

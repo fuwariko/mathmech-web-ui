@@ -1,0 +1,453 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import React, { useState } from 'react';
+import { Accordion } from '../components/accordion/accordion';
+import { Badge } from '../components/badge/Badge';
+import { Button } from '../components/button/Button';
+import { Card } from '../components/card/Card';
+import { Checkbox } from '../components/checkbox/Checkbox';
+import { Footer } from '../components/footer/Footer';
+import { Header } from '../components/header/Header';
+import { Hint } from '../components/hint/hint';
+import { InputText } from '../components/inputText/InputText';
+import { Link } from '../components/link/Link';
+import { MultiSelect } from '../components/select/Multiselect';
+import { Radio } from '../components/radio/Radio';
+import { RadioStars } from '../components/radio/RadioStars';
+import { RatingStars } from '../components/ratingStars/RatingStars';
+import { Select } from '../components/select/Select';
+import {
+  ButtonSkeleton,
+  TextSkeleton,
+} from '../components/skeletons/ComponentSkeletons';
+import { Tabs } from '../components/tabs/tabs';
+import { Text } from '../components/text/Text';
+import { Textarea } from '../components/textarea/Textarea';
+import { Toggle } from '../components/toggle/Toggle';
+import { Tooltip } from '../components/tooltip/tooltip';
+import { FilterIcon } from '../icons/Icons';
+
+<Meta title="Все компоненты" />
+
+export const selectOptions = [
+  { value: 'math', label: 'Математика' },
+  { value: 'physics', label: 'Физика' },
+  { value: 'cs', label: 'Информатика' },
+];
+
+export const tabs = [
+  {
+    id: 'one',
+    label: 'Описание',
+    content: <span>Краткое описание курса</span>,
+  },
+  {
+    id: 'two',
+    label: 'Расписание',
+    content: <span>Занятия по вторникам</span>,
+  },
+];
+
+export const accordionItems = [
+  {
+    id: 'first',
+    title: 'Что будет на курсе?',
+    content: 'Разбор задач, практика и мини-проекты.',
+  },
+  {
+    id: 'second',
+    title: 'Как проходит обучение?',
+    content: 'Очные встречи и материалы для самостоятельной работы.',
+  },
+];
+
+export const RadioStarsPreview = () => {
+  const [rating, setRating] = useState(4);
+
+  return (
+    <RadioStars
+      name="components-overview-stars"
+      rating={rating}
+      setRating={setRating}
+      isMobile
+    />
+  );
+};
+
+export const cardImage = 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=640&q=80';
+
+# Все компоненты
+
+<div className="components-grid">
+  <div className="component-tile">
+    <div className="component-preview"><Button>Кнопка</Button></div>
+    <div className="component-name">Button</div>
+  </div>
+
+  <div className="component-tile">
+    <div className="component-preview"><Badge variant="places" value={20} /></div>
+    <div className="component-name">Badge</div>
+  </div>
+
+  <div className="component-tile">
+    <div className="component-preview">
+      <Link href="#">Ссылка</Link>
+    </div>
+    <div className="component-name">Link</div>
+  </div>
+
+  <div className="component-tile">
+    <div className="component-preview component-preview-wide">
+      <InputText label="Имя студента" placeholder="Введите имя" defaultValue="Анна" />
+    </div>
+    <div className="component-name">InputText</div>
+  </div>
+
+  <div className="component-tile">
+    <div className="component-preview component-preview-wide">
+      <Textarea label="Комментарий" placeholder="Введите текст" defaultValue="Хочу записаться на курс" />
+    </div>
+    <div className="component-name">Textarea</div>
+  </div>
+
+  <div className="component-tile">
+    <div className="component-preview component-preview-wide">
+      <Select label="Предмет" options={selectOptions} defaultValue="math" />
+    </div>
+    <div className="component-name">Select</div>
+  </div>
+
+  <div className="component-tile">
+    <div className="component-preview component-preview-wide">
+      <MultiSelect label="Темы" options={selectOptions} defaultValue={['math', 'cs']} />
+    </div>
+    <div className="component-name">MultiSelect</div>
+  </div>
+
+  <div className="component-tile">
+    <div className="component-preview"><Checkbox label="Согласие" checked readOnly /></div>
+    <div className="component-name">Checkbox</div>
+  </div>
+
+  <div className="component-tile">
+    <div className="component-preview"><Radio name="overview-radio" value="offline" label="Очно" checked readOnly /></div>
+    <div className="component-name">Radio</div>
+  </div>
+
+  <div className="component-tile">
+    <div className="component-preview"><Toggle label="Открыта запись" checked readOnly /></div>
+    <div className="component-name">Toggle</div>
+  </div>
+
+  <div className="component-tile">
+    <div className="component-preview"><RatingStars rating={4.5} size={32} /></div>
+    <div className="component-name">RatingStars</div>
+  </div>
+
+  <div className="component-tile">
+    <div className="component-preview"><RadioStarsPreview /></div>
+    <div className="component-name">RadioStars</div>
+  </div>
+
+  <div className="component-tile">
+    <div className="component-preview component-preview-wide">
+      <Tabs tabs={tabs} />
+    </div>
+    <div className="component-name">Tabs</div>
+  </div>
+
+  <div className="component-tile component-tile-wide">
+    <div className="component-preview component-preview-wide">
+      <Accordion items={accordionItems} />
+    </div>
+    <div className="component-name">Accordion</div>
+  </div>
+
+  <div className="component-tile component-tile-full">
+    <div className="component-preview component-preview-wide component-preview-row">
+      <Card
+        header={<Badge variant="online" />}
+        content={<Text variant="paragraph">Алгебра и теория чисел</Text>}
+        footer={<Button>Записаться</Button>}
+      />
+
+      <Card
+        header={<Badge variant="subject" value="Дизайн" />}
+        content={
+          <div className="card-photo-content">
+            <img src={cardImage} alt="Учебная группа" />
+            <Text variant="paragraph">Проектная работа в команде</Text>
+          </div>
+        }
+        footer={<Badge variant="places" value={12} />}
+      />
+
+      <Card
+        direction="horizontal"
+        header={<FilterIcon size={32} />}
+        content={<Text variant="paragraph">Подборка курсов по фильтрам</Text>}
+        footer={<Link href="#">Подробнее</Link>}
+      />
+    </div>
+    <div className="component-name">Card</div>
+  </div>
+
+  <div className="component-tile component-tile-full">
+    <div className="component-preview component-preview-wide">
+      <Header
+        title="Каталог курсов"
+        topLeft="Mathmech UI"
+        topRight={<Button>Войти</Button>}
+        backgroundColor="mainNavy"
+        textColor="white"
+        contentMaxWidth="100%"
+        contentPaddingX={16}
+      />
+    </div>
+    <div className="component-name">Header</div>
+  </div>
+
+  <div className="component-tile component-tile-full">
+    <div className="component-preview component-preview-wide">
+      <Footer left="Mathmech UI" right="Поддержка студентов" />
+    </div>
+    <div className="component-name">Footer</div>
+  </div>
+
+  <div className="component-tile">
+    <div className="component-preview"><Tooltip content="Количество свободных мест" /></div>
+    <div className="component-name">Tooltip</div>
+  </div>
+
+  <div className="component-tile">
+    <div className="component-preview component-preview-hint">
+      <Hint content="Текст подсказки">
+        <Button>Подробнее</Button>
+      </Hint>
+      <div className="static-hint">Текст подсказки</div>
+    </div>
+    <div className="component-name">Hint</div>
+  </div>
+
+  <div className="component-tile">
+    <div className="component-preview"><Text variant="h4">Название курса</Text></div>
+    <div className="component-name">Text</div>
+  </div>
+
+  <div className="component-tile">
+    <div className="component-preview"><FilterIcon size={48} color="currentColor" /></div>
+    <div className="component-name">Icons</div>
+  </div>
+
+  <div className="component-tile">
+    <div className="component-preview">
+      <div className="skeleton-preview">
+        <ButtonSkeleton />
+        <TextSkeleton lines={2} />
+      </div>
+    </div>
+    <div className="component-name">Skeletons</div>
+  </div>
+</div>
+
+<div className="component-tile component-tile-full">
+    <div className="component-preview">
+      <div className="dialog-preview" role="dialog" aria-labelledby="dialog-preview-title" aria-modal="false">
+        <button className="dialog-preview-close" type="button" aria-label="Закрыть модальное окно" />
+        <h2 id="dialog-preview-title">Запись на курс</h2>
+        <Text variant="paragraph">Проверьте данные и подтвердите заявку на курс.</Text>
+        <div className="dialog-preview-actions">
+          <Button variant="secondary">Отмена</Button>
+          <Button>Подтвердить</Button>
+        </div>
+      </div>
+    </div>
+    <div className="component-name">Dialog</div>
+  </div>
+
+<style>
+  {`
+    .components-grid {
+      width: min(100%, 1440px);
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .component-tile {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .component-tile-wide {
+      grid-column: span 2;
+    }
+
+    .component-tile-full {
+      grid-column: 1 / -1;
+    }
+
+    .component-preview {
+      min-height: 156px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: auto;
+      border: 1px solid var(--mm-lightGrey01, #E2D9FF);
+      border-radius: 10px;
+      background: var(--mm-surfacePrimary, #FFFFFF);
+      color: var(--mm-surfaceText, #1B1E22);
+    }
+
+    .component-preview-wide {
+      align-items: center;
+      justify-content: center;
+    }
+
+    .component-preview-wide > * {
+      max-width: 100%;
+    }
+
+    .component-preview-row {
+      flex-wrap: wrap;
+      align-items: stretch;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .component-preview-row > * {
+      flex: 1 1 300px;
+    }
+
+    .card-photo-content {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: min(100%, 360px);
+    }
+
+    .card-photo-content img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border-radius: 10px;
+      display: block;
+    }
+
+    .component-preview-hint {
+      gap: 16px;
+      align-items: center;
+    }
+
+    .static-hint {
+      position: relative;
+      max-width: 180px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: var(--mm-hintBackground, #767487);
+      color: var(--mm-white, #FFFFFF);
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .static-hint::before {
+      content: '';
+      position: absolute;
+      left: -6px;
+      top: 50%;
+      width: 12px;
+      height: 12px;
+      background: inherit;
+      transform: translateY(-50%) rotate(45deg);
+    }
+
+    .component-name {
+      color: var(--mm-surfaceText, #1B1E22);
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.3;
+      text-align: center;
+    }
+
+    .skeleton-preview {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .dialog-preview {
+      position: relative;
+      width: min(100%, 560px);
+      padding: 40px 32px;
+      border-radius: 10px;
+      box-sizing: border-box;
+      background: var(--mm-backgroundPrimary, #FFFFFF);
+      color: var(--mm-textPrimary, #1B1E22);
+      box-shadow: 0 24px 80px rgba(15, 23, 42, 0.22);
+      text-align: center;
+    }
+
+    .dialog-preview h2 {
+      margin: 0 0 20px;
+      font-size: 32px;
+      line-height: 1.2;
+      font-weight: 600;
+    }
+
+    .dialog-preview-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 50%;
+      background: var(--mm-backgroundSecondary, #F3F3F3);
+      color: var(--mm-textPrimary, #1B1E22);
+      cursor: default;
+    }
+
+    .dialog-preview-close::before,
+    .dialog-preview-close::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 14px;
+      height: 2px;
+      border-radius: 2px;
+      background: currentColor;
+    }
+
+    .dialog-preview-close::before {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    .dialog-preview-close::after {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+
+    .dialog-preview-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 720px) {
+      .components-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .component-tile-wide,
+      .component-tile-full {
+        grid-column: 1;
+      }
+    }
+  `}
+</style>

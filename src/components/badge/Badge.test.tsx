@@ -4,6 +4,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 
 import { Badge } from './Badge';
 import { allColors } from '../../theme/color-tokens';
+import { FIIT_THEME, ThemeProvider } from '../../ThemeContext';
 
 const getRenderedStyles = (html: string) => {
   const classNames = html.match(/css-[a-zA-Z0-9-]+/g) ?? [];
@@ -73,5 +74,21 @@ describe('Badge', () => {
     );
 
     expect(html).toContain('Осень');
+  });
+
+  it('uses fiit theme tone and large size for prepared variants', () => {
+    const html = renderToStaticMarkup(
+      <ThemeProvider mode="fiit">
+        <Badge variant="online" />
+      </ThemeProvider>,
+    );
+
+    const styles = getRenderedStyles(html);
+
+    expect(styles).toContain(`background: ${FIIT_THEME.badgeVariantBackground}`);
+    expect(styles).toContain(`color: ${FIIT_THEME.badgeVariantText}`);
+    expect(styles).toContain(`border: 2px solid ${FIIT_THEME.badgeVariantBorder}`);
+    expect(styles).toContain('font-size: 32px');
+    expect(html).toContain('width="24"');
   });
 });

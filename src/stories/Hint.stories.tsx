@@ -1,10 +1,10 @@
 // hint.stories.tsx
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Hint } from '../components/hint/hint';
+import { Hint } from '../components/Hint/hint';
+import { Button } from '../components/button/Button';
+import { FilterIcon } from '../Icons/Icons';
+import { InputText } from '../components/InputText/InputText';
 
-import { Button } from '../components/button/button';
-import { FilterIcon } from '../icons/Icons';
-import { InputText } from '../components/inputText/InputText';
 
 
 const meta: Meta = {

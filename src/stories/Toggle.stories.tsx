@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Toggle } from '../components/toggle/Toggle';
 import { useState } from 'react';
-import { ToggleSkeleton } from '../components/skeletons/ComponentSkeletons';
+import { Toggle } from '../components/Toggle/Toggle';
 
 const meta:  Meta<typeof Toggle> = {
   title: 'FILTERS/Toggle',
@@ -94,8 +93,4 @@ export const GroupToggleWithState = {
       </fieldset>
     );
   },
-};
-
-export const Skeleton: Story = {
-  render: () => <ToggleSkeleton />,
 };

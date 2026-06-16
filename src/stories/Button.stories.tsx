@@ -1,18 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import {
-  BoardIcon,
-  FilterIcon,
-} from '../icons/Icons';
-import { ButtonSkeleton } from '../components/skeletons/ComponentSkeletons';
+
 
 import {
-  DEFAULT_THEME,
+  colorTokenNames,
 } from '../ThemeContext';
 import { Button } from '../components/button/Button';
+import { BoardIcon, FilterIcon } from '../Icons/Icons';
+import { ButtonSkeleton } from '../components/Skeletons/ComponentSkeletons';
 
 
-const allColors = Object.keys(DEFAULT_THEME);
+const allColors = colorTokenNames;
 
 const meta: Meta<typeof Button> = {
   title: 'UI/Button',

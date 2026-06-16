@@ -1,0 +1,119 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+import {
+  ArrowUpRightIcon,
+  BoardIcon,
+  CheckCircleIcon,
+  CheckIcon,
+  CircleIcon,
+  FilterIcon,
+  GridIcon,
+  ListIcon,
+  MonitorIcon,
+  StarFilledIcon,
+  StarIcon,
+  UsersGroupIcon,
+  UsersIcon,
+} from '../icons/Icons';
+
+<Meta title="Иконки" />
+
+export const icons = [
+  { name: 'ArrowUpRightIcon', component: ArrowUpRightIcon },
+  { name: 'BoardIcon', component: BoardIcon },
+  { name: 'CheckCircleIcon', component: CheckCircleIcon },
+  { name: 'CheckIcon', component: CheckIcon },
+  { name: 'CircleIcon', component: CircleIcon },
+  { name: 'FilterIcon', component: FilterIcon },
+  { name: 'GridIcon', component: GridIcon },
+  { name: 'ListIcon', component: ListIcon },
+  { name: 'MonitorIcon', component: MonitorIcon },
+  { name: 'StarFilledIcon', component: StarFilledIcon },
+  { name: 'StarIcon', component: StarIcon },
+  { name: 'UsersGroupIcon', component: UsersGroupIcon },
+  { name: 'UsersIcon', component: UsersIcon },
+];
+
+# Иконки
+
+Все иконки экспортируются из пакета и принимают одинаковые props.
+
+```tsx
+import { FilterIcon } from 'mathmech-ui-kit';
+
+<FilterIcon size={24} color="currentColor" strokeWidth={2} />
+```
+
+<div className="icon-props">
+  <span>size: 16 | 24 | 32 | 48 | 64</span>
+  <span>color: CSS color string</span>
+  <span>strokeWidth: 1 | 2</span>
+</div>
+
+<div className="icons-grid">
+  {icons.map(({ name, component: Icon }) => (
+    <div className="icon-card" key={name}>
+      <div className="icon-preview">
+        <Icon size={32} color="currentColor" strokeWidth={2} />
+      </div>
+      <code>{name}</code>
+    </div>
+  ))}
+</div>
+
+<style>
+  {`
+    .icon-props {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 16px 0 24px;
+    }
+
+    .icon-props span {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #F2EFFD;
+      color: #545454;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+
+    .icons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .icon-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      padding: 14px;
+      border: 1px solid #C6C1DA;
+      border-radius: 8px;
+      background: #FFFFFF;
+    }
+
+    .icon-preview {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      flex: 0 0 auto;
+      border-radius: 8px;
+      color: #1E4391;
+      background: #F2EFFD;
+    }
+
+    .icon-card code {
+      overflow-wrap: anywhere;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+  `}
+</style>

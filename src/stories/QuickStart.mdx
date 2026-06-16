@@ -1,0 +1,141 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Быстрый старт" />
+
+# Как начать
+
+Установи кит в проект и импортируй нужные компоненты из пакета.
+
+```bash
+npm install mathmech-ui-kit
+```
+
+```tsx
+import {
+  Button,
+  ThemeProvider,
+  Text,
+} from 'mathmech-ui-kit';
+
+export const App = () => (
+  <ThemeProvider>
+    <Text variant="h1">Каталог курсов</Text>
+    <Button color="mainNavy">Открыть</Button>
+  </ThemeProvider>
+);
+```
+
+## Использование компонентов
+
+Компоненты импортируются из корня пакета. Цвета лучше передавать токенами темы, например `mainNavy`, `mainBlue`, `lightGrey02`.
+
+```tsx
+import {
+  Badge,
+  Button,
+  Header,
+  RatingStars,
+} from 'mathmech-ui-kit';
+
+export const CourseCard = () => (
+  <section>
+    <Header
+      topLeft="МатМех"
+      topRight="Курсы Преподаватели Профиль"
+      backgroundColor="mainNavy"
+      textColor="white"
+    >
+      Каталог курсов
+    </Header>
+
+    <Badge variant="places" value={20} />
+    <RatingStars rating={4.5} size={32} />
+
+    <Button color="mainNavy" borderColor="mainNavy">
+      Записаться
+    </Button>
+  </section>
+);
+```
+
+## Публикация новой версии
+
+Перед публикацией нужно обновить версию, собрать пакет и опубликовать его из корня проекта, где лежит `package.json`.
+
+```bash
+npm version patch
+npm run build
+npm publish
+```
+
+Если это minor или major версия:
+
+```bash
+npm version minor
+npm version major
+```
+
+Storybook можно собрать и опубликовать отдельно:
+
+```bash
+npm run build-storybook
+npm run deploy-storybook
+```
+
+## Добавление компонента в Storybook
+
+Создай файл story рядом с остальными stories: `src/stories/ComponentName.stories.tsx`.
+
+```tsx
+import type {
+  Meta,
+  StoryObj,
+} from '@storybook/react-vite';
+
+import { Button } from '../components/Button/Button';
+
+const meta = {
+  title: 'UI/Button',
+  component: Button,
+  parameters: {
+    layout: 'centered',
+  },
+  tags: ['autodocs'],
+  args: {
+    children: 'Button',
+    variant: 'primary',
+    size: 'small',
+  },
+  argTypes: {
+    variant: {
+      control: 'radio',
+      options: ['primary', 'secondary', 'danger'],
+    },
+    size: {
+      control: 'radio',
+      options: ['small', 'large'],
+    },
+  },
+} satisfies Meta<typeof Button>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {};
+
+export const Large: Story = {
+  args: {
+    size: 'large',
+    children: 'Large button',
+  },
+};
+```
+
+После добавления story запусти Storybook:
+
+```bash
+npm run storybook
+```
+
+Если компонент должен быть доступен пользователям пакета, добавь экспорт в `src/index.ts`.

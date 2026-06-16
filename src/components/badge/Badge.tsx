@@ -66,13 +66,14 @@ export const Badge = ({
   color,
   borderColor,
   icon,
-  size = 'medium',
+  size,
   className,
   style,
 }: BadgeProps) => {
   const theme = useTheme();
+  const resolvedSize = size ?? theme.badgeSizeDefault;
   const variantConfig = variant
-    ? getVariantConfig(variant, value, size)
+    ? getVariantConfig(variant, value, resolvedSize)
     : undefined;
   const resolvedLabel =
     lable ?? variantConfig?.label ?? '';
@@ -89,7 +90,7 @@ export const Badge = ({
     <span
       style={style}
       className={cx(
-        badgeStyles(tone, size),
+        badgeStyles(tone, resolvedSize),
         className,
       )}
     >
@@ -114,11 +115,17 @@ const getResolvedTone = (
 ): BadgeTone => ({
   background: color
     ? theme[color]
-    : (variantConfig?.tone.background ?? theme.lightBlue01),
-  color: variantConfig?.tone.color ?? theme.white,
+    : (theme.badgeVariantBackground ||
+      variantConfig?.tone.background ||
+      theme.lightBlue01),
+  color: theme.badgeVariantText ||
+    variantConfig?.tone.color ||
+    theme.white,
   border: borderColor
     ? theme[borderColor]
-    : (variantConfig?.tone.border ?? 'transparent'),
+    : (theme.badgeVariantBorder ||
+      variantConfig?.tone.border ||
+      'transparent'),
 });
 
 const getIconSize = (size: BadgeSize): IconSize => {

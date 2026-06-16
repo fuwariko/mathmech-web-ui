@@ -18,6 +18,6 @@ describe('theme color tokens', () => {
     const variables = getThemeCssVariables(FIIT_THEME);
 
     expect(variables['--mm-mainNavy']).toBe(FIIT_THEME.mainNavy);
-    expect(variables['--mm-mainNavy']).toBe(FIIT_THEME.mainBlue);
+    expect(variables['--mm-mainNavy']).toBe(FIIT_THEME.mainCrimson);
   });
 });

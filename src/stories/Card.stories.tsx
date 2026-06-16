@@ -1,16 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-
-import { Badge } from '../components/badge/Badge';
-import { Card } from '../components/card/Card';
-import {
-  BoardIcon,
-  UsersIcon,
-  UsersGroupIcon,
-  ArrowUpRightIcon,
-  FilterIcon,
-} from '../icons/Icons';
-import { CardSkeleton } from '../components/skeletons/CardSkeleton';
-import { TextSkeleton } from '../components/skeletons/ComponentSkeletons';
+import { Badge } from '../components/Badge/Badge';
+import { Card } from '../components/Card/Card';
+import { CardSkeleton } from '../components/Skeletons/CardSkeleton';
+import { TextSkeleton } from '../components/Skeletons/ComponentSkeletons';
+import { BoardIcon, UsersIcon, UsersGroupIcon, ArrowUpRightIcon, FilterIcon } from '../Icons/Icons';
 
 const headerOptions = {
   none: undefined,
@@ -152,28 +145,3 @@ export const Skeleton: Story = {
   ),
 };
 
-export const WithCustomIcon: Story = {
-  args: {
-    header: (
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-        <BoardIcon size={32} color="#6C5CE7" strokeWidth={2.2} />
-        <div style={{ fontWeight: 600 }}>Card with custom icon</div>
-      </div>
-    ),
-
-    content: (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <UsersGroupIcon size={24} color="#2D3436" strokeWidth={1.5} />
-        <div style={{ fontSize: 14, opacity: 0.7 }}>
-          Иконка с кастомным размером и цветом прямо в карточке
-        </div>
-      </div>
-    ),
-
-    footer: (
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <ArrowUpRightIcon size={16} color="#0984E3" />
-      </div>
-    ),
-  },
-};

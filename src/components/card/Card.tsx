@@ -41,6 +41,8 @@ export const Card = ({
           direction,
           borderRadius,
           theme.backgroundPrimary,
+          theme.surfacePrimary,
+          theme.surfaceText,
           theme.mainGrey,
         ),
         className,
@@ -70,7 +72,9 @@ export const Card = ({
 const cardStyles = (
   direction: TCardDirection,
   borderRadius: number,
-  backgroundColor: string,
+  fallbackBackgroundColor: string,
+  surfaceColor: string,
+  textColor: string,
   borderColor: string,
 ) => css`
   box-sizing: border-box;
@@ -89,7 +93,9 @@ const cardStyles = (
 
   border-radius: ${borderRadius}px;
 
-  background: ${backgroundColor};
+  background: ${surfaceColor || fallbackBackgroundColor};
+
+  color: ${textColor};
 
   min-width: 300px;
 

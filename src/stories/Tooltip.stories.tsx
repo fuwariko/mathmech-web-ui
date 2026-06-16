@@ -1,13 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Tooltip } from '../components/tooltip/tooltip';
+import { colorTokenNames } from '../ThemeContext';
+import { Tooltip } from '../components/Tooltip/tooltip';
 
-const colors = [
-  'darkBlue01',
-  'darkBlue02',
-  'mainBlue',
-  'darkGrey01',
-  'darkCrimson02',
-] as const;
+const colors = colorTokenNames;
 
 const icons = ['info', 'warning', 'question'] as const;
 
@@ -98,20 +93,3 @@ export const Right: Story = {
   },
 };
 
-/** кастомный триггер */
-export const CustomTrigger: Story = {
-  args: {
-    children: (
-      <span
-        style={{
-          padding: '6px 10px',
-          borderRadius: '8px',
-          background: '#eee',
-          cursor: 'pointer',
-        }}
-      >
-        Hover me
-      </span>
-    ),
-  },
-};

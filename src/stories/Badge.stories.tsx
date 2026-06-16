@@ -1,7 +1,7 @@
 import { css } from '@emotion/css';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Badge } from '../components/Badge/Badge';
-import { BadgeSkeleton } from '../components/Skeletons/ComponentSkeletons';
+import { colorTokenNames } from '../ThemeContext';
 
 
 const meta = {
@@ -46,12 +46,7 @@ const meta = {
       control: 'select',
       options: [
         undefined,
-        'mainGreen',
-        'darkGreen01',
-        'lightOrange01',
-        'lightNavy01',
-        'mainGrey',
-        'lightGrey02',
+        ...colorTokenNames,
       ],
     },
 
@@ -59,10 +54,7 @@ const meta = {
       control: 'select',
       options: [
         undefined,
-        'darkGreen01',
-        'mainNavy',
-        'darkGrey01',
-        'mainGrey',
+        ...colorTokenNames,
       ],
     },
   },
@@ -96,18 +88,6 @@ export const CourseCardSet: Story = {
       <Badge variant="subject" value="Математика" size="small" />
     </div>
   ),
-};
-
-export const Custom: Story = {
-  args: {
-    lable: 'Осень',
-    color: 'darkGreen02',
-    borderColor: undefined,
-  },
-};
-
-export const Skeleton: Story = {
-  render: () => <BadgeSkeleton />,
 };
 
 const presetStackStyles = css`

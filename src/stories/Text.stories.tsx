@@ -3,8 +3,8 @@ import type {
   StoryObj,
 } from '@storybook/react-vite';
 
-import { Text } from '../components/text/Text';
-import { TextSkeleton } from '../components/skeletons/ComponentSkeletons';
+import { Text } from '../components/Text/Text';
+import { colorTokenNames } from '../ThemeContext';
 
 const meta = {
   title: 'ATOMS/Text',
@@ -122,6 +122,10 @@ const meta = {
 
     color: {
       control: 'select',
+      options: [
+        undefined,
+        ...colorTokenNames,
+      ],
     },
 
     className: {
@@ -225,13 +229,6 @@ export const BodyText: Story = {
   ),
 };
 
-export const Skeleton: Story = {
-  render: () => (
-    <div style={{ width: 360 }}>
-      <TextSkeleton lines={3} />
-    </div>
-  ),
-};
 
 export const Italic: Story = {
   args: {
@@ -310,44 +307,3 @@ export const DifferentTags: Story = {
   ),
 };
 
-export const Alignments: Story = {
-  render: (args) => (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 16,
-        width: 700,
-      }}
-    >
-      <Text
-        {...args}
-        align="left"
-      >
-        Left
-      </Text>
-
-      <Text
-        {...args}
-        align="center"
-      >
-        Center
-      </Text>
-
-      <Text
-        {...args}
-        align="right"
-      >
-        Right
-      </Text>
-
-      <Text
-        {...args}
-        align="justify"
-      >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
-      </Text>
-    </div>
-  ),
-};

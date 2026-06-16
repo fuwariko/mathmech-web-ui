@@ -41,9 +41,9 @@ export const colors = {
     },
 
     background: {
-      primary: '#1E4391',
+      primary: '#5A1A5B',
 
-      secondary: '#0F2B5E',
+      secondary: '#822183',
     },
   },
 } as const;

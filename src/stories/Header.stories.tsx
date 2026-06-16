@@ -3,9 +3,9 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ArrowUpRightIcon, BoardIcon } from '../Icons/Icons';
 import { Button } from '../components/button/Button';
 import { Badge } from '../components/Badge/Badge';
-import { HeaderSkeleton } from '../components/Skeletons/HeaderSkeleton';
-import { BadgeSkeleton, TextSkeleton } from '../components/skeletons/ComponentSkeletons';
 import { Header } from '../components/Header/Header';
+import { colorTokenNames } from '../ThemeContext';
+import { BadgeSkeleton, TextSkeleton } from '../components/Skeletons/ComponentSkeletons';
 
 
 
@@ -34,7 +34,7 @@ const childrenOptions = {
 };
 
 const meta: Meta<typeof Header> = {
-  title: 'UI/Header',
+  title: 'Layout/Header',
   component: Header,
 
   parameters: {
@@ -74,18 +74,17 @@ const meta: Meta<typeof Header> = {
     backgroundColor: {
       control: 'select',
       options: [
-        'darkNavy01',
-        'darkNavy02',
-        'mainNavy',
-        'lightNavy01',
-        'lightBlue01',
-        'mainBlue',
+        undefined,
+        ...colorTokenNames,
       ],
     },
 
     textColor: {
       control: 'select',
-      options: ['lightGrey02', 'darkGrey01', 'mainNavy'],
+      options: [
+        undefined,
+        ...colorTokenNames,
+      ],
     },
 
     filled: {
@@ -130,71 +129,11 @@ export const Catalog: Story = {
   ),
 };
 
-export const CoursePage: Story = {
-  render: () => (
-    <Header
-      topLeft={<span className={brandStyles}>МатМех</span>}
-      topRight={<nav className={navStyles}>Курсы Преподаватели Профиль</nav>}
-      backgroundColor="mainBlue"
-      contentMaxWidth={900}
-      contentPaddingX={40}
-    >
-      <div className={courseHeroStyles}>
-        <div className={badgeRowsStyles}>
-          <Badge variant="offline" />
-          <Badge variant="withTest" />
-          <Badge variant="places" value={20} />
-          <Badge variant="subject" value="Программирование" />
-        </div>
-
-        <div className={courseMainStyles}>
-          <div>
-            <h1>Теория множеств</h1>
-            <p>Хлопин Д. В.  КМА</p>
-            <p>Для ФИИТ-3, ФИИТ-4</p>
-          </div>
-
-          <button className={favoriteButtonStyles} type="button" aria-label="Добавить в избранное">
-            ♡
-          </button>
-        </div>
-      </div>
-    </Header>
-  ),
-};
-
-export const WithoutFill: Story = {
-  render: () => (
-    <Header
-      filled={false}
-      textColor="mainNavy"
-      contentMaxWidth={900}
-      topLeft={<span className={brandDarkStyles}>МатМех</span>}
-      topRight={
-        <Button color="mainBlue">
-          Войти
-        </Button>
-      }
-    >
-      <h1 className={plainTitleStyles}>Страница без заливки</h1>
-    </Header>
-  ),
-};
-
-export const Skeleton: Story = {
-  render: () => <HeaderSkeleton />,
-};
-
 const brandStyles = css`
   font-size: 40px;
   line-height: 1;
 `;
 
-const brandDarkStyles = css`
-  font-size: 40px;
-  line-height: 1;
-  color: #1e4391;
-`;
 
 const navStyles = css`
   display: flex;
@@ -221,55 +160,4 @@ const catalogTitleStyles = css`
     text-decoration: none;
     font-size: 20px;
   }
-`;
-
-const courseHeroStyles = css`
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  width: 100%;
-`;
-
-const badgeRowsStyles = css`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-`;
-
-const courseMainStyles = css`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 32px;
-  width: 100%;
-
-  h1 {
-    margin: 0 0 8px;
-    font-size: 44px;
-    font-weight: 400;
-  }
-
-  p {
-    margin: 0 0 16px;
-    font-size: 24px;
-  }
-`;
-
-const favoriteButtonStyles = css`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 72px;
-  height: 72px;
-  border: 0;
-  background: transparent;
-  color: #ffffff;
-  font-size: 64px;
-  line-height: 1;
-  cursor: pointer;
-`;
-
-const plainTitleStyles = css`
-  margin: 0;
-  color: #1e4391;
 `;

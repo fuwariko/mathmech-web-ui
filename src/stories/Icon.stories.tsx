@@ -1,19 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { BoardIcon, UsersGroupIcon, UsersIcon, ArrowUpRightIcon, FilterIcon, ListIcon, GridIcon, StarIcon, CircleIcon, CheckCircleIcon, StarFilledIcon, type IconProps } from '../Icons/Icons';
 
-import {
-  BoardIcon,
-  UsersGroupIcon,
-  UsersIcon,
-  ArrowUpRightIcon,
-  FilterIcon,
-  ListIcon,
-  GridIcon,
-  CircleIcon,
-  CheckCircleIcon,
-  StarIcon,
-  StarFilledIcon,
-  type IconProps,
-} from '../icons/Icons';
+
 
 const iconMap = {
   board: BoardIcon,

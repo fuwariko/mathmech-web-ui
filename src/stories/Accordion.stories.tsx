@@ -2,11 +2,8 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/react-vite';
-
-import { Accordion } from '../components/accordion/accordion';
-import { AccordionSkeleton } from '../components/skeletons/ComponentSkeletons';
-import { UsersIcon } from '../icons/Icons';
-
+import { Accordion } from '../components/Accordion/accordion';
+import { UsersIcon } from '../Icons/Icons';
 
 type TStoryIcon =
   | 'plusMinus'
@@ -124,8 +121,4 @@ export const Multiple: Story = {
   args: {
     multiple: true,
   },
-};
-
-export const Skeleton: Story = {
-  render: () => <AccordionSkeleton />,
 };

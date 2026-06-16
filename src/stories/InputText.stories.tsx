@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { InputText } from '../components/inputText/InputText';
 import { useState } from 'react';
-import { InputTextSkeleton } from '../components/skeletons/ComponentSkeletons';
-
+import { InputText } from '../components/InputText/InputText';
 const meta:  Meta<typeof InputText> = {
   title: 'UI/InputText',
   component: InputText,
@@ -129,10 +127,3 @@ export const ControlledInputText = {
   }
 };
 
-export const Skeleton: Story = {
-  render: () => (
-    <div style={{ width: 240 }}>
-      <InputTextSkeleton />
-    </div>
-  ),
-};

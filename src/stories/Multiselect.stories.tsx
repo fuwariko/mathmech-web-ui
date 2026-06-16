@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { MultiSelect } from '../components/select/Multiselect';
 import { useState } from 'react';
-import { MultiselectSkeleton } from '../components/skeletons/ComponentSkeletons';
+import { MultiSelect } from '../components/Select/Multiselect';
 
 const options = [
   { value: 'react', label: 'React' },
@@ -111,12 +110,4 @@ export const AddAndRemoveDemo: Story = {
     placeholder: 'Choose technologies',
     name: 'skills6',
   },
-};
-
-export const Skeleton: Story = {
-  render: () => (
-    <div style={{ width: 256 }}>
-      <MultiselectSkeleton />
-    </div>
-  ),
 };

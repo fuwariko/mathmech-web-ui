@@ -52,8 +52,8 @@ export const Header = ({
   topLeft,
   topRight,
   children,
-  backgroundColor = 'mainBlue',
-  textColor = 'lightGrey02',
+  backgroundColor,
+  textColor,
   filled = true,
   contentMaxWidth = 1024,
   contentPaddingX = 32,
@@ -66,14 +66,20 @@ export const Header = ({
   const right = topRight ?? rightAccessory;
   const hasTop = !!left || !!right;
   const hasBody = !!title || !!children;
+  const resolvedBackgroundColor = backgroundColor
+    ? theme[backgroundColor]
+    : theme.headerBackground;
+  const resolvedTextColor = textColor
+    ? theme[textColor]
+    : theme.headerText;
 
   return (
     <header
       style={style}
       className={cx(
         headerStyles(
-          theme[backgroundColor],
-          theme[textColor],
+          resolvedBackgroundColor,
+          resolvedTextColor,
           filled,
           sticky,
         ),

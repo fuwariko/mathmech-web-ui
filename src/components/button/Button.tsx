@@ -50,7 +50,7 @@ export const Button = ({
   color,
   borderColor,
   variant = 'primary',
-  size = 'small',
+  size,
   textColor,
   radius,
   bareIcon = false,
@@ -66,6 +66,7 @@ export const Button = ({
   const iconOnly = !!icon && !children;
   const isBareIcon = iconOnly && bareIcon;
   const ariaLabel = props['aria-label'] ?? (iconOnly ? 'Действие' : undefined);
+  const resolvedSize = size ?? theme.buttonSizeDefault;
 
   return (
     <button
@@ -77,8 +78,8 @@ export const Button = ({
       className={cx(
         styles.base(theme, disabled, textColor, isBareIcon),
         styles.variant(theme, variant, color, borderColor, isBareIcon),
-        styles.size(theme, size, iconOnly, isBareIcon),
-        styles.radius(size, radius),
+        styles.size(theme, resolvedSize, iconOnly, isBareIcon),
+        styles.radius(resolvedSize, radius),
         className,
       )}
     >
@@ -180,12 +181,12 @@ const styles = {
 
     const map = {
       small: css`
-        height: 44px;
+        height: ${theme.buttonHeightS};
         padding: ${iconOnly ? theme.buttonPaddingSx : `0 ${theme.buttonPaddingMx}`};
         font-size: ${theme.buttonFontSizeM};
       `,
       large: css`
-        height: 72px;
+        height: ${theme.buttonHeightL};
         padding: ${iconOnly ? theme.buttonPaddingLx : `0 ${theme.buttonPaddingLx}`};
         font-size: ${theme.buttonFontSizeL};
       `,

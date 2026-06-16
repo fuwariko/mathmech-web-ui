@@ -57,7 +57,7 @@ interface IAccordionProps {
 
 export const Accordion = ({
   items,
-  activeColor = 'mainBlue',
+  activeColor,
   multiple = false,
   icon = 'plusMinus',
   iconPosition = 'right',
@@ -65,6 +65,17 @@ export const Accordion = ({
 }: IAccordionProps) => {
   const theme = useTheme();
   const [opened, setOpened] = useState<string[]>([]);
+  const resolvedActiveColor = activeColor
+    ? theme[activeColor]
+    : theme.accordionActiveText || theme.globalBlue;
+  const resolvedTextColor =
+    theme.accordionText || theme.textPrimary;
+  const resolvedContentColor =
+    theme.accordionContentText || theme.textSecondary;
+  const resolvedBackgroundColor =
+    theme.accordionBackground || 'transparent';
+  const resolvedBorderColor =
+    theme.accordionBorder || 'rgba(0, 0, 0, 0.08)';
 
   const toggleItem = (id: string) => {
     if (multiple) {
@@ -143,7 +154,10 @@ export const Accordion = ({
         const triggerId = `accordion-trigger-${item.id}`;
         const panelId = `accordion-panel-${item.id}`;
         const iconNode = (
-          <span className={iconStyles} aria-hidden="true">
+          <span
+            className={iconStyles(theme.accordionIconSize)}
+            aria-hidden="true"
+          >
             {getIcon(isOpen)}
           </span>
         );
@@ -151,7 +165,10 @@ export const Accordion = ({
         return (
           <div
             key={item.id}
-            className={itemStyles}
+            className={itemStyles(
+              resolvedBackgroundColor,
+              resolvedBorderColor,
+            )}
           >
             <button
               type="button"
@@ -161,8 +178,10 @@ export const Accordion = ({
               aria-controls={panelId}
               className={triggerStyles(
                 isOpen,
-                theme[activeColor],
-                theme.textPrimary,
+                resolvedActiveColor,
+                resolvedTextColor,
+                theme.accordionFontSize,
+                theme.accordionPaddingY,
               )}
               onClick={() =>
                 toggleItem(item.id)
@@ -184,7 +203,11 @@ export const Accordion = ({
                 id={panelId}
                 role="region"
                 aria-labelledby={triggerId}
-                className={contentStyles(theme.textSecondary)}
+                className={contentStyles(
+                  resolvedContentColor,
+                  theme.accordionContentFontSize,
+                  theme.accordionPaddingY,
+                )}
               >
                 {item.content}
               </div>
@@ -204,15 +227,20 @@ const wrapperStyles = css`
   flex-direction: column;
 `;
 
-const itemStyles = css`
-  border-bottom: 1px solid
-    rgba(0, 0, 0, 0.08);
+const itemStyles = (
+  backgroundColor: string,
+  borderColor: string,
+) => css`
+  background: ${backgroundColor};
+  border-bottom: 1px solid ${borderColor};
 `;
 
 const triggerStyles = (
   isOpen: boolean,
   activeColor: string,
   textColor: string,
+  fontSize: string,
+  paddingY: string,
 ) => css`
   width: 100%;
 
@@ -223,13 +251,13 @@ const triggerStyles = (
   border: none;
   background: transparent;
 
-  padding: 16px 0;
+  padding: ${paddingY} 16px;
 
   cursor: pointer;
 
   text-align: left;
 
-  font-size: 15px;
+  font-size: ${fontSize};
   font-weight: 600;
 
   color: ${isOpen
@@ -251,9 +279,9 @@ const titleStyles = css`
   word-break: break-word;
 `;
 
-const iconStyles = css`
-  width: 20px;
-  min-width: 20px;
+const iconStyles = (iconSize: string) => css`
+  width: ${iconSize};
+  min-width: ${iconSize};
 
   display: flex;
   align-items: center;
@@ -261,14 +289,18 @@ const iconStyles = css`
 
   flex-shrink: 0;
 
-  font-size: 18px;
+  font-size: ${iconSize};
   line-height: 1;
 `;
 
-const contentStyles = (textColor: string) => css`
-  padding: 0 0 16px;
+const contentStyles = (
+  textColor: string,
+  fontSize: string,
+  paddingY: string,
+) => css`
+  padding: 0 16px ${paddingY};
 
-  font-size: 14px;
+  font-size: ${fontSize};
   line-height: 22px;
 
   color: ${textColor};

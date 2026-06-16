@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { RatingStars } from '../components/ratingStars/RatingStars';
-import { RatingStarsSkeleton } from '../components/skeletons/ComponentSkeletons';
+import { RatingStars } from '../components/RatingStars/RatingStars';
 
 const meta:  Meta<typeof RatingStars> = {
   title: 'FORMS/RatingStars',
@@ -33,8 +32,4 @@ export const Large: Story = {
     rating: 4.25,
     size: 48,
   },
-};
-
-export const Skeleton: Story = {
-  render: () => <RatingStarsSkeleton />,
 };
